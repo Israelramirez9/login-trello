@@ -1,3 +1,9 @@
+a{
+    text-decoration: none;
+    font-weight: 500;
+    display: inline-block;
+}
+
 .form-content .box{    
     border: 2px solid orange;
     padding: 40px 50px;
@@ -10,9 +16,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-}
-.box form{
-    flex-direction: column;
 }
 .form-content {
 width: 100%;
@@ -35,14 +38,4 @@ z-index: 1;
     text-align: center;
     display: inline-block;
     margin-right: 1rem;
-}
-
-.gradient-text{
-    background:linear-gradient(to right,orange,gray) ;
-    -webkit-background-clip: text;
-    background-clip: text;
-    color:transparent;
-    text-decoration: none;
-    font-weight: 500;
-    display: inline-block;
 }

@@ -1,16 +1,40 @@
-import { React, useState } from 'react'
+import { React, useState, useEffect } from 'react'
+
 import '../styles/Form.css'
+import axios from 'axios';
+
 export default function Form() {
-    const data={email:"",password:""}
+    const [dataServer, setDataServer] = useState([]);
 
-    const [input,setInput]=useState(data);
+    useEffect(() => {
+        axios.get("https://649cd3219bac4a8e669cfcec.mockapi.io/users").then(response => setDataServer(response.data)).catch(error => console.log(error))
+    }, [])
 
-    const handleChange=(event)=>{
-            setInput({...input,[event.target.name]:event.target.value});
-            console.log(input);
+    const authenticateUser = () => {
+        return dataServer.some(user => user.email === input.email && user.password === input.password);
     }
+    const data = { email: "", password: "" }
+
+    const [input, setInput] = useState(data);
+
+    const handleChange = (event) => {
+        setInput({ ...input, [event.target.name]: event.target.value });
+        console.log(input);
+    }
+
+    const handleSend = (event) => {
+        event.preventDefault();
+        console.log(dataServer)
+        if(authenticateUser()){
+            console.log("usuario encontrado")
+        }else{
+            console.log("usuario no encontrado")
+        }
+    }
+
+
     return (
-        <form action="">
+        <form action="" onSubmit={handleSend}>
             <div className='input-box'>
                 <input type="text" placeholder='Email' className='input-control' name="email" value={input.email} onChange={handleChange}></input>
             </div>
