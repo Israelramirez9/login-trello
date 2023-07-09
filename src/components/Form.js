@@ -1,10 +1,13 @@
-import { React, useState, useEffect } from 'react'
-
+import { React, useState, useEffect, useContext } from 'react'
+import { Navigate } from 'react-router-dom'
 import '../styles/Form.css'
 import axios from 'axios';
+import { UserContext } from '../auth/UserContext';
 
 export default function Form() {
     const [dataServer, setDataServer] = useState([]);
+
+    const { globalState, setGlobalState } = useContext(UserContext);
 
     useEffect(() => {
         axios.get("https://649cd3219bac4a8e669cfcec.mockapi.io/users").then(response => setDataServer(response.data)).catch(error => console.log(error))
@@ -13,25 +16,31 @@ export default function Form() {
     const authenticateUser = () => {
         return dataServer.some(user => user.email === input.email && user.password === input.password);
     }
-    const data = { email: "", password: "" }
+    const data = { email: "", password: "" };
 
     const [input, setInput] = useState(data);
 
     const handleChange = (event) => {
         setInput({ ...input, [event.target.name]: event.target.value });
-        console.log(input);
+
     }
 
     const handleSend = (event) => {
-        event.preventDefault();
-        console.log(dataServer)
-        if(authenticateUser()){
-            console.log("usuario encontrado")
-        }else{
-            console.log("usuario no encontrado")
+        event.preventDefault();   
+        if (authenticateUser()) {
+            const dataUser=dataServer.filter((obj)=>obj.email === input.email && obj.password === input.password);
+            
+            console.log("usuario encontrado");
+            setGlobalState({ ...globalState, isAuthenticate: true, userId: dataUser[0].userId })
+        } else {
+            console.log("usuario no encontrado");
         }
+        
     }
-
+    
+    if (globalState.isAuthenticate) {
+        return <Navigate to="/trello"></Navigate>;
+    }
 
     return (
         <form action="" onSubmit={handleSend}>

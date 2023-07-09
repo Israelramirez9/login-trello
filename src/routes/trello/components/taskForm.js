@@ -1,9 +1,10 @@
-import React,{useState} from "react";
+import React,{useState,useContext} from "react";
 import '../styles/taskForm.css';
 import { v4 as uuidv4 } from 'uuid';
-
+import { UserContext } from "../../../auth/UserContext";
 function TaskForm({onSubmit, columnId}){
 
+    const {globalState,setGlobalState}=useContext(UserContext)
     const [input,setInput]=useState('');
 
     const handleChange=(e)=>{
@@ -14,12 +15,13 @@ function TaskForm({onSubmit, columnId}){
         // allows the page not to be reloaded every time the input is entered
         e.preventDefault();
         const newTask={
+            userId:globalState.userId,
             columnId:columnId,
             id:uuidv4(),
             text:input,
             isCompleted:false
         }        
-        console.log(newTask);
+        console.log(typeof newTask.id);
         onSubmit(newTask)
         e.target.reset();
 

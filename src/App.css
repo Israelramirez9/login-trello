@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Quicksand:wght@500&display=swap');
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  font-family: 'Quicksand', sans-serif;
+  overflow-x: hidden;
+  background-image: "images/background.jpg";
+}
+* {
+
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
