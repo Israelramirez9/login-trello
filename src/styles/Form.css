@@ -4,9 +4,23 @@
 .form-content .input-box{
     margin:0.5rem 0;
 }
+.input-box.password-container{
+    display: flex;
+    align-items: center;
+    position:relative;
+}
 .form-content::placeholder{
     color:black;
     opacity: 1;
+}
+.eye-icon{
+    position: absolute;
+    right: 1%;
+    top:20%;
+    font-size: 1.2rem;
+}
+.eye-icon:hover{
+    color:gray;
 }
 .form-content .input-control{
     margin-bottom: 1rem;
