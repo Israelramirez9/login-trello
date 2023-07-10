@@ -3,7 +3,7 @@ import '../styles/FormSignUp.css';
 import axios from 'axios';
 import { Navigate } from 'react-router-dom';
 import { UserContext } from '../../../auth/UserContext';
-
+import  PUBLIC_URL  from '../../../config.js';
 
 export default function FormSignUp() {
     const [isAccountCreated, setIsAccountCreasted]=useState(false);
@@ -39,7 +39,7 @@ export default function FormSignUp() {
 
 
     if(isAccountCreated){
-        return <Navigate to="/"/>
+        return <Navigate to={PUBLIC_URL}/>
     }
 
     return (

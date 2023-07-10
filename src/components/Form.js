@@ -3,7 +3,7 @@ import { Navigate } from 'react-router-dom'
 import '../styles/Form.css'
 import axios from 'axios';
 import { UserContext } from '../auth/UserContext';
-
+import  PUBLIC_URL  from '../config.js';
 export default function Form() {
     const [dataServer, setDataServer] = useState([]);
 
@@ -39,7 +39,7 @@ export default function Form() {
     }
     
     if (globalState.isAuthenticate) {
-        return <Navigate to="/trello"></Navigate>;
+        return <Navigate to={`${PUBLIC_URL}/trello`}></Navigate>;
     }
 
     return (
