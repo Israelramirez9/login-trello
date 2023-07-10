@@ -14,7 +14,7 @@ import  PUBLIC_URL  from './config.js';
 
 
 function App() {
-  console.log(PUBLIC_URL)
+  
   const [globalState, setGlobalState] = useState({ isAuthenticate: false, userId: null });
   const router = createBrowserRouter([
     {

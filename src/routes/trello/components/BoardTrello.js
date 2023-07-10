@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
-
+import { AiOutlinePoweroff } from "react-icons/ai";
 import '../styles/Board.css';
 import ListOfTasks from "./listOfTasks.js";
 import axios from "axios";
 import { UserContext } from "../../../auth/UserContext";
+import swal from "sweetalert";
 /* creates an array the size of columns to use or print on screen */
 const SIZE = 4;
 
@@ -38,9 +39,16 @@ function BoardTrello() {
                 setTasksFromServer(response.data);
             })
             .catch(error => console.log(error));
-    }, [])
+    }, []);
 
+    useEffect(() => {
+        axios.get("https://649cd3219bac4a8e669cfcec.mockapi.io/tasks")
+            .then(response => {
+                setTasksFromServer(response.data);
+            })
+            .catch(error => console.log(error));
 
+    }, [tasks]);
 
 
     // setTask(tasksFromserver.filter((task)=>task.userId===globalState.userId));
@@ -49,6 +57,13 @@ function BoardTrello() {
         const currentTasks = tasks.map((task) => {
             if (task.id === id) {
                 task.columnId = task.columnId - 1;
+                tasksFromServer.forEach((serverTask) => {
+                    if (serverTask.id === id) {
+                        axios.put("https://649cd3219bac4a8e669cfcec.mockapi.io/tasks/" + serverTask.taskId, task)
+                            .then(res => console.log(res))
+                            .catch(e => console.log(e))
+                    }
+                })
             }
             return task;
         })
@@ -58,6 +73,13 @@ function BoardTrello() {
         const currentTasks = tasks.map((task) => {
             if (task.id === id) {
                 task.columnId = task.columnId + 1;
+                tasksFromServer.forEach((serverTask) => {
+                    if (serverTask.id === id) {
+                        axios.put("https://649cd3219bac4a8e669cfcec.mockapi.io/tasks/" + serverTask.taskId, task)
+                            .then(res => console.log(res))
+                            .catch(e => console.log(e))
+                    }
+                })
             }
             return task;
         })
@@ -67,12 +89,22 @@ function BoardTrello() {
     const addTask = (task) => {
         if (task.text.trim()) {
             task.text = task.text.trim();
-            const currentTasks = [task, ...tasks];
+            const currentTasks = [...tasks, task];
             setTask(currentTasks);
+            axios.post("https://649cd3219bac4a8e669cfcec.mockapi.io/tasks", task)
+                .then(response => console.log(response))
+                .catch(error => console.log(error));
         }
     }
 
     const deleteTask = (id) => {
+        tasksFromServer.forEach((task) => {
+            if (task.id === id) {
+                axios.delete("https://649cd3219bac4a8e669cfcec.mockapi.io/tasks/" + task.taskId)
+                    .then(response => console.log(response))
+                    .catch(error => console.log(error));
+            }
+        })
         const currentTasks = tasks.filter((task) => task.id !== id);
         setTask(currentTasks);
     }
@@ -81,6 +113,13 @@ function BoardTrello() {
         const currentTasks = tasks.map((task) => {
             if (task.id === id) {
                 task.isCompleted = !task.isCompleted;
+                tasksFromServer.forEach((serverTask) => {
+                    if (serverTask.id === id) {
+                        axios.put("https://649cd3219bac4a8e669cfcec.mockapi.io/tasks/" + serverTask.taskId, task)
+                            .then(res => console.log(res))
+                            .catch(e => console.log(e))
+                    }
+                })
             }
             return task;
         });
@@ -88,32 +127,23 @@ function BoardTrello() {
     }
     const handleSend = (event) => {
         event.preventDefault();
-        console.log(tasksFromServer);
-        if (tasksFromServer.length !== 0) {
-            tasksFromServer.forEach((task) => {
-                axios.delete(`https://649cd3219bac4a8e669cfcec.mockapi.io/tasks/${task.taskId.toString()}`)
-                    .then(response => console.log(response))
-                    .catch(error => console.log(error))
-            });
-        }
-        tasks.forEach(task => {
-            axios.post("https://649cd3219bac4a8e669cfcec.mockapi.io/tasks", task)
-                .then(response => console.log(response))
-                .catch(error => console.log(error));
-        });
-        window.alert("updated files");
+
+
+        swal("Good Bye!","arrivederci 😉","success");
         setGlobalState({ isAuthenticate: false, userId: null });
-        
-        
+
+
     }
-    console.log(tasks);
+
 
     return (
         <main>
             <header>
                 <h1> List Of Tasks </h1>
-                <button onClick={handleSend}>Save & Log Out</button>
-
+                <div className="log-out-container">
+                    <button onClick={handleSend} className="log-out-button">Log Out<AiOutlinePoweroff className="poweroff-icon" /></button>
+                    
+                </div>
             </header>
             <section>
                 {

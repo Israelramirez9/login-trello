@@ -14,12 +14,26 @@ header{
     align-items: center;
     justify-content: center;
 }
-header button{
-    margin-left:3rem;
-    height: 4rem;
-    
-    font-size: 1.5rem;
+.log-out-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    left: 10%;
+}
+.log-out-button{
+    width:7rem;
+    height: 3rem;
     border-radius: 1rem;
+    text-align: left;
+    padding: 0.5rem;
+    background-color: rgb(248, 62, 62);
+    border: 1px solid gray;
+    color:black
+}
+.poweroff-icon{
+    position: absolute;
+    right: 10%;
 }
 h1{
     font-weight: bold;
@@ -62,5 +76,11 @@ section{
     }
     header button{
         font-size: 1rem;
+    }
+}
+@media screen and (max-width:550px) {
+    h1{
+        font-size: 1rem;
+        margin: 1rem;
     }
 }
