@@ -129,7 +129,7 @@ function BoardTrello() {
         event.preventDefault();
 
 
-        swal("Good Bye!","arrivederci 😉","success");
+        swal("Good Bye!", "arrivederci 😉", "success");
         setGlobalState({ isAuthenticate: false, userId: null });
 
 
@@ -142,8 +142,9 @@ function BoardTrello() {
                 <h1> List Of Tasks </h1>
                 <div className="log-out-container">
                     <button onClick={handleSend} className="log-out-button">Log Out<AiOutlinePoweroff className="poweroff-icon" /></button>
-                    
+
                 </div>
+               
             </header>
             <section>
                 {
