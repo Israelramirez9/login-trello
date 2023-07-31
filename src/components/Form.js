@@ -3,8 +3,8 @@ import { Navigate } from 'react-router-dom'
 import '../styles/Form.css'
 import axios from 'axios';
 import { UserContext } from '../auth/UserContext';
-import  PUBLIC_URL  from '../config.js';
-import {AiFillEye}from "react-icons/ai";
+import PUBLIC_URL from '../config.js';
+import { AiFillEye } from "react-icons/ai";
 import swal from 'sweetalert';
 
 export default function Form() {
@@ -13,7 +13,9 @@ export default function Form() {
     const { globalState, setGlobalState } = useContext(UserContext);
 
     useEffect(() => {
-        axios.get("https://649cd3219bac4a8e669cfcec.mockapi.io/users").then(response => setDataServer(response.data)).catch(error => console.log(error))
+        axios.get("http://localhost:8080/users")
+            .then(response => setDataServer(response.data))
+            .catch(error => console.log(error))
     }, [])
 
     const authenticateUser = () => {
@@ -29,36 +31,36 @@ export default function Form() {
     }
 
     const handleSend = (event) => {
-        event.preventDefault();   
+        event.preventDefault();
         if (authenticateUser()) {
-            const dataUser=dataServer.filter((obj)=>obj.email === input.email && obj.password === input.password);
-            swal("Good job!","user found","success")
+            const dataUser = dataServer.filter((obj) => obj.email === input.email && obj.password === input.password);
+            swal("Good job!", "user found", "success")
             console.log("usuario encontrado");
             setGlobalState({ ...globalState, isAuthenticate: true, userId: dataUser[0].userId })
         } else {
             console.log("usuario no encontrado");
-            swal("Error","user not found","error");
+            swal("Error", "user not found", "error");
         }
-        
+
     }
-    
+
     if (globalState.isAuthenticate) {
         return <Navigate to={`${PUBLIC_URL}/trello`}></Navigate>;
     }
 
-    const showPassword=()=>{
-        let passwordElement=document.getElementById("password");
-        let eyeIconElement=document.getElementById("eye-icon");
-        if(passwordElement.type=="password"){
-            passwordElement.type="text";   
-            eyeIconElement.style.color="gray";         
-        }else{
-            passwordElement.type="password";
-            eyeIconElement.style.color="black";
+    const showPassword = () => {
+        let passwordElement = document.getElementById("password");
+        let eyeIconElement = document.getElementById("eye-icon");
+        if (passwordElement.type == "password") {
+            passwordElement.type = "text";
+            eyeIconElement.style.color = "gray";
+        } else {
+            passwordElement.type = "password";
+            eyeIconElement.style.color = "black";
         }
     }
 
-    
+
     return (
         <form action="" onSubmit={handleSend}>
             <div className='input-box'>
@@ -67,7 +69,7 @@ export default function Form() {
             <div className='input-box password-container'>
                 <input type="password" placeholder='Password' className='input-control' name="password" value={input.password} onChange={handleChange} id="password"></input>
                 <AiFillEye className='eye-icon' onClick={showPassword} id="eye-icon"></AiFillEye>
-                
+
             </div>
             <button type="submit" className='btn'>Sign in</button>
         </form>

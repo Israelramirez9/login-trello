@@ -4,24 +4,24 @@ import axios from 'axios';
 import { Navigate } from 'react-router-dom';
 import swal from 'sweetalert';
 import PUBLIC_URL from '../../../config.js';
-import {AiFillEye}from "react-icons/ai";
+import { AiFillEye } from "react-icons/ai";
 export default function FormSignUp() {
     const [dataFromServer, setDataFromServer] = useState([]);
 
     const [isAccountCreated, setIsAccountCreasted] = useState(false);
 
-
+    const API = "http://localhost:8080/users";
 
     const data = { name: "", email: "", password: "" }
 
     const [input, setInput] = useState(data);
 
     useEffect(() => {
-        axios.get("https://649cd3219bac4a8e669cfcec.mockapi.io/users")
+        axios.get(API)
             .then(response => setDataFromServer(response.data))
             .catch(error => console.log(error))
     }, [])
-    console.log(dataFromServer);
+    
     const handleChange = (event) => {
         setInput({ ...input, [event.target.name]: event.target.value });
 
@@ -32,13 +32,13 @@ export default function FormSignUp() {
 
 
         if (input.name.length !== 0 && input.email.length !== 0 && input.password.length !== 0) {
-            console.log("aqui1")
+          
             if (dataFromServer.some((obj) => obj.email === input.email)) {
                 swal("email already registered", "use another email", "error");
 
             } else {
                 swal("Good job!", "successfully registered user", "success");
-                axios.post("https://649cd3219bac4a8e669cfcec.mockapi.io/users", input)
+                axios.post(API, input)
                     .then(response => {
                         setIsAccountCreasted(true);
                         console.log(response);
@@ -56,18 +56,18 @@ export default function FormSignUp() {
         return <Navigate to={PUBLIC_URL} />
     }
 
-    const showPassword=()=>{
-        let passwordElement=document.getElementById("password");
-        let eyeIconElement=document.getElementById("eye-icon");
-        if(passwordElement.type=="password"){
-            passwordElement.type="text";   
-            eyeIconElement.style.color="gray";         
-        }else{
-            passwordElement.type="password";
-            eyeIconElement.style.color="black";
+    const showPassword = () => {
+        let passwordElement = document.getElementById("password");
+        let eyeIconElement = document.getElementById("eye-icon");
+        if (passwordElement.type == "password") {
+            passwordElement.type = "text";
+            eyeIconElement.style.color = "gray";
+        } else {
+            passwordElement.type = "password";
+            eyeIconElement.style.color = "black";
         }
     }
-    
+
     return (
 
         <form action="" onSubmit={handleSend}>

@@ -21,7 +21,7 @@ function TaskForm({onSubmit, columnId}){
             text:input,
             isCompleted:false
         }        
-        console.log(typeof newTask.id);
+       
         onSubmit(newTask)
         e.target.reset();
 

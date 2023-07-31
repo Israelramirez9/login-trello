@@ -1,0 +1,53 @@
+GET /users
+Host: localhost:8080
+
+###
+
+POST /users
+Host: localhost:8080
+Content-Type: application/json
+
+{"createdAt":"2023-07-09T16:13:49.186Z","name":"hola","email":"marioyluigi87@gmail.com","password":"password","userId":"1"}
+
+###
+
+GET /tasks
+Host: localhost:8080
+
+###
+
+POST /tasks
+Host: localhost:8080
+Content-Type: application/json
+
+{
+        "userId": "1",
+        "columnId": 1,
+        "text": "asasas",
+        "isCompleted": false,
+        "id": "b6949a4c-6176-4008-b01b-60bfb77e943d"
+       
+}
+
+###
+DELETE /tasks/1
+Host: localhost:8080
+
+###
+PUT /tasks/1
+Host: localhost:8080
+Content-Type: application/json
+
+{
+    
+        "userId": "1",
+        "columnId": 1,
+        "text": "asasas",
+        "isCompleted": true,
+        "id": "b6949a4c-6176-4008-b01b-60bfb77e943d",
+        "createdAt": "7/31/2023, 12:17:40 AM",
+        "taskId": 1
+    
+}
+
+
