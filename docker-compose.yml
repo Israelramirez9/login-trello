@@ -1,0 +1,25 @@
+version: "3.9"
+services:
+  #esto es en dado caso de que queramos comunicar dos contenedores
+  contenedor_node:
+    # build: . esto contruye el dockerfile
+    image: node
+    ports:
+      - 3001:3000
+    links:
+      - contenedor_mongo
+    volumes:
+      - ./:/app
+    working_dir: /app #ubicación del contenedor
+    command: node ./db/index.js #este comando se ejecuta en la dirección declarada con workin_dir(todo esto se ejecuta en el contenedor)
+    environment:
+      - MONGODB_URI=mongodb://israel:password@contenedor_mongo:27017/miapp?authSource=admin
+      - PORT=3000
+
+  contenedor_mongo:
+    image: mongo
+    ports:
+      - 27017:27017
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=israel
+      - MONGO_INITDB_ROOT_PASSWORD=password
