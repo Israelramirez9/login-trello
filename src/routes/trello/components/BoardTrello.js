@@ -20,12 +20,9 @@ function BoardTrello() {
     /*useState initializes the value of the tasks array by calling the getTasks function */
 
 
-
-
     useEffect(() => {
         axios.get(API)
             .then(response => {
-                
                 setTask(response.data.filter((obj) => obj.userId === globalState.userId));
                 setTasksFromServer(response.data);
             })
@@ -46,10 +43,10 @@ function BoardTrello() {
 
     const changeColumnTaskToleft = (id) => {
         const currentTasks = tasks.map((task) => {
-            if (task.id === id) {
+            if (task.taskId === id) {
                 task.columnId = task.columnId - 1;
                 tasksFromServer.forEach((serverTask) => {
-                    if (serverTask.id === id) {
+                    if (serverTask.taskId === id) {
                         axios.put(API + "/" + serverTask.taskId, task)
                             .then(res => console.log(res))
                             .catch(e => console.log(e))
@@ -62,10 +59,10 @@ function BoardTrello() {
     }
     const changeColumnTaskToRight = (id) => {
         const currentTasks = tasks.map((task) => {
-            if (task.id === id) {
+            if (task.taskId === id) {
                 task.columnId = task.columnId + 1;
                 tasksFromServer.forEach((serverTask) => {
-                    if (serverTask.id === id) {
+                    if (serverTask.taskId === id) {
                         axios.put(API + "/" + serverTask.taskId, task)
                             .then(res => console.log(res))
                             .catch(e => console.log(e))
@@ -80,32 +77,37 @@ function BoardTrello() {
     const addTask = (task) => {
         if (task.text.trim()) {
             task.text = task.text.trim();
-            const currentTasks = [...tasks, task];
-            setTask(currentTasks);
             axios.post(API, task)
-                .then(response => console.log(response))
+                .then(response => {
+                    setTask([...tasks, response.data])
+                    console.log(response)
+                })
                 .catch(error => console.log(error));
         }
     }
 
     const deleteTask = (id) => {
         tasksFromServer.forEach((task) => {
-            if (task.id === id) {
+            if (task.taskId === id) {
                 axios.delete(API + "/" + task.taskId)
-                    .then(response => console.log(response))
+                    .then(response => {
+                        console.log(response.data)
+                        const currentTasks = tasks.filter((task) => task.taskId !== id);
+                        setTask(currentTasks);
+                        console.log(response)
+                    })
                     .catch(error => console.log(error));
             }
         })
-        const currentTasks = tasks.filter((task) => task.id !== id);
-        setTask(currentTasks);
+
     }
 
     const completeTask = (id) => {
         const currentTasks = tasks.map((task) => {
-            if (task.id === id) {
+            if (task.taskId === id) {
                 task.isCompleted = !task.isCompleted;
                 tasksFromServer.forEach((serverTask) => {
-                    if (serverTask.id === id) {
+                    if (serverTask.taskId === id) {
                         axios.put(API + "/" + serverTask.taskId, task)
                             .then(res => console.log(res))
                             .catch(e => console.log(e))
@@ -118,12 +120,8 @@ function BoardTrello() {
     }
     const handleSend = (event) => {
         event.preventDefault();
-
-
         swal("Good Bye!", "arrivederci 😉", "success");
         setGlobalState({ isAuthenticate: false, userId: null });
-
-
     }
 
 

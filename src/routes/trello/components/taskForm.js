@@ -1,6 +1,5 @@
 import React,{useState,useContext} from "react";
 import '../styles/taskForm.css';
-import { v4 as uuidv4 } from 'uuid';
 import { UserContext } from "../../../auth/UserContext";
 function TaskForm({onSubmit, columnId}){
 
@@ -16,8 +15,7 @@ function TaskForm({onSubmit, columnId}){
         e.preventDefault();
         const newTask={
             userId:globalState.userId,
-            columnId:columnId,
-            id:uuidv4(),
+            columnId:columnId,            
             text:input,
             isCompleted:false
         }        

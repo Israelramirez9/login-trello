@@ -21,7 +21,7 @@ export default function FormSignUp() {
             .then(response => setDataFromServer(response.data))
             .catch(error => console.log(error))
     }, [])
-    
+
     const handleChange = (event) => {
         setInput({ ...input, [event.target.name]: event.target.value });
 
@@ -32,14 +32,14 @@ export default function FormSignUp() {
 
 
         if (input.name.length !== 0 && input.email.length !== 0 && input.password.length !== 0) {
-          
+
             if (dataFromServer.some((obj) => obj.email === input.email)) {
                 swal("email already registered", "use another email", "error");
 
             } else {
-                swal("Good job!", "successfully registered user", "success");
                 axios.post(API, input)
                     .then(response => {
+                        swal("Good job!", "successfully registered user", "success");
                         setIsAccountCreasted(true);
                         console.log(response);
                     })

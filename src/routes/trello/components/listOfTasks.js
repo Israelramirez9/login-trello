@@ -15,7 +15,7 @@ function ListOfTasks({ columnId, addTask, tasks, completeTask, deleteTask, chang
                     tasks.map((task, index) =>
                         <Task
                             key={index}
-                            id={task.id}
+                            id={task.taskId}
                             text={task.text}
                             isCompleted={task.isCompleted}
                             columnId={columnId}

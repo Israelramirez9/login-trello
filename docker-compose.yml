@@ -1,25 +1,41 @@
 version: "3.9"
 services:
   #esto es en dado caso de que queramos comunicar dos contenedores
-  contenedor_node:
+  trello:
     # build: . esto contruye el dockerfile
     image: node
     ports:
       - 3001:3000
     links:
-      - contenedor_mongo
+      - container_mongo #nombre del contenedor a conectar
     volumes:
       - ./:/app
     working_dir: /app #ubicación del contenedor
-    command: node ./db/index.js #este comando se ejecuta en la dirección declarada con workin_dir(todo esto se ejecuta en el contenedor)
+    command: npm run start:server #este comando se ejecuta en la dirección declarada con workin_dir(todo esto se ejecuta en el contenedor)
     environment:
-      - MONGODB_URI=mongodb://israel:password@contenedor_mongo:27017/miapp?authSource=admin
+      - MONGODB_URI=mongodb://israel:password@container_mongo:27017/trello?authSource=admin #si en lugar de container_mongo escribo localhost hago referencia al localhost del contenedor
       - PORT=3000
 
-  contenedor_mongo:
+  container_mongo:
     image: mongo
     ports:
       - 27017:27017
+    volumes:
+      - mongo_db:/data/db
     environment:
       - MONGO_INITDB_ROOT_USERNAME=israel
       - MONGO_INITDB_ROOT_PASSWORD=password
+    
+  container_mongo_express:
+    image: mongo-express
+    ports:
+      - 8081:8081
+    links:
+      - container_mongo
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=container_mongo
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=israel 
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=password
+
+volumes:
+  mongo_db:
