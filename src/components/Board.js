@@ -4,7 +4,7 @@ import Form from './Form'
 import { Link } from 'react-router-dom'
 import PUBLIC_URL from '../config.js'
 export default function Board() {
-    console.log(PUBLIC_URL)
+    
     return (
 
         <section className="form-main">

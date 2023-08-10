@@ -3,11 +3,19 @@ Host: localhost:8080
 
 ###
 
+POST /api/users
+Host: localhost:8080
+Content-Type: application/json
+
+{"email":"israel@gmail.com","password":"israel"}
+
+###
+
 POST /users
 Host: localhost:8080
 Content-Type: application/json
 
-{"name":"hola","email":"marioyluigi87@gmail.com","password":"password"}
+{"name":"israel","email":"israel@gmail.com","password":"israel"}
 
 ###
 
