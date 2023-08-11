@@ -2,8 +2,8 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 const mongoose = require('mongoose')
-const { encrypt, compare } = require('./helpers/handleBcrypt.js')
-const { User, Task } = require('./models.js')
+const { encrypt, compare } = require('./helpers/handleBcrypt')
+const { User, Task } = require('./models')
 
 
 //si la variable de entorno no existe pq levante el servidor desde mi pc con "npm run start:server", entonces MONGODB_URI va a tomar el valor del string comentado abajo, por ende me voy a conectar al puerto localhost:27017 " a mi propia IP, ya que en el puerto 27017 de mi IP local se está conectando al puerto 27017 de la base de datos del contenedor de mongo, previamente ya levantado con docker"
