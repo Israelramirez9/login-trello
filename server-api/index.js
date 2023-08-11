@@ -3,28 +3,11 @@ const app = express()
 const cors = require('cors')
 const mongoose = require('mongoose')
 const { encrypt, compare } = require('./helpers/handleBcrypt.js')
+const { User, Task } = require('./models.js')
 
 
-const User = mongoose.model('Users', new mongoose.Schema({
-    name: String,
-    email: String,
-    password: String,
-    createdAt: String,
-    userId: String
-}))
-
-const Task = mongoose.model('Tasks', new mongoose.Schema({
-    userId: String,
-    columnId: Number,
-    text: String,
-    isCompleted: Boolean,
-    taskId: String,
-    createdAt: String,
-}))
 //si la variable de entorno no existe pq levante el servidor desde mi pc con "npm run start:server", entonces MONGODB_URI va a tomar el valor del string comentado abajo, por ende me voy a conectar al puerto localhost:27017 " a mi propia IP, ya que en el puerto 27017 de mi IP local se está conectando al puerto 27017 de la base de datos del contenedor de mongo, previamente ya levantado con docker"
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://israel:password@localhost:27017/trello?authSource=admin'
-
-
 
 //process es un objeto global que existe en nodejs , si PORT es false es decir si no existe toma el valor de 8080
 const PORT = process.env.PORT || 8080;
@@ -33,21 +16,16 @@ app.use(cors())//permite que cualquier origen(del lado del cliente pueda realiza
 //si se quiere bloquear ciertos origines se puede hacer con la misma librería cors
 app.use(express.json());
 
-app.get("/users", async (req, res) => {
-    const users = await User.find();
-    res.json(users)
-})
 
 app.post("/api/users", async (req, res) => {
     const { email, password } = req.body;
     const user = await User.findOne({ email })
 
     if (!user) {
-        res.status(404)
-        res.json({ isAuthenticate: false })
+        res.status(404).json({ isAuthenticate: false })
     } else {
-        const chechPassword = await compare(password, user.password)
-        if (chechPassword) {
+        const checkPassword = await compare(password, user.password)
+        if (checkPassword) {
             res.status(200).json({
                 isAuthenticate: true,
                 userId: user.userId
@@ -60,14 +38,24 @@ app.post("/api/users", async (req, res) => {
 
 })
 
-app.post("/users", async (req, res) => {
+app.post("/api/register", async (req, res) => {
     try {
-        const user = new User(req.body)
-        user.createdAt = new Date().toLocaleString();
-        user.userId = user._id;
-        user.password = await encrypt(user.password);
-        await user.save();
-        res.status(201).json(user);
+        const { email } = req.body;
+        const user = await User.findOne({ email })
+        if (!user) {
+            const newUser = new User(req.body)
+            newUser.createdAt = new Date().toLocaleString();
+            newUser.userId = newUser._id;
+            newUser.password = await encrypt(newUser.password);
+            await newUser.save();
+            res.status(201).json({
+                isHasBeenCreated: true
+            });
+        } else {
+            res.status(409).json({
+                isHasBeenCreated: false
+            })
+        }
     } catch (error) {
         console.log(error)
     }
@@ -76,7 +64,6 @@ app.post("/users", async (req, res) => {
 app.get("/tasks", async (req, res) => {
     const tasks = await Task.find()
     res.json(tasks);
-
 })
 
 app.post("/tasks", async (req, res) => {

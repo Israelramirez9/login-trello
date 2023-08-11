@@ -1,21 +1,16 @@
-GET /users
-Host: localhost:8080
-
-###
-
 POST /api/users
 Host: localhost:8080
 Content-Type: application/json
 
-{"email":"israel@gmail.com","password":"israel"}
+{"email":"israel@gmail.co","password":"israel"}
 
 ###
 
-POST /users
+POST /api/register
 Host: localhost:8080
 Content-Type: application/json
 
-{"name":"israel","email":"israel@gmail.com","password":"israel"}
+{"name":"israel","email":"israssd@gmail.com","password":"israel"}
 
 ###
 

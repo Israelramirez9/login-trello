@@ -16,26 +16,24 @@ export default function Form() {
 
 
     const authenticateUser = (event) => {
-        event.preventDefault();        
+        event.preventDefault();
         axios.post(API_URL, input)
             .then(resp => {
-
+                console.log(resp.data)
                 if (resp.data.isAuthenticate) {
                     swal("Good job!", "user found", "success")
                     setGlobalState({ ...globalState, isAuthenticate: resp.data.isAuthenticate, userId: resp.data.userId })
-                } else {
-                    swal("Error", "user not found", "error");
-                }
-
-
+                } 
             })
-            .catch(error => console.log(error))
+            .catch(error => {
+                swal("Error", "user or password Incorrect!", "error");
+                console.log(error);
+            })
     }
 
 
     const handleChange = (event) => {
         setInput({ ...input, [event.target.name]: event.target.value });
-
     }
 
 
@@ -47,7 +45,7 @@ export default function Form() {
         let passwordElement = document.getElementById("password");
         setEyeIcon(prevState => !prevState)
         if (passwordElement.type === "password") {
-            passwordElement.type = "text";          
+            passwordElement.type = "text";
         } else {
             passwordElement.type = "password";
         }
@@ -61,7 +59,7 @@ export default function Form() {
     return (
         <form action="" onSubmit={authenticateUser}>
             <div className='input-box'>
-                <input type="text" placeholder='Email' className='input-control' name="email" value={input.email} onChange={handleChange}></input>
+                <input type="text" placeholder='Email' className='input-control' name="email" value={input.email} onChange={handleChange} required></input>
             </div>
             <div className='input-box password-container'>
                 <input type="password" placeholder='Password' className='input-control' name="password" value={input.password} onChange={handleChange} id="password"></input>
