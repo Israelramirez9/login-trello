@@ -1,0 +1,31 @@
+form{
+    display: flex;
+    align-items: center;
+    justify-content: center;    
+    width: 100%;
+}
+input{
+    width: 70%;
+    height: 2rem;
+    border-radius: 4px 0 0 4px;
+    border: 2px solid #273558;
+    outline: none;
+    background-color: white;
+}
+.add-task{
+    width: 20%;
+    height: 100%;
+    padding:0;    
+    font-family: Roboto,sans-serif;
+    border: 1px solid white;
+    border-radius: 4px;
+    cursor: pointer;
+    outline: none;
+    background-color: #273558;
+    color: #fff;
+}
+.add-task:hover{
+    color:#273558;
+    background-color: white;
+    border:1px solid #171d2e;
+}

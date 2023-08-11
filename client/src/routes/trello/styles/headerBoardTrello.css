@@ -1,0 +1,54 @@
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 4rem;
+    background-color: #dce1e0;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+
+.first-container {
+    display: flex;
+    padding: 1rem;
+}
+.icon-menu-drop {
+    color: #273558;
+}
+
+.icon-menu-drop:hover {
+    color: black;
+    cursor:pointer;
+}
+
+.menu-dropdown-container {
+    background-color: transparent;
+    border: none;
+    margin-right: 2rem;
+}
+.logo-trello-container img{
+    width: 7rem;
+}
+.second-container{
+    padding: 0.5rem;
+    margin-right: 2rem;
+}
+.icon-user:hover {
+    color: black;
+    cursor: pointer;
+}
+.icon-user-container {
+    background-color: transparent;    
+    border: none;
+    margin-right: 1rem;
+}
+
+.icon-user {
+    color: #273558;
+}
+.icon-power-off:hover{
+    color:rgb(235, 52, 52);
+}
+.icon-power-off-container{
+    background-color: transparent;
+    border: none;
+}
