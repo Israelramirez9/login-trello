@@ -1,5 +1,5 @@
 const { encrypt } = require('../helpers/handleBcrypt')
-
+const { Types } = require('mongoose')
 const { User } = require('../models')
 
 async function createUser(req, res) {
@@ -26,19 +26,41 @@ async function createUser(req, res) {
 }
 
 async function updateUser(req, res) {
-    const { email, password, name, userId } = req.body
+    const { userId } = req.params;
+    const { email, password, name } = req.body
 
-    const user = await User.findOne({ userId })
+    if (!Types.ObjectId.isValid(userId)) { //verifica si el id es valido
+        return res.status(400).json({
+            error: 'incorrect Id'
+        })
+    }
+
+    const user = await User.findById(userId)
+
+    if (!user) {
+        return res.status(404).json({
+            error: 'user not found'
+        })
+    }
+
     if (email) {
         user.email = email
     }
+
     if (name) {
         user.name = name
-    } if (password) {
+    }
+
+    if (password) {
         user.password = await encrypt(password);
     }
-    const updateUser = await User.findByIdAndUpdate(userId, user)
-    res.status(201).json(user)
+
+    await User.findByIdAndUpdate(userId, user)
+
+    user.password = undefined
+
+    res.status(200).json(user)
 }
+
 
 module.exports = { createUser, updateUser }

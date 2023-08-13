@@ -14,11 +14,11 @@ Content-Type: application/json
 
 ###
 
-PUT /api/v1/updateUser
-Host: localhost:8080
+PUT /api/v1/users/64d7b7d9aa6b97e2e8c29f5c
+Host: localhost:4040
 Content-Type:  application/json
 
-{"email":"israelnew@gmail.com","password":"israel","userId":"64d7b812aa6b97e2e8c29f61"}
+{"email":"israelnew@gmail.com","password":"israel"}
 
 ###
 
@@ -44,8 +44,8 @@ DELETE /api/v1/tasks/64d59e02fb4a34bec78911f2
 Host: localhost:8080
 
 ###
-PUT /api/v1/tasks/64d59e02fb4a34bec78911f2
-Host: localhost:8080
+PUT /api/v1/tasks/64d8281b1d6c009d1cc1fda8 
+Host: localhost:4040
 Content-Type: application/json
 
 {

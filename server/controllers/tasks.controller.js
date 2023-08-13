@@ -22,7 +22,7 @@ async function updateTask(req, res) {
         })
     }
 
-    const task = await Task.findByIdAndUpdate(taskId, req.body) //la función recibe dos parametros, el primero es el identificador único del Id con lo cúal busca el objeto con ese parámetro guardado y por segundo parámetro es todo el recurso del objeto ha actualizar
+    const task = await Task.findByIdAndUpdate(taskId, req.body) //la función recibe dos parametros, el primero es el identificador único del Id con lo cúal busca el objeto con ese parámetro guardado y por segundo parámetro es todo el recurso del objeto ha actualizar y retorna el recurso viejo
     res.json(task);
 }
 
