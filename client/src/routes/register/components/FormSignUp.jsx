@@ -4,6 +4,7 @@ import axios from 'axios';
 import { Navigate } from 'react-router-dom';
 import swal from 'sweetalert';
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import { API_URL } from '../../../config/api';
 
 
 export default function FormSignUp() {
@@ -11,7 +12,8 @@ export default function FormSignUp() {
 
     const [isAccountCreated, setIsAccountCreasted] = useState(false);
     const [eyeIcon, setEyeIcon] = useState(false);
-    const API = "http://localhost:8080/api/register";
+
+    const API_USERS_URL = API_URL + '/users';
     const data = { name: "", email: "", password: "" }
     const [input, setInput] = useState(data);
 
@@ -23,7 +25,7 @@ export default function FormSignUp() {
     const handleSend = (event) => {
         event.preventDefault();
         if (input.name.length !== 0 && input.email.length !== 0 && input.password.length !== 0) {
-            axios.post(API, input)
+            axios.post(API_USERS_URL, input)
                 .then(resp => {
                     console.log(resp.data)
                     if (resp.data.isHasBeenCreated) {

@@ -5,18 +5,19 @@ import axios from 'axios';
 import { UserContext } from '../auth/UserContext';
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import swal from 'sweetalert';
+import { API_URL } from '../config/api';
 
 export default function Form() {
 
     const { globalState, setGlobalState } = useContext(UserContext);
     const [input, setInput] = useState({ email: "", password: "" });
     const [eyeIcon, setEyeIcon] = useState(false)
-    const API_URL = "http://localhost:8080/api/users";
+    const SESSION_URL = API_URL+"/session"
 
 
     const authenticateUser = (event) => {
         event.preventDefault();
-        axios.post(API_URL, input)
+        axios.post(SESSION_URL, input)
             .then(resp => {
                 console.log(resp.data)
                 if (resp.data.isAuthenticate) {

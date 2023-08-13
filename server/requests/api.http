@@ -1,25 +1,33 @@
-POST /api/users
+POST /api/v1/users
 Host: localhost:8080
 Content-Type: application/json
 
-{"email":"israel@gmail.co","password":"israel"}
+{"name":"israel","email":"israel@gmail.com","password":"israel"}
 
 ###
 
-POST /api/register
+POST /api/v1/session
 Host: localhost:8080
 Content-Type: application/json
 
-{"name":"israel","email":"israssd@gmail.com","password":"israel"}
+{"email":"israel@gmail.com","password":"israel"}
 
 ###
 
-GET /tasks
+PUT /api/v1/updateUser
+Host: localhost:8080
+Content-Type:  application/json
+
+{"email":"israelnew@gmail.com","password":"israel","userId":"64d7b812aa6b97e2e8c29f61"}
+
+###
+
+GET /api/v1/tasks
 Host: localhost:8080
 
 ###
 
-POST /tasks
+POST /api/v1/tasks
 Host: localhost:8080
 Content-Type: application/json
 
@@ -32,11 +40,11 @@ Content-Type: application/json
 }
 
 ###
-DELETE /tasks/1
+DELETE /api/v1/tasks/64d59e02fb4a34bec78911f2
 Host: localhost:8080
 
 ###
-PUT /tasks/1
+PUT /api/v1/tasks/64d59e02fb4a34bec78911f2
 Host: localhost:8080
 Content-Type: application/json
 
@@ -45,8 +53,27 @@ Content-Type: application/json
         "userId": "1",
         "columnId": 1,
         "text": "asasas",
-        "isCompleted": true,       
-        "createdAt": "7/31/2023, 12:17:40 AM"       
+        "isCompleted": true       
+        
+    
+}
+
+###
+
+GET /api/v1/column
+Host: localhost:8080
+
+###
+
+POST /api/v1/column
+Host: localhost:8080
+Content-Type: application/json
+
+{
+        "userId":"1",
+        "columnId":"1",
+        "text":"titulo de la columna 1",
+        "boardId":"id del board"
     
 }
 
