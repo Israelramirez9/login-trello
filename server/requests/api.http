@@ -1,59 +1,66 @@
+### registrar usuario
+
 POST /api/v1/users
-Host: localhost:8080
+Host: localhost:4040
 Content-Type: application/json
 
 {"name":"israel","email":"israel@gmail.com","password":"israel"}
 
-###
+### iniciar sesion
 
 POST /api/v1/session
-Host: localhost:8080
+Host: localhost:4040
 Content-Type: application/json
 
 {"email":"israel@gmail.com","password":"israel"}
 
-###
+### actualizar usuario
 
-PUT /api/v1/users/64d7b7d9aa6b97e2e8c29f5c
+PUT /api/v1/users
 Host: localhost:4040
 Content-Type:  application/json
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGQ5MzNmM2MyZWY1YjY3OTY5YTE3M2QiLCJpYXQiOjE2OTE5NTY1NzN9.3cU5mtK98Ftvf5MqpYnfbVTSsucST0-hzPm6ja-VdYc
 
-{"email":"israelnew@gmail.com","password":"israel"}
+{"email":"israelnew@gmail.com"}
 
-###
+### obtener tareas de un usuario en específico
 
 GET /api/v1/tasks
-Host: localhost:8080
+Host: localhost:4040
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGQ5M2EyZjVkZmU3NzYwODkxMWNiMTEiLCJpYXQiOjE2OTE5NTc4Mzd9.wZEMVrgXCc8Cbw6huxdael63oLVa17ZDcXBNU68j7EQ
 
-###
+### guardar una tarea
 
 POST /api/v1/tasks
-Host: localhost:8080
-Content-Type: application/json
-
-{
-        "userId": "1",
-        "columnId": 1,
-        "text": "asasas",
-        "isCompleted": false
-               
-}
-
-###
-DELETE /api/v1/tasks/64d59e02fb4a34bec78911f2
-Host: localhost:8080
-
-###
-PUT /api/v1/tasks/64d8281b1d6c009d1cc1fda8 
 Host: localhost:4040
 Content-Type: application/json
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGQ5M2EyZjVkZmU3NzYwODkxMWNiMTEiLCJpYXQiOjE2OTE5NTc4Mzd9.wZEMVrgXCc8Cbw6huxdael63oLVa17ZDcXBNU68j7EQ
 
-{
-    
-        "userId": "1",
-        "columnId": 1,
-        "text": "asasas",
-        "isCompleted": true       
+
+{      
+        "columnId": 2,
+        "text": "israel segundo texto",
+        "isCompleted": false               
+}
+
+### eliminar tarea
+
+DELETE /api/v1/tasks/64d93a775dfe776
+Host: localhost:4040
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGQ5M2EyZjVkZmU3NzYwODkxMWNiMTEiLCJpYXQiOjE2OTE5NTc4Mzd9.wZEMVrgXCc8Cbw6huxdael63oLVa17ZDcXBNU68j7EQ
+
+### actualizar tarea
+
+PUT /api/v1/tasks/64d93a895dfe77608911cb19
+Host: localhost:4040
+Content-Type: application/json
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGQ5M2EyZjVkZmU3NzYwODkxMWNiMTEiLCJpYXQiOjE2OTE5NTc4Mzd9.wZEMVrgXCc8Cbw6huxdael63oLVa17ZDcXBNU68j7EQ
+
+{   
+     
+        "columnId": 3,
+        "text": "modificado",
+        "isCompleted": true
         
     
 }

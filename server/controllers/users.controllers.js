@@ -26,7 +26,7 @@ async function createUser(req, res) {
 }
 
 async function updateUser(req, res) {
-    const { userId } = req.params;
+    const userId = req.user._id;
     const { email, password, name } = req.body
 
     if (!Types.ObjectId.isValid(userId)) { //verifica si el id es valido
@@ -36,6 +36,7 @@ async function updateUser(req, res) {
     }
 
     const user = await User.findById(userId)
+   
 
     if (!user) {
         return res.status(404).json({
@@ -57,9 +58,12 @@ async function updateUser(req, res) {
 
     await User.findByIdAndUpdate(userId, user)
 
-    user.password = undefined
 
-    res.status(200).json(user)
+    res.status(200).json({
+        email: user.email,
+        name: user.name,
+
+    })
 }
 
 
