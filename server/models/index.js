@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const User = mongoose.model('Users', new mongoose.Schema({
     name: String,
     email: String,
-    password: String,   
+    password: String,
     userId: String
 },
     {
@@ -14,7 +14,7 @@ const User = mongoose.model('Users', new mongoose.Schema({
 
 const Task = mongoose.model('Tasks', new mongoose.Schema({
     userId: String,
-    columnId: Number,
+    columnIndex: Number,
     text: String,
     isCompleted: Boolean,
     taskId: String,
@@ -28,13 +28,25 @@ const Task = mongoose.model('Tasks', new mongoose.Schema({
 
 const Column = mongoose.model("Columns", new mongoose.Schema({
     userId: String,
-    columnId: Number,
-    text: String,
+    columnIndex: Number,
+    title: String,
     boardId: String,
-  
+    columnId: String,
+
 },
     {
         timestamps: true,
         versionKey: false
     }))
-module.exports = { Task, User, Column }
+
+const Board = mongoose.model("Boards", new mongoose.Schema({
+    userId: String,
+    title: String,
+    boardId: String,
+
+},
+    {
+        timestamps: true,
+        versionKey: false
+    }))
+module.exports = { Task, User, Column, Board }

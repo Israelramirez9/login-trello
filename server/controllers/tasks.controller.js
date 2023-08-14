@@ -24,7 +24,7 @@ async function createTask(req, res) {
 
 async function updateTask(req, res) {
     const { taskId } = req.params;
-    const { columnId, text, iscompleted } = req.body;
+    const { columnIndex, text, isCompleted } = req.body;
 
     if (!Types.ObjectId.isValid(taskId)) { //verifica si el id es valido
         return res.status(400).json({
@@ -34,22 +34,22 @@ async function updateTask(req, res) {
 
     const userId = req.user._id;
     const task = await Task.findById(taskId);
-    if(!task){
+    if (!task) {
         return res.status(404).json({
-            error:"task not found"
+            error: "task not found"
         })
     }
 
-    if (columnId) {
-        task.columnId = columnId
+    if (columnIndex) {
+        task.columnIndex = columnIndex
     }
 
     if (text) {
         task.text = text;
     }
 
-    if (iscompleted) {
-        task.iscompleted = iscompleted;
+    if (isCompleted) {
+        task.isCompleted = isCompleted;
     }
     await Task.findOneAndUpdate({ _id: taskId, userId: userId }, task) //la función recibe dos parametros, el primero es el identificador único del Id con lo cúal busca el objeto con ese parámetro guardado y por segundo parámetro es todo el recurso del objeto ha actualizar y retorna el recurso viejo
 
@@ -67,6 +67,11 @@ async function deleteTask(req, res) {
 
     const userId = req.user._id
     const task = await Task.findOneAndDelete({ _id: taskId, userId: userId }) // se encarga de buscar en la base de datos el objeto con el parametro pasado y eliminarlo ,retorna el objeto task eliminado
+    if (!task) {
+        return res.status(404).json({
+            error: "ivaled token"
+        })
+    }
     task.userId = undefined
     res.json(task);
 }

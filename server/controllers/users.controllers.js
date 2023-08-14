@@ -29,9 +29,9 @@ async function updateUser(req, res) {
     const userId = req.user._id;
     const { email, password, name } = req.body
 
-    if (!Types.ObjectId.isValid(userId)) { //verifica si el id es valido
+    if (!Types.ObjectId.isValid(userId)) { //verifica si el token es válido
         return res.status(400).json({
-            error: 'incorrect Id'
+            error: 'incorrect token'
         })
     }
 
