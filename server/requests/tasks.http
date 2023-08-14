@@ -1,0 +1,41 @@
+### obtener tareas de un usuario en específico
+
+GET /api/v1/tasks
+Host: localhost:4040
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGQ5OTgxOWRkN2ZiNjcxNTNjNDYxNWUiLCJpYXQiOjE2OTE5ODE4NzR9.4fcQ_yrnS3U8jcjdleG2kV909G8BnaT9mEnBrMNPR5I
+
+### guardar una tarea
+
+POST /api/v1/tasks
+Host: localhost:4040
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGRhNWJhNjNiN2U4NzFjNTI4MjJhNzMiLCJpYXQiOjE2OTIwMzQwOTB9.IqIA2s88Xn4z4divVIutS_x7N91b6c7TMZ4AS-oAJJw
+
+{      
+        "columnIndex": 1,
+        "text": "tarea columna 2",
+        "isCompleted": false,
+        "columnId":"64da7b6f2821234f1ff20782"             
+}
+
+### eliminar tarea
+
+DELETE /api/v1/tasks/64d99870dd7fb67153c46166 
+Host: localhost:4040
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGQ5OTgxOWRkN2ZiNjcxNTNjNDYxNWUiLCJpYXQiOjE2OTE5ODE4NzR9.4fcQ_yrnS3U8jcjdleG2kV909G8BnaT9mEnBrMNPR5I
+
+### actualizar tarea
+
+PUT /api/v1/tasks/64d99888dd7fb67153c4616c
+Host: localhost:4040
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGQ5OTgxOWRkN2ZiNjcxNTNjNDYxNWUiLCJpYXQiOjE2OTE5ODE4NzR9.4fcQ_yrnS3U8jcjdleG2kV909G8BnaT9mEnBrMNPR5I
+
+{   
+     
+        "columnIndex": 3,
+        "text": "modificado",
+        "isCompleted": true
+        
+    
+}

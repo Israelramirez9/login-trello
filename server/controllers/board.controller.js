@@ -44,28 +44,63 @@ async function updateBoard(req, res) {
 async function deleteBoard(req, res) {
     const userId = req.user._id;
     const { boardId } = req.params;
-    //si elimino el board voy a tener que eliminar las columnas y las tareas
+    //si elimino el board voy a tener que eliminar las columnas y las tareas, creo una reacción en cadena para que se eliminen board-->columnas---->tareas
+    let board = await Board.findById(boardId);
 
-    const columnsTodelete = await Column.find({ userId: userId, boardId: boardId })
-    if (!columnsTodelete) {
-        return res.status(400).json({
-            error: "boardId o token invaled"
+    if (!board) {
+        return res.status(404).json({
+            error: "boardId not found"
         })
     }
-    columnsTodelete.forEach(async (column) => {
-        const taskTodelete = await Task.find({ userId: userId, columnIndex: column.columnIndex })
-        if (!taskTodelete) {
-            return res.status(400).json({
-                error: "column number o token invaled"
-            })
-        }
-        taskTodelete.forEach(async (task) => {
-            await Task.findOneAndDelete({ taskId: task.taskId })
+
+    try {
+        await Board.findByIdAndDeleteHisRelations(boardId, userId)
+    } catch (e) {
+        console.log(e)
+        return res.status(404).json({
+            error: "token or boardId invalid"
         })
+    }
+    board.userId = undefined;
+    res.status(200).json(board)
+    // const columnsTodelete = await Column.find({ userId: userId, boardId: boardId })
+    // console.log(columnsTodelete)
+    // if (!columnsTodelete) {
+    //     return res.status(400).json({
+    //         error: "boardId o token invaled"
+    //     })
+    // }
 
-        await Column.findOneAndDelete({ boardId: column.boardId })
-    })
+    // const error = [];
+    // await Promise.all(columnsTodelete.map(async (column) => {
+    //     console.log(column.columnId)
+    //     const taskToDelete = await Task.find({ columnId: column.columnId })
+    //     console.log(taskToDelete)
+    //     if (!taskToDelete) {
+    //         error.push(`error: task not found with columnId:${column.columnId}`)
+    //         return;
+    //     }
 
+    //     await Promise.all(taskToDelete.map(async (task) => {
+    //         return await Task.findByIdAndDelete(task.taskId)
+    //     }))
+
+    //     return await Column.findByIdAndDelete(column.columnId)
+    // })
+    // )
+    // if (error.length !== 0) {
+    //     return res.status(404).json({
+    //         error: error
+    //     })
+    // }
+    // board = await Board.findOneAndDelete({ userId: userId, boardId: boardId })
+    // if (!board) {
+    //     return res.status(404).json({
+    //         error: "token invaled"
+    //     })
+    // }
+    // board.userId = undefined;
+    // res.status(200).json(board)
 
 }
 async function getBoards(req, res) {

@@ -1,0 +1,40 @@
+### obtiene todas las columnas del usuario
+
+GET /api/v1/columns
+Host: localhost:4040
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGQ5OTgxOWRkN2ZiNjcxNTNjNDYxNWUiLCJpYXQiOjE2OTE5ODE4NzR9.4fcQ_yrnS3U8jcjdleG2kV909G8BnaT9mEnBrMNPR5I
+
+
+### crea una columna
+
+POST /api/v1/columns
+Host: localhost:4040
+Content-Type: application/json
+Authorization: Bareer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGRhNWJhNjNiN2U4NzFjNTI4MjJhNzMiLCJpYXQiOjE2OTIwMzQwOTB9.IqIA2s88Xn4z4divVIutS_x7N91b6c7TMZ4AS-oAJJw
+
+{
+       
+        "columnIndex":"2",
+        "title":"titulo de la columna 2",
+        "boardId":"64da7b0a2821234f1ff2077e"
+    
+}
+
+### actualiza el titulo de la columna
+
+PUT /api/v1/columns/64d9998bcc75e5b102717695
+Host: localhost:4040
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGQ5OTgxOWRkN2ZiNjcxNTNjNDYxNWUiLCJpYXQiOjE2OTE5ODE4NzR9.4fcQ_yrnS3U8jcjdleG2kV909G8BnaT9mEnBrMNPR5I
+
+{
+       
+        "title":"titulo nuevo"
+        
+}
+
+###Eliminar Columna
+
+DELETE /api/v1/columns/64da78c21b385b81e2269de3 
+Host: localhost:4040
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGRhNWJhNjNiN2U4NzFjNTI4MjJhNzMiLCJpYXQiOjE2OTIwMzE5MTV9.ob_IuAiIc5mmMG3SPST4IRApQMha0UCUElAKWF7a7p8

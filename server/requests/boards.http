@@ -1,0 +1,38 @@
+### Obtener todos los boards del usuario
+
+GET /api/v1/boards
+Host: localhost:4040
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGRhNWJhNjNiN2U4NzFjNTI4MjJhNzMiLCJpYXQiOjE2OTIwMzQwOTB9.IqIA2s88Xn4z4divVIutS_x7N91b6c7TMZ4AS-oAJJw
+
+### crear un board
+
+POST /api/v1/boards
+Host: localhost:4040
+Content-Type: application/json
+Authorization: Bareer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGRhNWJhNjNiN2U4NzFjNTI4MjJhNzMiLCJpYXQiOjE2OTIwMzQwOTB9.IqIA2s88Xn4z4divVIutS_x7N91b6c7TMZ4AS-oAJJw
+
+{     
+       
+        "title":"mi primer board"
+       
+    
+}
+
+### actualizar el titulo de un board
+
+PUT /api/v1/boards/64d9b51a594cf1cb765cf34a 
+Host: localhost:4040
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGQ5OTgxOWRkN2ZiNjcxNTNjNDYxNWUiLCJpYXQiOjE2OTE5ODE4NzR9.4fcQ_yrnS3U8jcjdleG2kV909G8BnaT9mEnBrMNPR5I
+
+{
+       
+        "title":"titulo nuevo"
+        
+}
+
+### eliminar un board
+
+DELETE /api/v1/boards/64da7b0a2821234f1ff2077e
+Host: localhost:4040
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGRhNWJhNjNiN2U4NzFjNTI4MjJhNzMiLCJpYXQiOjE2OTIwMzQwOTB9.IqIA2s88Xn4z4divVIutS_x7N91b6c7TMZ4AS-oAJJw

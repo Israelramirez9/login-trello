@@ -11,6 +11,13 @@ const User = mongoose.model('Users', new mongoose.Schema({
         versionKey: false//esto elimina la propiedad del modelo __v que viene por defecto con mongoose
 
     }))
+User.findByIdAndDeleteHisRelations = async function (userId) {
+    const boardsToDelete = await Board.find({ userId: userId })
+    await Promise.all(boardsToDelete.map(async (board) => {
+        return await Column.findByIdAndDeleteHisRelations(board.boardId, userId)
+    }))
+    await User.findByIdAndDelete(userId)
+}
 
 const Task = mongoose.model('Tasks', new mongoose.Schema({
     userId: String,
@@ -18,6 +25,7 @@ const Task = mongoose.model('Tasks', new mongoose.Schema({
     text: String,
     isCompleted: Boolean,
     taskId: String,
+    columnId: String,
 
 },
     {
@@ -36,8 +44,20 @@ const Column = mongoose.model("Columns", new mongoose.Schema({
 },
     {
         timestamps: true,
-        versionKey: false
+        versionKey: false,
+
     }))
+
+Column.findByIdAndDeleteHisRelations = async function (columnId, userId) {
+
+    const tasksToDelete = await Task.find({ columnId, userId })
+
+    await Promise.all(tasksToDelete.map(async (task) => {
+        return await Task.findByIdAndDelete(task._id)
+    }))
+
+    await Column.findByIdAndDelete(columnId)
+}
 
 const Board = mongoose.model("Boards", new mongoose.Schema({
     userId: String,
@@ -47,6 +67,18 @@ const Board = mongoose.model("Boards", new mongoose.Schema({
 },
     {
         timestamps: true,
-        versionKey: false
-    }))
+        versionKey: false,
+
+    }
+))
+Board.findByIdAndDeleteHisRelations = async function (boardId, userId) {
+
+    const columnsTodelete = await Column.find({ userId, boardId })
+
+    await Promise.all(columnsTodelete.map(async (column) => {
+        return await Column.findByIdAndDeleteHisRelations(column._id, userId)
+    }));
+
+    await Board.findByIdAndDelete(boardId)
+}
 module.exports = { Task, User, Column, Board }

@@ -1,0 +1,34 @@
+### registrar usuario
+
+POST /api/v1/users
+Host: localhost:4040
+Content-Type: application/json
+
+{"name":"user","email":"user@gmail.com","password":"user"}
+
+### iniciar sesion
+
+POST /api/v1/session
+Host: localhost:4040
+Content-Type: application/json
+
+{"email":"daniel@gmail.com","password":"daniel"}
+
+### actualizar usuario
+
+PUT /api/v1/users
+Host: localhost:4040
+Content-Type:  application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGQ5OTgxOWRkN2ZiNjcxNTNjNDYxNWUiLCJpYXQiOjE2OTE5ODE4NzR9.4fcQ_yrnS3U8jcjdleG2kV909G8BnaT9mEnBrMNPR5I
+
+{"email":"daniel@gmail.com"}
+
+### Eliminar usuario 
+
+DELETE /api/v1/users
+Host: localhost:4040
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGRhNWJhNjNiN2U4NzFjNTI4MjJhNzMiLCJpYXQiOjE2OTIwNDMzMTZ9.ST319895ES2xB-klq7mfToeHiiawYsul01UhG2DQofs
+
+
+
+
