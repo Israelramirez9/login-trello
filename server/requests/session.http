@@ -1,0 +1,17 @@
+### iniciar sesion
+
+POST /api/v1/session
+Host: localhost:4040
+Content-Type: application/json
+
+{"email":"user@gmail.com","password":"user"}
+
+###Actualizar token 
+
+PUT /api/v1/session
+Host: localhost:4040
+Content-Type: application/json
+
+{
+    "refreshToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGRiYTllY2Y2ZGUwZGExN2M4NjE3MmIiLCJpYXQiOjE2OTIxMjA0NjcsImV4cCI6MTY5NDcxMjQ2N30.RUwCSO69vSjivJvSZrrOmQd1XCa-hwgAWNReUH6Hwx4"
+}

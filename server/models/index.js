@@ -14,7 +14,7 @@ const User = mongoose.model('Users', new mongoose.Schema({
 User.findByIdAndDeleteHisRelations = async function (userId) {
     const boardsToDelete = await Board.find({ userId: userId })
     await Promise.all(boardsToDelete.map(async (board) => {
-        return await Column.findByIdAndDeleteHisRelations(board.boardId, userId)
+        return await Board.findByIdAndDeleteHisRelations(board._id, userId)
     }))
     await User.findByIdAndDelete(userId)
 }
