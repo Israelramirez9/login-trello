@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const path = require('node:path')
 
-const clientFolder = path.resolve(__dirname + '/../../../client/build')
+const clientFolder = path.resolve(__dirname + '/../../../../client/build')
 
 //este middleware responde por defecto el archivo index.html para la ruta raiz
 router.use(express.static(clientFolder))
