@@ -1,19 +1,15 @@
 import { React, useState } from 'react'
 import '../styles/FormSignUp.css';
-import axios from 'axios';
 import { Navigate } from 'react-router-dom';
 import swal from 'sweetalert';
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
-import { API_URL } from '../../../config/api';
-
+import { createUser } from '../../../services/users.services';
 
 export default function FormSignUp() {
 
 
     const [isAccountCreated, setIsAccountCreasted] = useState(false);
-    const [eyeIcon, setEyeIcon] = useState(false);
-
-    const API_USERS_URL = API_URL + '/users';
+    const [eyeIcon, setEyeIcon] = useState(false);   
     const data = { name: "", email: "", password: "" }
     const [input, setInput] = useState(data);
 
@@ -22,26 +18,21 @@ export default function FormSignUp() {
         setInput({ ...input, [event.target.name]: event.target.value });
 
     }
-    const handleSend = (event) => {
+    const handleSend = async (event) => {
         event.preventDefault();
         if (input.name.length !== 0 && input.email.length !== 0 && input.password.length !== 0) {
-            axios.post(API_USERS_URL, input)
-                .then(resp => {
-                    console.log(resp.data)
-                    if (resp.data.isHasBeenCreated) {
-                        swal("Good job!", "successfully registered user", "success");
-                        setIsAccountCreasted(true)
-                    }
-                })
-                .catch(error => {
-                    swal("email already registered", "use another email", "error");
-                    console.log(error)
-                })
+            try {
+                const resp = await createUser(input)
+                swal("Good job!", "successfully registered user", "success");
+                resp.data ? setIsAccountCreasted(true) : null
+            } catch (error) {
+                console.log(error)
+                swal("email already registered", "use another email", "error");
+            }
         } else {
-            swal("Warning!", "fill in all the fields", "warning");
+            swal("you must fill in all the fields", "try again", "info");
         }
     }
-
 
     if (isAccountCreated) {
         return <Navigate to="/" />

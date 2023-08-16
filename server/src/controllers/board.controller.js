@@ -63,46 +63,8 @@ async function deleteBoard(req, res) {
     }
     board.userId = undefined;
     res.status(200).json(board)
-    // const columnsTodelete = await Column.find({ userId: userId, boardId: boardId })
-    // console.log(columnsTodelete)
-    // if (!columnsTodelete) {
-    //     return res.status(400).json({
-    //         error: "boardId o token invaled"
-    //     })
-    // }
-
-    // const error = [];
-    // await Promise.all(columnsTodelete.map(async (column) => {
-    //     console.log(column.columnId)
-    //     const taskToDelete = await Task.find({ columnId: column.columnId })
-    //     console.log(taskToDelete)
-    //     if (!taskToDelete) {
-    //         error.push(`error: task not found with columnId:${column.columnId}`)
-    //         return;
-    //     }
-
-    //     await Promise.all(taskToDelete.map(async (task) => {
-    //         return await Task.findByIdAndDelete(task.taskId)
-    //     }))
-
-    //     return await Column.findByIdAndDelete(column.columnId)
-    // })
-    // )
-    // if (error.length !== 0) {
-    //     return res.status(404).json({
-    //         error: error
-    //     })
-    // }
-    // board = await Board.findOneAndDelete({ userId: userId, boardId: boardId })
-    // if (!board) {
-    //     return res.status(404).json({
-    //         error: "token invaled"
-    //     })
-    // }
-    // board.userId = undefined;
-    // res.status(200).json(board)
-
 }
+
 async function getBoards(req, res) {
     const userId = req.user._id;
 

@@ -29,7 +29,7 @@ const verifyAccessToken = async (token) => {
     try {
         return jwt.verify(token, ACCESS_TOKEN_SECRET)
     } catch (e) {
-        console.log(e)
+        console.log(e.message)
         return null
     }
 }
@@ -38,7 +38,7 @@ const verifyRefreshToken = async (refreshToken) => {
     try {
         return jwt.verify(refreshToken, REFRESH_TOKEN_SECRET)
     } catch (e) {
-        console.log(e)
+        console.log(e.message)
         return null
     }
 }

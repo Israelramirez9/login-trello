@@ -1,34 +1,39 @@
 import { React, useState, useContext } from 'react'
 import { Navigate } from 'react-router-dom'
 import '../styles/Form.css'
-import axios from 'axios';
 import { UserContext } from '../auth/UserContext';
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import swal from 'sweetalert';
-import { API_URL } from '../config/api';
+import { setRefreshToken, setAccessToken } from '../helpers/token';
+import { startSession } from '../services/session.services';
 
 export default function Form() {
 
     const { globalState, setGlobalState } = useContext(UserContext);
     const [input, setInput] = useState({ email: "", password: "" });
     const [eyeIcon, setEyeIcon] = useState(false)
-    const SESSION_URL = API_URL+"/session"
+   
 
+    const callToApi = async () => {
+       
+        try {
+            const resp = await startSession(input);
+            if (resp.data.isAuthenticate) {
+                swal("Good job!", "user found", "success")
+                setGlobalState({ ...globalState, isAuthenticate: resp.data.isAuthenticate, token: resp.data.tokenSession })
+                setRefreshToken(resp.data.refreshToken);
+                setAccessToken(resp.data.tokenSession);
+            }
+        } catch (error) {
+            swal("Error", "user or password Incorrect!", "error");
+            
+            console.log(error);
+        }
+    }
 
     const authenticateUser = (event) => {
-        event.preventDefault();
-        axios.post(SESSION_URL, input)
-            .then(resp => {
-                console.log(resp.data)
-                if (resp.data.isAuthenticate) {
-                    swal("Good job!", "user found", "success")
-                    setGlobalState({ ...globalState, isAuthenticate: resp.data.isAuthenticate, userId: resp.data.userId })
-                } 
-            })
-            .catch(error => {
-                swal("Error", "user or password Incorrect!", "error");
-                console.log(error);
-            })
+        event.preventDefault();        
+        callToApi();      
     }
 
 

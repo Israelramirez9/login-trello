@@ -4,16 +4,21 @@ POST /api/v1/users
 Host: localhost:4040
 Content-Type: application/json
 
-{"name":"user","email":"user@gmail.com","password":"user"}
+{"name":"daniel","email":"daniel@gmail.com","password":"daniel"}
 
 ### actualizar usuario
 
 PUT /api/v1/users
 Host: localhost:4040
 Content-Type:  application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGRhNjQyNWVjMTkwYTNiOTcyODg0MmEiLCJpYXQiOjE2OTIxMTYyMjAsImV4cCI6MTY5MjExNjI1MH0.QBSbeTMvQ6fIAdUEPfBDIlg5ymqclGgqguriTlZJMD0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGRjNWY4ZTkyZjZkMGNhNmE1MTg2MTIiLCJpYXQiOjE2OTIxNzkyMzYsImV4cCI6MTY5MjE4MjgzNn0.llkutFFc_yulW_vp2iG5Y9x9SLU63C6npUFL0unA2Ik
 
-{"email":"danielother@gmail.com"}
+{
+    "email":"danielother@gmail.com",
+    "name":"israelnew",
+    "password":"asasaasasasqwewewdsd"    
+    
+}
 
 ### Eliminar usuario 
 

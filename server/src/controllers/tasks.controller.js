@@ -12,6 +12,7 @@ async function getTasks(req, res) {
 }
 
 async function createTask(req, res) {
+
     const userId = req.user._id
     const task = new Task(req.body);
     task.userId = userId
@@ -25,7 +26,6 @@ async function createTask(req, res) {
 async function updateTask(req, res) {
     const { taskId } = req.params;
     const { columnIndex, text, isCompleted } = req.body;
-
     if (!Types.ObjectId.isValid(taskId)) { //verifica si el id es valido
         return res.status(400).json({
             error: 'incorrect Id'
@@ -47,18 +47,18 @@ async function updateTask(req, res) {
     if (text) {
         task.text = text;
     }
+    
+    task.isCompleted = isCompleted;
 
-    if (isCompleted) {
-        task.isCompleted = isCompleted;
-    }
     await Task.findOneAndUpdate({ _id: taskId, userId: userId }, task) //la función recibe dos parametros, el primero es el identificador único del Id con lo cúal busca el objeto con ese parámetro guardado y por segundo parámetro es todo el recurso del objeto ha actualizar y retorna el recurso viejo
 
     task.userId = undefined
-    res.json(task);
+    res.status(201).json(task);
 }
 
 async function deleteTask(req, res) {
     const { taskId } = req.params;
+
     if (!Types.ObjectId.isValid(taskId)) { //verifica si el id es valido
         return res.status(400).json({
             error: 'incorrect Id'

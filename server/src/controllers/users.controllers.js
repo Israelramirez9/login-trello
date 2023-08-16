@@ -12,12 +12,15 @@ async function createUser(req, res) {
             newUser.userId = newUser._id;
             newUser.password = await encrypt(newUser.password);
             await newUser.save();
+
+
             res.status(201).json({
-                isHasBeenCreated: true
+                email: newUser.email,
+                name: newUser.name
             });
         } else {
             res.status(409).json({
-                isHasBeenCreated: false
+                error: "existing user"
             })
         }
     } catch (error) {
@@ -28,7 +31,7 @@ async function createUser(req, res) {
 async function updateUser(req, res) {
     const userId = req.user._id;
     const { email, password, name } = req.body
-
+    
     if (!Types.ObjectId.isValid(userId)) { //verifica si el token es válido
         return res.status(400).json({
             error: 'incorrect token'
@@ -44,15 +47,15 @@ async function updateUser(req, res) {
         })
     }
 
-    if (email) {
+    if (email && email.length !== 0) {
         user.email = email
     }
 
-    if (name) {
+    if (name && name.length !== 0) {
         user.name = name
     }
 
-    if (password) {
+    if (password && password.length !== 0) {
         user.password = await encrypt(password);
     }
 

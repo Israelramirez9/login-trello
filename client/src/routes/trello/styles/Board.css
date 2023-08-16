@@ -3,10 +3,9 @@ main {
     height: 100vh;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
-    background-color: #dee1e1;
-    color: black;
-    overflow: hidden;
+    overflow: auto;
+    background-color: var(--bg-board, #dee1e1);
+     
 }
 
 .title {
@@ -31,15 +30,14 @@ h1 {
     margin: 1rem;
 }
 
-section {
+.section-board{
     display: flex;
     justify-content: space-around;
     overflow: auto;
 }
 
 .column {
-    min-height: 500px;
-    box-sizing: border-box;    
+    min-height: 400px;   
     min-width: 250px;
     box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;
     text-align: center;
@@ -52,9 +50,10 @@ section {
     overflow: hidden;
     margin: 2rem;
 }
-.column h2{
+
+.column h2 {
     padding: 1rem;
-    color:#273558;
+    color: #273558;
 }
 
 @media screen and (max-width:1200px) {

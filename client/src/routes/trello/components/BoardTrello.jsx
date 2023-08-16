@@ -1,14 +1,11 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import '../styles/Board.css';
 import ListOfTasks from "./listOfTasks";
-import axios from "axios";
-import { UserContext } from "../../../auth/UserContext";
+import { getTask, createTask, deleteTaskApi, updateTask } from "../../../services/tasks.services";
 import HeaderBoardTrello from "./headerBoardTrello";
-import { API_URL } from "../../../config/api";
 /* creates an array the size of columns to use or print on screen */
 
 const SIZE = 4;
-const API_TASKS = API_URL + '/tasks';
 const COLUMNS = [...new Array(SIZE)];
 
 /**
@@ -18,89 +15,85 @@ const COLUMNS = [...new Array(SIZE)];
 
 /* main component*/
 function BoardTrello() {
-    const { globalState } = useContext(UserContext);
+
     const [tasks, setTask] = useState([]);
     const [tasksFromServer, setTasksFromServer] = useState([]);
     /*useState initializes the value of the tasks array by calling the getTasks function */
 
+    async function apiGetTasksFirstTime() {
+        try {
+            const resp = await getTask();
+            setTask(resp.data);
+            setTasksFromServer(resp.data);
+        } catch (e) {
+            console.log(e)
+        }
+    }
+    async function apiGetTasks() {
+        try {
+            const resp = await getTask();
+            setTasksFromServer(resp.data);
+        } catch (e) {
+            console.log(e)
+        }
+    }
 
     useEffect(() => {
-        axios.get(API_TASKS)
-            .then(response => {
-                setTask(response.data.filter((obj) => obj.userId === globalState.userId));
-                setTasksFromServer(response.data);
-            })
-            .catch(error => console.log(error));
+        apiGetTasksFirstTime();
     }, []);
 
     useEffect(() => {
-        axios.get(API_TASKS)
-            .then(response => {
-                setTasksFromServer(response.data);
-            })
-            .catch(error => console.log(error));
+        apiGetTasks();
 
     }, [tasks]);
-
-
-
-
+    const updateTaskFromServer = (id) => {
+        const currentTasks = tasks.map((task) => {
+            if (task.taskId === id) {
+                task.columnIndex = task.columnIndex - 1;
+                tasksFromServer.forEach(async (serverTask) => {
+                    if (serverTask.taskId === id) {
+                        try {
+                            await updateTask(task);
+                        } catch (error) {
+                            console.log(error)
+                        }
+                    }
+                })
+            }
+            return task;
+        })
+        setTask(currentTasks);
+    }
     const changeColumnTaskToleft = (id) => {
-        const currentTasks = tasks.map((task) => {
-            if (task.taskId === id) {
-                task.columnId = task.columnId - 1;
-                tasksFromServer.forEach((serverTask) => {
-                    if (serverTask.taskId === id) {
-                        axios.put(API_TASKS + "/" + serverTask.taskId, task)
-                            .then(res => console.log(res))
-                            .catch(e => console.log(e))
-                    }
-                })
-            }
-            return task;
-        })
-        setTask(currentTasks);
-    }
-    const changeColumnTaskToRight = (id) => {
-        const currentTasks = tasks.map((task) => {
-            if (task.taskId === id) {
-                task.columnId = task.columnId + 1;
-                tasksFromServer.forEach((serverTask) => {
-                    if (serverTask.taskId === id) {
-                        axios.put(API_TASKS + "/" + serverTask.taskId, task)
-                            .then(res => console.log(res))
-                            .catch(e => console.log(e))
-                    }
-                })
-            }
-            return task;
-        })
-        setTask(currentTasks);
+        updateTaskFromServer(id);
     }
 
-    const addTask = (task) => {
+    const changeColumnTaskToRight = (id) => {
+        updateTask(id);
+    }
+
+    const addTask = async (task) => {
         if (task.text.trim()) {
             task.text = task.text.trim();
-            axios.post(API_TASKS, task)
-                .then(response => {
-                    setTask([...tasks, response.data])
-                    console.log(response)
-                })
-                .catch(error => console.log(error));
+            try {
+                const response = await createTask(task);
+                setTask([...tasks, response.data])
+            } catch (error) {
+                console.log(error)
+            }
         }
     }
 
     const deleteTask = (id) => {
-        tasksFromServer.forEach((task) => {
+        tasksFromServer.forEach(async (task) => {
             if (task.taskId === id) {
-                axios.delete(API_TASKS + "/" + task.taskId)
-                    .then(response => {
-                        console.log(response.data)
-                        const currentTasks = tasks.filter((task) => task.taskId !== id);
-                        setTask(currentTasks);
-                        console.log(response)
-                    })
-                    .catch(error => console.log(error));
+                try {
+                    await deleteTaskApi(task.taskId)
+                    const currentTasks = tasks.filter((task) => task.taskId !== id);
+                    setTask(currentTasks);
+                } catch (error) {
+                    console.log(error)
+                }
             }
         })
 
@@ -110,11 +103,15 @@ function BoardTrello() {
         const currentTasks = tasks.map((task) => {
             if (task.taskId === id) {
                 task.isCompleted = !task.isCompleted;
-                tasksFromServer.forEach((serverTask) => {
+                tasksFromServer.forEach(async (serverTask) => {
                     if (serverTask.taskId === id) {
-                        axios.put(API_TASKS + "/" + serverTask.taskId, task)
-                            .then(res => console.log(res))
-                            .catch(e => console.log(e))
+                        try {
+                            const resp = await updateTask(task);
+                            console.log(resp.data)
+                            console.log(task)
+                        } catch (error) {
+                            console.log(error)
+                        }
                     }
                 })
             }
@@ -131,17 +128,17 @@ function BoardTrello() {
             <div className="title">
                 <h1> My Trello board </h1>
             </div>
-            <section>
+            <section className="section-board">
                 {
                     COLUMNS.map((_, index) =>
                         <div key={index} className="column"><h2>Column {index + 1}</h2>
-                            <ListOfTasks columnId={index + 1}
+                            <ListOfTasks columnIndex={index + 1}
 
                                 changeColumnTaskToRight={changeColumnTaskToRight}
                                 changeColumnTaskToleft={changeColumnTaskToleft}
                                 deleteTask={deleteTask}
                                 completeTask={completeTask}
-                                tasks={tasks.filter((task) => task.columnId === index + 1)}
+                                tasks={tasks.filter((task) => task.columnIndex === index + 1)}
                                 addTask={addTask}></ListOfTasks>
                         </div>
 

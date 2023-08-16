@@ -3,13 +3,13 @@ import TaskForm from "./taskForm";
 import Task from "./task";
 import '../styles/listOfTasks.css';
 
-function ListOfTasks({ columnId, addTask, tasks, completeTask, deleteTask, changeColumnTaskToRight, changeColumnTaskToleft }) {
+function ListOfTasks({ columnIndex, addTask, tasks, completeTask, deleteTask, changeColumnTaskToRight, changeColumnTaskToleft }) {
 
-    
+   
     return (
         <>
 
-            <TaskForm onSubmit={addTask} columnId={columnId}></TaskForm>
+            <TaskForm onSubmit={addTask} columnIndex={columnIndex}></TaskForm>
             <div className="tasks-list-container">
                 {
                     tasks.map((task, index) =>
@@ -18,7 +18,7 @@ function ListOfTasks({ columnId, addTask, tasks, completeTask, deleteTask, chang
                             id={task.taskId}
                             text={task.text}
                             isCompleted={task.isCompleted}
-                            columnId={columnId}
+                            columnIndex={columnIndex}
                             completeTask={completeTask}
                             deleteTask={deleteTask}
                             changeColumnTaskToRight={changeColumnTaskToRight}

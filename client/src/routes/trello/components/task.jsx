@@ -3,7 +3,7 @@ import '../styles/task.css';
 import { AiOutlineCloseCircle, AiOutlineCheckCircle, AiOutlineArrowRight, AiOutlineArrowLeft } from "react-icons/ai";
 import swal from 'sweetalert';
 
-function Task({ id, text, isCompleted, completeTask, deleteTask, columnId, changeColumnTaskToleft, changeColumnTaskToRight }) {
+function Task({ id, text, isCompleted, completeTask, deleteTask, columnIndex, changeColumnTaskToleft, changeColumnTaskToRight }) {
 
     const alertDeleteTask=()=>{
         swal({
@@ -26,7 +26,7 @@ function Task({ id, text, isCompleted, completeTask, deleteTask, columnId, chang
     }
     return (
         <div className="tasks-container">
-            {columnId !== 1 ? <div className="row" onClick={()=>changeColumnTaskToleft(id)}><AiOutlineArrowLeft /></div> : null}
+            {columnIndex !== 1 ? <div className="row" onClick={()=>changeColumnTaskToleft(id)}><AiOutlineArrowLeft /></div> : null}
 
             <div className={isCompleted ? 'text-task-container completed' : 'text-task-container'}>
                 {text}
@@ -39,7 +39,7 @@ function Task({ id, text, isCompleted, completeTask, deleteTask, columnId, chang
                 onClick={alertDeleteTask}>
                 <AiOutlineCloseCircle className='delete-task-icon' />
             </div>
-            {columnId !== 4 ? <div className="row" onClick={()=>changeColumnTaskToRight(id)}><AiOutlineArrowRight /></div> : null}
+            {columnIndex !== 4 ? <div className="row" onClick={()=>changeColumnTaskToRight(id)}><AiOutlineArrowRight /></div> : null}
         </div>
     );
 }
