@@ -53,6 +53,7 @@
 
 .icon-power-off:hover {
     color: rgb(235, 52, 52);
+    cursor: pointer;
 }
 
 .icon-power-off-container {

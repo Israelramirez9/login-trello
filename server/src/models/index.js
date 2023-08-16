@@ -11,6 +11,7 @@ const User = mongoose.model('Users', new mongoose.Schema({
         versionKey: false//esto elimina la propiedad del modelo __v que viene por defecto con mongoose
 
     }))
+    
 User.findByIdAndDeleteHisRelations = async function (userId) {
     const boardsToDelete = await Board.find({ userId: userId })
     await Promise.all(boardsToDelete.map(async (board) => {

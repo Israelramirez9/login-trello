@@ -5,7 +5,7 @@ import { BsGrid3X3GapFill } from 'react-icons/bs'
 import { FaPowerOff } from 'react-icons/fa'
 import { UserContext } from '../../../auth/UserContext'
 import swal from 'sweetalert'
-import { removeAccessToken, removeRefreshToken } from '../../../helpers/token'
+import { cleanLocalStorage } from '../../../functions/cleanLocalStorage'
 import { Link } from 'react-router-dom'
 
 function HeaderBoardTrello() {
@@ -16,8 +16,7 @@ function HeaderBoardTrello() {
         event.preventDefault();
         swal("Good Bye!", "good Bye 👐", "success");
         setGlobalState({ isAuthenticate: false });
-        removeAccessToken();
-        removeRefreshToken();
+        cleanLocalStorage();
     }
     return (
         <header className='header-container'>

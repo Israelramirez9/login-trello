@@ -6,6 +6,7 @@ import { AiOutlinePlusCircle } from 'react-icons/ai'
 import { BsFillTrashFill } from 'react-icons/bs'
 import { updateUser, deleteUser } from '../../../services/users.services'
 import swal from 'sweetalert'
+import { cleanLocalStorage } from '../../../functions/cleanLocalStorage'
 function UpdateUser() {
 
     const { setGlobalState } = useContext(UserContext);
@@ -22,16 +23,17 @@ function UpdateUser() {
         setInput({ ...input, [event.target.name]: event.target.value })
     }
 
-    const handleSend = async () => {
+    const handleSend = async (option) => {
         if (input.name.length !== 0 || input.email.length !== 0 || input.password.length !== 0) {
             try {
 
-             await updateUser(input);
-             swal("Good job!", "successfully update user", "success");
+                const resp = await updateUser({ [option]: input[option] });
+                swal("Good job!", "successfully update user", "success");
+
             } catch (error) {
                 console.log(error);
             }
-        }else{
+        } else {
             swal("you must fill in someone field", "try again", "info");
         }
         setInput({
@@ -40,31 +42,31 @@ function UpdateUser() {
             password: ""
         })
     }
-    const alertDeleteTask=()=>{
+    const alertDeleteTask = () => {
         swal({
             title: "Are you sure?",
             text: "Once deleted, you will not be able to recover this account!",
             icon: "warning",
             buttons: true,
             dangerMode: true,
-          })
-          .then((willDelete) => {
-            if (willDelete) {
-              swal("Poof! Your account has been deleted!", {
-                icon: "success",
-              });
-              handleDeleteUser();
-            } else {
-              swal("Your account is safe!");
-            }
-          });
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    swal("Poof! Your account has been deleted!", {
+                        icon: "success",
+                    });
+                    handleDeleteUser();
+                } else {
+                    swal("Your account is safe!");
+                }
+            });
     }
     const handleDeleteUser = async () => {
         try {
             await deleteUser();
+            cleanLocalStorage();
             setGlobalState({ isAuthenticate: false });
-            removeAccessToken();
-            removeRefreshToken();
+
 
         } catch (error) {
             console.log(error);
@@ -109,7 +111,7 @@ function UpdateUser() {
                     </button>
                     <div ref={dropDownContainerName} className='drop-down-container' id="updateName-drop-down">
                         <input type="text" placeholder='write your name...' className='input-updateUser' value={input.name} name={"name"} onChange={handleChanges} />
-                        <button className='send-button' onClick={handleSend}>send</button>
+                        <button className='send-button' onClick={() => handleSend("name")}>send</button>
                     </div>
                 </section>
                 <section>
@@ -119,7 +121,7 @@ function UpdateUser() {
                     </button>
                     <div ref={dropDownContainerEmail} className='drop-down-container' id="updateEmail-drop-down">
                         <input type="email" placeholder='write your new email...' className='input-updateUser' value={input.email} name={"email"} onChange={handleChanges} />
-                        <button className='send-button' onClick={handleSend}>send</button>
+                        <button className='send-button' onClick={() => handleSend("email")}>send</button>
                     </div>
                 </section>
                 <section>
@@ -129,7 +131,7 @@ function UpdateUser() {
                     </button>
                     <div ref={dropDownContainerPassword} className='drop-down-container' id="updatePassword-drop-down">
                         <input type="password" placeholder='new Password' className='input-updateUser' value={input.password} name={"password"} onChange={handleChanges} />
-                        <button className='send-button' onClick={handleSend}>send</button>
+                        <button className='send-button' onClick={() => handleSend("password")}>send</button>
                     </div>
                 </section>
                 <section>

@@ -9,11 +9,11 @@ Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGQ5OTgxOW
 POST /api/v1/tasks
 Host: localhost:4040
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGRiYTllY2Y2ZGUwZGExN2M4NjE3MmIiLCJpYXQiOjE2OTIxNTc5ODcsImV4cCI6MTY5MjE2MTU4N30.mmM6DfGhInPgNwJc2qFaMR__yAPtQkp6YIeorv4j3hU
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGRjZWI4NzBlZjVmZGFjMzExZjQwNWYiLCJpYXQiOjE2OTIxOTk5NjIsImV4cCI6MTY5MjIwMzU2Mn0.C3nS9wTsC2vgBBkwB12eKMY2Ldybwd2470BzwRl3SYc
 
 {      
         "columnIndex": 1,
-        "text": "tarea de prueba",
+        "text": "tarea de prueba 3",
         "isCompleted": false,
         "columnId":"64da7b6f2821234f1ff20782"             
 }

@@ -3,6 +3,7 @@ import '../styles/Board.css';
 import ListOfTasks from "./listOfTasks";
 import { getTask, createTask, deleteTaskApi, updateTask } from "../../../services/tasks.services";
 import HeaderBoardTrello from "./headerBoardTrello";
+import HeaderColumn from "./headerColumn";
 /* creates an array the size of columns to use or print on screen */
 
 const SIZE = 4;
@@ -46,10 +47,11 @@ function BoardTrello() {
         apiGetTasks();
 
     }, [tasks]);
-    const updateTaskFromServer = (id) => {
+
+    const updateTaskFromServer = (id, direction) => {
         const currentTasks = tasks.map((task) => {
             if (task.taskId === id) {
-                task.columnIndex = task.columnIndex - 1;
+                task.columnIndex = task.columnIndex + (direction === "left" ? - 1 : +1);
                 tasksFromServer.forEach(async (serverTask) => {
                     if (serverTask.taskId === id) {
                         try {
@@ -65,11 +67,11 @@ function BoardTrello() {
         setTask(currentTasks);
     }
     const changeColumnTaskToleft = (id) => {
-        updateTaskFromServer(id);
+        updateTaskFromServer(id, "left");
     }
 
     const changeColumnTaskToRight = (id) => {
-        updateTask(id);
+        updateTaskFromServer(id, "right");
     }
 
     const addTask = async (task) => {
@@ -131,7 +133,9 @@ function BoardTrello() {
             <section className="section-board">
                 {
                     COLUMNS.map((_, index) =>
-                        <div key={index} className="column"><h2>Column {index + 1}</h2>
+                        <div key={index} className="column">
+                            <HeaderColumn columnIndex={index + 1} />
+
                             <ListOfTasks columnIndex={index + 1}
 
                                 changeColumnTaskToRight={changeColumnTaskToRight}

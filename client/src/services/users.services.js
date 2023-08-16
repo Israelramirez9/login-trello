@@ -10,6 +10,7 @@ export const createUser = async (user) => {
 }
 
 export const updateUser = async (user) => {
+    console.log(user)
     const resp = await axiosInstance.put(API_URL_USERS, user);
     return resp
 }
