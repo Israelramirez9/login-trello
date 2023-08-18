@@ -7,10 +7,12 @@ import { BsFillTrashFill } from 'react-icons/bs'
 import { updateUser, deleteUser } from '../../../services/users.services'
 import swal from 'sweetalert'
 import { cleanLocalStorage } from '../../../functions/cleanLocalStorage'
+import SliderMenu from './sliderMenu'
+
 function UpdateUser() {
 
     const { setGlobalState } = useContext(UserContext);
-
+    const [isMoved, setIsMoved] = useState(false);
 
     const [input, setInput] = useState({
         name: "",
@@ -100,9 +102,20 @@ function UpdateUser() {
         }
         console.log(showDropDown)
     }
+
+    const moveSlider = () => {
+
+        const slider = document.getElementsByClassName('slider-container')[0]
+
+        isMoved ? slider.style.left = '-40rem' : slider.style.left = '0';
+        setIsMoved(!isMoved)
+
+    }
+
     return (
         <main>
-            <HeaderBoardTrello />
+            <HeaderBoardTrello moveSlider={moveSlider}/>
+            <SliderMenu moveSlider={moveSlider} />
             <div className='optiones-updateUser-container'>
                 <section>
                     <button className='button-option-updateUser' onClick={() => handleOptionUpdateUser("name")}>

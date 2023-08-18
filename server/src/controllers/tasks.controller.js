@@ -25,7 +25,7 @@ async function createTask(req, res) {
 
 async function updateTask(req, res) {
     const { taskId } = req.params;
-    const { columnIndex, text, isCompleted } = req.body;
+    const { columnIndex, text, isCompleted, columnId } = req.body;
     if (!Types.ObjectId.isValid(taskId)) { //verifica si el id es valido
         return res.status(400).json({
             error: 'incorrect Id'
@@ -47,7 +47,10 @@ async function updateTask(req, res) {
     if (text) {
         task.text = text;
     }
-    
+    if (columnId) {
+        task.columnId = columnId;
+    }
+
     task.isCompleted = isCompleted;
 
     await Task.findOneAndUpdate({ _id: taskId, userId: userId }, task) //la función recibe dos parametros, el primero es el identificador único del Id con lo cúal busca el objeto con ese parámetro guardado y por segundo parámetro es todo el recurso del objeto ha actualizar y retorna el recurso viejo

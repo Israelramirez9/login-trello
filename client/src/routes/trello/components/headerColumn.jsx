@@ -1,27 +1,52 @@
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
 import '../styles/headerColumn.css'
+import { updateColumn, deleteColumn } from '../../../services/columns.services'
+import { BsFillTrash3Fill } from 'react-icons/bs'
+import { getTask } from '../../../services/tasks.services'
 
-function HeaderColumn({ columnIndex }) {
-    const [inputTitle, setInputTite] = useState({
-        title: ""
+function HeaderColumn({ columnIndex, title, columnId, columns, setColumns, setTask }) {
+
+    let currentTasks=[];
+    let currentColumns = [];
+    const [inputTitle, setInputTitle] = useState({
+        title: title,
+        columnId: columnId
     })
     function handleChange(event) {
-        setInputTite({ title: event.target.value })
+        setInputTitle({ ...inputTitle, title: event.target.value })
     }
     function writingInputcolumnTitle(event) {
         event.target.style.background = "white"
         event.target.style.textAlign = "left"
     }
-    const column = useRef();
 
-    function handleKeyDown(event) {
+    const deleteColumnClick = async () => {
+
+        try {
+            const resp = await deleteColumn(columnId, columnId);
+            currentColumns = columns.filter(col => col.columnId !== columnId)
+            currentTasks = await getTask();
+            setTask(currentTasks.data);
+            setColumns(currentColumns);
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
+
+    async function handleKeyDown(event) {
         if (event.keyCode == '13') {
             event.target.style.background = "#f1f2f4";
             event.target.style.color = "#273558";
-            event.target.style.fontSize='large';
+            event.target.style.fontSize = 'large';
             event.target.style.textAlign = "center";
-            if(event.target.value!==0){
-                
+
+            try {
+
+                const resp = await updateColumn(columnId, inputTitle)
+
+            } catch (error) {
+                console.log(error)
             }
         }
     }
@@ -31,12 +56,21 @@ function HeaderColumn({ columnIndex }) {
         event.target.style.background = "#f1f2f4";
         event.target.style.textAlign = "center";
         event.target.style.color = "#273558";
+        event.target.style.fontSize = 'large';
 
     }
 
 
     return (
-        <input value={inputTitle.title} ref={column} className='input-Column-title' id={`input-Column${parseInt(columnIndex)}-title`} placeholder={'title Column ' + columnIndex} onFocus={writingInputcolumnTitle} onKeyDown={handleKeyDown} onBlur={handleBlur} onChange={handleChange} />
+        <div className='header-column-container'>
+            <input value={inputTitle.title} className='input-Column-title' id={`input-Column${parseInt(columnIndex)}-title`} placeholder={'title Column ' + columnIndex} onFocus={writingInputcolumnTitle} onKeyDown={handleKeyDown} onBlur={handleBlur} onChange={handleChange} />
+
+
+            <BsFillTrash3Fill className='icon-trash-column' onClick={deleteColumnClick} />
+
+
+        </div>
+
     )
 }
 

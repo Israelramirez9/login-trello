@@ -1,11 +1,31 @@
-.input-Column-title{
+.input-Column-title {
     padding: 1rem;
-    margin:1rem;
+    margin: 1rem;
     border: none;
-    background-color: var(--bg-column,#f1f2f4);
+    background-color: var(--bg-column, #f1f2f4);
     width: 80%;
+
 }
-.input-Column-title::placeholder{
+
+.header-column-container {
+    position: relative;
+}
+
+.input-Column-title::placeholder {
     font-size: medium;
-    color:black
+    color: black
+}
+
+.icon-trash-column {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    font-size: 1.5rem;
+    color: var(--color-blue);
+    cursor: pointer;
+}
+
+.icon-trash-column:hover {
+    transform: scale(1.1);
+    color: rgb(252, 70, 70);
 }

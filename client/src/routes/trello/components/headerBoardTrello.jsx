@@ -8,7 +8,7 @@ import swal from 'sweetalert'
 import { cleanLocalStorage } from '../../../functions/cleanLocalStorage'
 import { Link } from 'react-router-dom'
 
-function HeaderBoardTrello() {
+function HeaderBoardTrello({ moveSlider }) {
 
     const { setGlobalState } = useContext(UserContext);
 
@@ -21,7 +21,7 @@ function HeaderBoardTrello() {
     return (
         <header className='header-container'>
             <div className='first-container'>
-                <button className='menu-dropdown-container'>
+                <button className='menu-dropdown-container' onClick={moveSlider}>
                     <BsGrid3X3GapFill className='icon-menu-drop' />
                 </button>
                 <Link to="/trello">

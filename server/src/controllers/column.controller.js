@@ -45,7 +45,7 @@ async function updateColumn(req, res) {
             error: "column not found"
         })
     }
-
+    
     column.title = title;
     const newColumn = await Column.findOneAndUpdate({ _id: columnId, userId: userId }, column)
     if (!newColumn) {
@@ -80,29 +80,7 @@ async function deleteColumn(req, res) {
         return res.status(500).json({
             error: "error"
         })
-    }
-
-    // const taskTodelete = await Task.find({ userId: userId, columnId: column.columnId })
-
-    // if (!taskTodelete) {
-    //     return res.status(400).json({
-    //         error: "column number o token invaled"
-    //     })
-    // }
-
-    // await Promise.all(taskTodelete.map(async (task) => {
-    //     return await Task.findOneAndDelete({ taskId: task.taskId })
-    // }))
-
-    // const columnTodelete = await Column.findOneAndDelete({ columnId: columnId, userId: userId })
-    // if (!columnTodelete) {
-    //     return res.status(404).json({
-    //         error: "token or id column invaled"
-    //     })
-    // }
-    // columnTodelete.userId = undefined;
-    // res.status(200).json(columnTodelete)
-
+    }  
 
 }
 

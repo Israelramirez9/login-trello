@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import '../styles/taskForm.css';
 import { UserContext } from "../../../auth/UserContext";
-function TaskForm({ onSubmit, columnIndex }) {
+function TaskForm({ onSubmit, columnIndex, columnId }) {
 
     const { globalState } = useContext(UserContext)
     const [input, setInput] = useState('');
@@ -17,7 +17,8 @@ function TaskForm({ onSubmit, columnIndex }) {
             userId: globalState.userId,
             columnIndex: columnIndex,
             text: input,
-            isCompleted: false
+            isCompleted: false,
+            columnId: columnId
         }
 
         onSubmit(newTask)

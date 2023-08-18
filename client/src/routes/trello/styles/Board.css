@@ -5,7 +5,7 @@ main {
     flex-direction: column;
     overflow: auto;
     background-color: var(--bg-board, #dee1e1);
-     
+
 }
 
 .title {
@@ -30,14 +30,15 @@ h1 {
     margin: 1rem;
 }
 
-.section-board{
+.section-board {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
+    gap: 2rem;
     overflow: auto;
 }
 
 .column {
-    min-height: 400px;   
+    min-height: 400px;
     width: 250px;
     box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;
     text-align: center;
@@ -49,6 +50,7 @@ h1 {
     align-items: center;
     overflow: hidden;
     margin: 2rem;
+
 }
 
 .column h2 {

@@ -4,21 +4,22 @@ import ListOfTasks from "./listOfTasks";
 import { getTask, createTask, deleteTaskApi, updateTask } from "../../../services/tasks.services";
 import HeaderBoardTrello from "./headerBoardTrello";
 import HeaderColumn from "./headerColumn";
+import { bringBoardsFromServer } from "./bringBoardsFromServer";
+import NewColumn from "./newColumn";
+import SliderMenu from "./sliderMenu";
 /* creates an array the size of columns to use or print on screen */
 
-const SIZE = 4;
-const COLUMNS = [...new Array(SIZE)];
 
-/**
- * 
- * @returns 
- */
 
 /* main component*/
 function BoardTrello() {
 
+
+    const [boards, setBoards] = useState([]);
+    const [columns, setColumns] = useState([]);
     const [tasks, setTask] = useState([]);
     const [tasksFromServer, setTasksFromServer] = useState([]);
+    const [isMoved, setIsMoved] = useState(false);
     /*useState initializes the value of the tasks array by calling the getTasks function */
 
     async function apiGetTasksFirstTime() {
@@ -26,6 +27,9 @@ function BoardTrello() {
             const resp = await getTask();
             setTask(resp.data);
             setTasksFromServer(resp.data);
+            const obj = await bringBoardsFromServer();
+            setColumns(obj.columns);
+            setBoards(obj.boards);
         } catch (e) {
             console.log(e)
         }
@@ -34,6 +38,8 @@ function BoardTrello() {
         try {
             const resp = await getTask();
             setTasksFromServer(resp.data);
+
+
         } catch (e) {
             console.log(e)
         }
@@ -41,6 +47,7 @@ function BoardTrello() {
 
     useEffect(() => {
         apiGetTasksFirstTime();
+
     }, []);
 
     useEffect(() => {
@@ -51,10 +58,20 @@ function BoardTrello() {
     const updateTaskFromServer = (id, direction) => {
         const currentTasks = tasks.map((task) => {
             if (task.taskId === id) {
+
                 task.columnIndex = task.columnIndex + (direction === "left" ? - 1 : +1);
+
+                columns.forEach(column => {
+
+                    if (task.columnIndex === column.columnIndex) {
+                        task.columnId = column.columnId
+                    }
+                })
+
                 tasksFromServer.forEach(async (serverTask) => {
                     if (serverTask.taskId === id) {
                         try {
+
                             await updateTask(task);
                         } catch (error) {
                             console.log(error)
@@ -122,33 +139,44 @@ function BoardTrello() {
         setTask(currentTasks);
     }
 
+    const moveSlider = () => {
 
+        const slider = document.getElementsByClassName('slider-container')[0]
+
+        isMoved ? slider.style.left = '-40rem' : slider.style.left = '0';
+        setIsMoved(!isMoved)
+
+    }
 
     return (
         <main>
-            <HeaderBoardTrello />
+            <HeaderBoardTrello moveSlider={moveSlider} />
+            <SliderMenu moveSlider={moveSlider} />
             <div className="title">
-                <h1> My Trello board </h1>
+                <h1> {boards[0]?.title}</h1>
             </div>
             <section className="section-board">
                 {
-                    COLUMNS.map((_, index) =>
+                    columns.map((column, index) =>
                         <div key={index} className="column">
-                            <HeaderColumn columnIndex={index + 1} />
+                            <HeaderColumn columnIndex={index + 1} title={column.title} columnId={column.columnId} columns={columns} setColumns={setColumns} setTask={setTask} />
 
-                            <ListOfTasks columnIndex={index + 1}
-
+                            <ListOfTasks columnsLength={columns.length}
+                                columnIndex={index + 1}
+                                columnId={column.columnId}
                                 changeColumnTaskToRight={changeColumnTaskToRight}
                                 changeColumnTaskToleft={changeColumnTaskToleft}
                                 deleteTask={deleteTask}
                                 completeTask={completeTask}
                                 tasks={tasks.filter((task) => task.columnIndex === index + 1)}
-                                addTask={addTask}></ListOfTasks>
+                                addTask={addTask}>
+
+                            </ListOfTasks>
                         </div>
 
                     )
                 }
-
+                <NewColumn columns={columns} setColumns={setColumns} />
             </section>
 
         </main>

@@ -1,0 +1,37 @@
+.slider-container {
+    width: 20rem;
+    position: fixed;
+    height: 100vh;
+    background-color: white;
+    z-index: 100;
+    transition: all 500ms linear;
+    left: -20rem;
+}
+
+.close-aside-icon-container {
+    position: relative;
+    font-size: 2rem;
+
+}
+
+.close-aside-icon {
+    right: 1rem;
+    position: absolute;
+    top: 1rem;
+    color: var(--color-blue,#273558);
+}
+
+.close-aside-icon:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+}
+.logo-trello-aside-container{
+    height: 7rem;   
+    margin:3rem 2rem;
+    
+}
+.logo-trello-aside-container img{
+   height: 7rem;
+   width: 100%;
+   object-fit: contain;    
+}
