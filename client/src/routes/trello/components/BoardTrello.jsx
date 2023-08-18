@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import '../styles/Board.css';
 import ListOfTasks from "./listOfTasks";
 import { getTask, createTask, deleteTaskApi, updateTask } from "../../../services/tasks.services";
@@ -7,6 +7,7 @@ import HeaderColumn from "./headerColumn";
 import { bringBoardsFromServer } from "./bringBoardsFromServer";
 import NewColumn from "./newColumn";
 import SliderMenu from "./sliderMenu";
+import { UserContext } from "../../../auth/UserContext";
 /* creates an array the size of columns to use or print on screen */
 
 
@@ -14,7 +15,8 @@ import SliderMenu from "./sliderMenu";
 /* main component*/
 function BoardTrello() {
 
-
+    let columnByBoard = [];
+    const { globalState, setGlobalState } = useContext(UserContext);
     const [boards, setBoards] = useState([]);
     const [columns, setColumns] = useState([]);
     const [tasks, setTask] = useState([]);
@@ -29,11 +31,13 @@ function BoardTrello() {
             setTasksFromServer(resp.data);
             const obj = await bringBoardsFromServer();
             setColumns(obj.columns);
+            setGlobalState({ ...globalState, boards: obj.boards, currentBoardIndex: 0 })
             setBoards(obj.boards);
         } catch (e) {
             console.log(e)
         }
     }
+
     async function apiGetTasks() {
         try {
             const resp = await getTask();
@@ -148,16 +152,20 @@ function BoardTrello() {
 
     }
 
+    columnByBoard = columns.filter(column => column.boardId === boards[globalState.currentBoardIndex]?.boardId)
+
+
     return (
         <main>
             <HeaderBoardTrello moveSlider={moveSlider} />
             <SliderMenu moveSlider={moveSlider} />
             <div className="title">
-                <h1> {boards[0]?.title}</h1>
+                <h1> {boards[globalState.currentBoardIndex]?.title}</h1>
             </div>
             <section className="section-board">
                 {
-                    columns.map((column, index) =>
+                    columnByBoard.map((column, index) =>
+
                         <div key={index} className="column">
                             <HeaderColumn columnIndex={index + 1} title={column.title} columnId={column.columnId} columns={columns} setColumns={setColumns} setTask={setTask} />
 
@@ -176,7 +184,7 @@ function BoardTrello() {
 
                     )
                 }
-                <NewColumn columns={columns} setColumns={setColumns} />
+                <NewColumn columns={columns} columnsByBoard={columnByBoard} setColumns={setColumns} boardId={boards[globalState.currentBoardIndex]?.boardId} />
             </section>
 
         </main>

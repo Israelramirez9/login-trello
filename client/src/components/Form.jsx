@@ -12,28 +12,28 @@ export default function Form() {
     const { globalState, setGlobalState } = useContext(UserContext);
     const [input, setInput] = useState({ email: "", password: "" });
     const [eyeIcon, setEyeIcon] = useState(false)
-   
+
 
     const callToApi = async () => {
-       
+
         try {
             const resp = await startSession(input);
             if (resp.data.isAuthenticate) {
                 swal("Good job!", "user found", "success")
-                setGlobalState({ ...globalState, isAuthenticate: resp.data.isAuthenticate, token: resp.data.tokenSession })
+                setGlobalState({ ...globalState, isAuthenticate: resp.data.isAuthenticate, token: resp.data.tokenSession, boards: [] })
                 setRefreshToken(resp.data.refreshToken);
                 setAccessToken(resp.data.tokenSession);
             }
         } catch (error) {
             swal("Error", "user or password Incorrect!", "error");
-            
+
             console.log(error);
         }
     }
 
     const authenticateUser = (event) => {
-        event.preventDefault();        
-        callToApi();      
+        event.preventDefault();
+        callToApi();
     }
 
 
