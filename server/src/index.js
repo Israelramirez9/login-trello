@@ -12,6 +12,7 @@ const PORT = process.env.PORT || 8080;
 
 app.use(cors())//permite que cualquier origen(del lado del cliente pueda realizar la petición al servidor),
 //si se quiere bloquear ciertos origines se puede hacer con la misma librería cors
+
 app.use(express.json());
 
 app.use(router)

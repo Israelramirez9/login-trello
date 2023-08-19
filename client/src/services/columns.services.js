@@ -3,8 +3,12 @@ import { API_URL } from "../config/api";
 
 const API_URL_COLUMN = API_URL + "/columns";
 
-export const getColumns = async () => {
-    const resp = await axiosInstance.get(API_URL_COLUMN)
+export const getColumns = async (boardId) => {
+    let url = API_URL_COLUMN
+    if (boardId) {
+        url += `?board=${boardId}`
+    }
+    const resp = await axiosInstance.get(url)
     return resp;
 }
 

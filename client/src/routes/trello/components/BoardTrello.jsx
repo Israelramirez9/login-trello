@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import '../styles/Board.css';
 import ListOfTasks from "./listOfTasks";
-import { getTask, createTask, deleteTaskApi, updateTask } from "../../../services/tasks.services";
+import { getTasks, createTask, deleteTaskApi, updateTask } from "../../../services/tasks.services";
 import HeaderBoardTrello from "./headerBoardTrello";
 import HeaderColumn from "./headerColumn";
 import { bringBoardsFromServer } from "./bringBoardsFromServer";
@@ -17,16 +17,17 @@ function BoardTrello() {
 
     let columnByBoard = [];
     const { globalState, setGlobalState } = useContext(UserContext);
-    const [boards, setBoards] = useState([]);
+    const { boards } = globalState
+
     const [columns, setColumns] = useState([]);
     const [tasks, setTask] = useState([]);
     const [tasksFromServer, setTasksFromServer] = useState([]);
     const [isMoved, setIsMoved] = useState(false);
     /*useState initializes the value of the tasks array by calling the getTasks function */
-
+    console.log(globalState)
     async function apiGetTasksFirstTime() {
         try {
-            const resp = await getTask();
+            const resp = await getTasks();
             setTask(resp.data);
             setTasksFromServer(resp.data);
             const obj = await bringBoardsFromServer();
@@ -38,9 +39,10 @@ function BoardTrello() {
         }
     }
 
+
     async function apiGetTasks() {
         try {
-            const resp = await getTask();
+            const resp = await getTasks();
             setTasksFromServer(resp.data);
 
 

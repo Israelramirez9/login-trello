@@ -11,6 +11,7 @@ async function createColumn(req, res) {
     }
 
     try {
+
         const column = await Column(req.body);
         column.userId = userId;
         column.columnId = column._id;
@@ -23,13 +24,25 @@ async function createColumn(req, res) {
 }
 
 async function getColumns(req, res) {
+    const boardId = req.query.board; //obtiene por consulta de la url el valor con la clave board
     const userId = req.user._id;
+
     try {
-        const columns = await Column.find({ userId });
+        const filters = {
+            userId
+        }
+        if (boardId) {
+            filters.boardId = boardId
+        }
+        const columns = await Column.find(filters);
         columns.forEach(col => col.userId = undefined)
         res.json(columns);
+
     } catch (e) {
-        res.status(400)
+        console.log(e.message);
+        res.status(500).json({
+            error: 'an error has ocurred'
+        })
     }
 }
 
@@ -45,7 +58,7 @@ async function updateColumn(req, res) {
             error: "column not found"
         })
     }
-    
+
     column.title = title;
     const newColumn = await Column.findOneAndUpdate({ _id: columnId, userId: userId }, column)
     if (!newColumn) {
@@ -80,7 +93,7 @@ async function deleteColumn(req, res) {
         return res.status(500).json({
             error: "error"
         })
-    }  
+    }
 
 }
 

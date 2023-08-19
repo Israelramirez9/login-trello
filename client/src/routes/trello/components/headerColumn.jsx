@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import '../styles/headerColumn.css'
 import { updateColumn, deleteColumn } from '../../../services/columns.services'
 import { BsFillTrash3Fill } from 'react-icons/bs'
-import { getTask } from '../../../services/tasks.services'
+import { getTasks } from '../../../services/tasks.services'
 
 function HeaderColumn({ columnIndex, title, columnId, columns, setColumns, setTask }) {
 
@@ -25,7 +25,7 @@ function HeaderColumn({ columnIndex, title, columnId, columns, setColumns, setTa
         try {
             const resp = await deleteColumn(columnId, columnId);
             currentColumns = columns.filter(col => col.columnId !== columnId)
-            currentTasks = await getTask();
+            currentTasks = await getTasks();
             setTask(currentTasks.data);
             setColumns(currentColumns);
         } catch (error) {

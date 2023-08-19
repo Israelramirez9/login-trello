@@ -4,7 +4,7 @@ import { UserContext } from '../auth/UserContext'
 export default function ProtectedRoute({ children }) {
 
     const { globalState } = useContext(UserContext)
-
+    
     return globalState.isAuthenticate ? children : <Navigate to="/" />
 
 }

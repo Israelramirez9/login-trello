@@ -8,11 +8,19 @@ import ProtectedRoute from './components/ProtectedRoute';
 import { UserContext } from './auth/UserContext';
 import { getAccessToken } from './helpers/token';
 import UpdateUser from './routes/trello/components/updateUser';
+
 function App() {
 
-  
   const token = getAccessToken();
-  const [globalState, setGlobalState] = useState({ isAuthenticate: token !== null, token });
+
+  const [globalState, setGlobalState] = useState(
+    {
+      isAuthenticate: token !== null,
+      token,
+      boards: [],
+      boardIndexSelected: 0
+    }
+  );
   const router = createBrowserRouter([
     {
       path: "/",

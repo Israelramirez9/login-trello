@@ -9,7 +9,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGRhNWJhN
 POST /api/v1/boards
 Host: localhost:4040
 Content-Type: application/json
-Authorization: Bareer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGRhNWJhNjNiN2U4NzFjNTI4MjJhNzMiLCJpYXQiOjE2OTIwMzQwOTB9.IqIA2s88Xn4z4divVIutS_x7N91b6c7TMZ4AS-oAJJw
+Authorization: Bareer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGRmYmFjNWJhMDI2NjdmMjc1MDllNDAiLCJpYXQiOjE2OTIzODk3NTAsImV4cCI6MTY5MjM5MzM1MH0.pYcaeZkErKMIZJAeyJHDclJDlYQP_Og285rCgYpjPnI
 
 {     
        

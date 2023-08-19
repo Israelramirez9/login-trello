@@ -12,7 +12,7 @@ export default function Form() {
     const { globalState, setGlobalState } = useContext(UserContext);
     const [input, setInput] = useState({ email: "", password: "" });
     const [eyeIcon, setEyeIcon] = useState(false)
-
+    console.log(globalState);
 
     const callToApi = async () => {
 
@@ -20,7 +20,7 @@ export default function Form() {
             const resp = await startSession(input);
             if (resp.data.isAuthenticate) {
                 swal("Good job!", "user found", "success")
-                setGlobalState({ ...globalState, isAuthenticate: resp.data.isAuthenticate, token: resp.data.tokenSession, boards: [] })
+                setGlobalState({ ...globalState, isAuthenticate: resp.data.isAuthenticate, token: resp.data.tokenSession })
                 setRefreshToken(resp.data.refreshToken);
                 setAccessToken(resp.data.tokenSession);
             }

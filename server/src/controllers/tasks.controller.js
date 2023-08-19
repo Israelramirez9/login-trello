@@ -3,12 +3,29 @@ const { Types } = require('mongoose')
 
 
 async function getTasks(req, res) {
+    const columnId = req.query.column;
     const userId = req.user._id
-    const tasks = await Task.find({ userId })
-    tasks.forEach(obj => {
-        obj.userId = undefined
-    })
-    res.json(tasks);
+    try {
+        const filters = {
+            userId
+        }
+        if (columnId) {
+            filters.columnId = columnId;
+        }
+        const tasks = await Task.find(filters)
+
+        tasks.forEach(task => {
+            task.userId = undefined
+        })
+
+        res.json(tasks);
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({
+            error: 'an error has ocurred'
+        })
+    }
+
 }
 
 async function createTask(req, res) {
