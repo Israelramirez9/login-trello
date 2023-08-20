@@ -9,6 +9,14 @@ export async function getBoards() {
 }
 
 export async function createBoard(dataBoard) {
-    const resp = await axiosInstance.post(API_URL_BOARDS,dataBoard)
+    const resp = await axiosInstance.post(API_URL_BOARDS, dataBoard)
+    return resp
+}
+export async function deleteBoard(boardId) {
+    const resp = await axiosInstance.delete(API_URL_BOARDS + "/" + boardId)
+    return resp
+}
+export async function updateBoard(boardId, board) {
+    const resp = await axiosInstance.put(API_URL_BOARDS + "/" + boardId, board)
     return resp
 }

@@ -24,6 +24,7 @@ function Task({ id, text, isCompleted, completeTask, deleteTask, columnIndex, ch
         }
       });
   }
+  
   return (
     <div className="tasks-container">
       {columnIndex !== 1 ?

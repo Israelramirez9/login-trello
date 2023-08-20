@@ -6,6 +6,7 @@ import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import swal from 'sweetalert';
 import { setRefreshToken, setAccessToken } from '../helpers/token';
 import { startSession } from '../services/session.services';
+import { getBoards } from '../services/board.services';
 
 export default function Form() {
 
@@ -20,9 +21,11 @@ export default function Form() {
             const resp = await startSession(input);
             if (resp.data.isAuthenticate) {
                 swal("Good job!", "user found", "success")
-                setGlobalState({ ...globalState, isAuthenticate: resp.data.isAuthenticate, token: resp.data.tokenSession, boards: [] })
                 setRefreshToken(resp.data.refreshToken);
                 setAccessToken(resp.data.tokenSession);
+                const boards = await getBoards();
+                setGlobalState({ ...globalState, isAuthenticate: resp.data.isAuthenticate, token: resp.data.tokenSession, boardsFromServer: boards.data, boardIndex: 0 })
+               
             }
         } catch (error) {
             swal("Error", "user or password Incorrect!", "error");

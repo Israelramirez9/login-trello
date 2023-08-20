@@ -3,24 +3,39 @@ import '../styles/sliderMenu.css'
 import { GrClose } from 'react-icons/gr'
 import { UserContext } from '../../../auth/UserContext'
 import { AiOutlinePlusCircle } from 'react-icons/ai'
-import { createBoard } from '../../../services/board.services'
+import { createBoard, deleteBoard } from '../../../services/board.services'
 
+import InputTitleBoard from './InputTitleBoard'
 function SliderMenu({ moveSlider }) {
     const { globalState, setGlobalState } = useContext(UserContext);
-    
+    const { boardsFromServer } = globalState;
+    let currentBoards = boardsFromServer;
+
     const selectBoard = (index) => {
-        console.log(index)
-        setGlobalState({ ...globalState, currentBoardIndex: index })
+        setGlobalState({ ...globalState, boardIndex: index })
+        moveSlider();
     }
 
     const createNewBoard = async () => {
         try {
             const resp = await createBoard({ title: "New Board" })
-            console.log(resp.data)
+            boardsFromServer.push(resp.data)
+            setGlobalState({ ...globalState, boardsFromServer: boardsFromServer })
         } catch (error) {
             console.log(error);
         }
     }
+    const deleteBoardCurrent = async (board) => {
+        try {
+            const resp = await deleteBoard(board.boardId)
+            currentBoards = boardsFromServer.filter(boardFromServer => boardFromServer.boardId !== board.boardId)
+            setGlobalState({ ...globalState, boardsFromServer: currentBoards, boardIndex: 0 })
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+
     return (
         <aside className='slider-container'>
             <div className='close-aside-icon-container'>
@@ -31,11 +46,17 @@ function SliderMenu({ moveSlider }) {
             </div>
             <ul className='name-list-boards-container'>
                 {
-                    globalState.boards?.map((board, index) => (
-                        <li key={index} onClick={() => selectBoard(index)}>{board.title}</li>
+                    boardsFromServer?.map((board, index) => (
+                        <li key={index} >
+                            <InputTitleBoard
+                                board={board}
+                                index={index}
+                                deleteBoardCurrent={deleteBoardCurrent}
+                                selectBoard={selectBoard}
+                                boardsFromServer={boardsFromServer} />
+                        </li>
                     ))
                 }
-
             </ul>
             <div className='add-another-board-container' onClick={createNewBoard}>
                 <div className='add-another-board'>

@@ -4,6 +4,8 @@
     border: none;
     background-color: var(--bg-column, #f1f2f4);
     width: 80%;
+    color:#273558;
+    font-size: large;
 
 }
 

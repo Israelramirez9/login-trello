@@ -9,7 +9,7 @@ export default function FormSignUp() {
 
 
     const [isAccountCreated, setIsAccountCreasted] = useState(false);
-    const [eyeIcon, setEyeIcon] = useState(false);   
+    const [eyeIcon, setEyeIcon] = useState(false);
     const data = { name: "", email: "", password: "" }
     const [input, setInput] = useState(data);
 
@@ -22,6 +22,7 @@ export default function FormSignUp() {
         event.preventDefault();
         if (input.name.length !== 0 && input.email.length !== 0 && input.password.length !== 0) {
             try {
+              
                 const resp = await createUser(input)
                 swal("Good job!", "successfully registered user", "success");
                 resp.data ? setIsAccountCreasted(true) : null

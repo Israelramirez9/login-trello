@@ -19,6 +19,7 @@ export const bringColumnsFromServer = async (boards) => {
         });
         columns.push(secondColumn.data)
     }
+   
   
     return columns
 

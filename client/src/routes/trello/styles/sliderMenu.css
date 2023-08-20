@@ -10,11 +10,7 @@
     flex-direction: column;
 }
 
-.close-aside-icon-container {
-    position: relative;
-    font-size: 2rem;
 
-}
 
 .close-aside-icon {
     right: 1rem;
@@ -34,6 +30,13 @@
 
 }
 
+.close-aside-icon-container {
+    position: relative;
+    font-size: 2rem;
+    cursor: pointer;
+
+}
+
 .logo-trello-aside-container img {
     height: 7rem;
     width: 100%;
@@ -47,6 +50,8 @@
 }
 
 .name-list-boards-container li {
+    position: relative;
+
     text-align: center;
     padding: 1rem;
     margin-bottom: 1rem;
@@ -58,8 +63,81 @@
     box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
 }
 
-.name-list-boards-container li:hover {
-    background-color: aliceblue;
+.check-icon-container {
+    border: none;
+    background: transparent;
+    position: absolute;
+    left: 1rem;
+    top: 30%;
+    cursor: pointer;
+    padding: 0.2rem;
+    border-radius: 0.3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.check-icon-container:hover {
+    background-color: rgb(164, 167, 166, 0.5);
+}
+
+.check-icon {
+    font-size: 1.2rem;
+    color: #273558;
+}
+
+
+.input-title-board {
+    color: #273558;
+    font-size: large;
+    border: none;
+}
+
+
+.board-edit-icon-container {
+    position: absolute;
+    right: 2rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0.2rem;
+    border-radius: 0.3rem;
+    top: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.board-edit-icon-container:hover {
+    background-color: rgb(164, 167, 166, 0.5);
+}
+
+.board-edit-icon {
+    color: #273558;
+    font-size: 1.2rem;
+}
+
+.board-trash-icon-container {
+    background: transparent;
+    border: none;
+    position: absolute;
+    right: 0.5rem;
+    cursor: pointer;
+    padding: 0.2rem;
+    border-radius: 0.3rem;
+    top: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.board-trash-icon-container:hover {
+    background-color: #a4a7a680;
+}
+
+.board-trash-icon {
+    color: #273558;
+    font-size: 1.2rem;
 }
 
 .add-another-board {

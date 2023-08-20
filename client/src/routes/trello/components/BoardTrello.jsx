@@ -17,7 +17,8 @@ function BoardTrello() {
 
     let columnByBoard = [];
     const { globalState, setGlobalState } = useContext(UserContext);
-    const [boards, setBoards] = useState([]);
+    const { boardsFromServer, boardIndex } = globalState;
+    const [boards, setBoards] = useState(boardsFromServer);
     const [columns, setColumns] = useState([]);
     const [tasks, setTask] = useState([]);
     const [tasksFromServer, setTasksFromServer] = useState([]);
@@ -26,13 +27,15 @@ function BoardTrello() {
 
     async function apiGetTasksFirstTime() {
         try {
+
             const resp = await getTask();
             setTask(resp.data);
             setTasksFromServer(resp.data);
             const obj = await bringBoardsFromServer();
             setColumns(obj.columns);
-            setGlobalState({ ...globalState, boards: obj.boards, currentBoardIndex: 0 })
             setBoards(obj.boards);
+            setGlobalState({ ...globalState, boardsFromServer: obj.boards })
+
         } catch (e) {
             console.log(e)
         }
@@ -65,7 +68,7 @@ function BoardTrello() {
 
                 task.columnIndex = task.columnIndex + (direction === "left" ? - 1 : +1);
 
-                columns.forEach(column => {
+                columnByBoard.forEach(column => {
 
                     if (task.columnIndex === column.columnIndex) {
                         task.columnId = column.columnId
@@ -130,8 +133,7 @@ function BoardTrello() {
                     if (serverTask.taskId === id) {
                         try {
                             const resp = await updateTask(task);
-                            console.log(resp.data)
-                            console.log(task)
+                          
                         } catch (error) {
                             console.log(error)
                         }
@@ -152,31 +154,39 @@ function BoardTrello() {
 
     }
 
-    columnByBoard = columns.filter(column => column.boardId === boards[globalState.currentBoardIndex]?.boardId)
-
+    columnByBoard = columns.filter(column => column.boardId === boardsFromServer[boardIndex]?.boardId)
+   
 
     return (
         <main>
             <HeaderBoardTrello moveSlider={moveSlider} />
             <SliderMenu moveSlider={moveSlider} />
             <div className="title">
-                <h1> {boards[globalState.currentBoardIndex]?.title}</h1>
+                <h1> {boardsFromServer[boardIndex]?.title}</h1>
             </div>
             <section className="section-board">
                 {
                     columnByBoard.map((column, index) =>
 
                         <div key={index} className="column">
-                            <HeaderColumn columnIndex={index + 1} title={column.title} columnId={column.columnId} columns={columns} setColumns={setColumns} setTask={setTask} />
+                            <HeaderColumn
+                                columnIndex={index + 1}
+                                title={column.title}
+                                columnId={column.columnId}
+                                columns={columns}
+                                setColumns={setColumns}
+                                setTask={setTask}
+                            />
 
-                            <ListOfTasks columnsLength={columns.length}
+                            <ListOfTasks
+                                columnsLength={columnByBoard.length}
                                 columnIndex={index + 1}
                                 columnId={column.columnId}
                                 changeColumnTaskToRight={changeColumnTaskToRight}
                                 changeColumnTaskToleft={changeColumnTaskToleft}
                                 deleteTask={deleteTask}
                                 completeTask={completeTask}
-                                tasks={tasks.filter((task) => task.columnIndex === index + 1)}
+                                tasks={tasks.filter((task) => task.columnId === column.columnId)}
                                 addTask={addTask}>
 
                             </ListOfTasks>
@@ -184,7 +194,12 @@ function BoardTrello() {
 
                     )
                 }
-                <NewColumn columns={columns} columnsByBoard={columnByBoard} setColumns={setColumns} boardId={boards[globalState.currentBoardIndex]?.boardId} />
+                <NewColumn
+                    columns={columns}
+                    columnsByBoard={columnByBoard}
+                    setColumns={setColumns}
+                    boardId={boardsFromServer[boardIndex]?.boardId}
+                />
             </section>
 
         </main>

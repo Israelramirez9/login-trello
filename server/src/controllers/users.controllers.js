@@ -3,9 +3,11 @@ const { Types } = require('mongoose')
 const { User } = require('../models')
 
 async function createUser(req, res) {
+  
     try {
         const { email } = req.body;
         const user = await User.findOne({ email })
+       
         if (!user) {
             const newUser = new User(req.body)
 
@@ -31,7 +33,7 @@ async function createUser(req, res) {
 async function updateUser(req, res) {
     const userId = req.user._id;
     const { email, password, name } = req.body
-    
+
     if (!Types.ObjectId.isValid(userId)) { //verifica si el token es válido
         return res.status(400).json({
             error: 'incorrect token'
