@@ -8,17 +8,7 @@ function Form() {
 
   return (
     <form onSubmit={handleSend} className={styles['form']}>
-      <div className={styles['input-box']}>
-        <input
-          type="text"
-          placeholder='Name'
-          className={styles['input-control']}
-          name="name"
-          value={input.name}
-          onChange={handleChange}
-        >
-        </input>
-      </div>
+
       <div className={styles['input-box']}>
         <input
           type="email"
@@ -31,7 +21,7 @@ function Form() {
         </input>
       </div>
       <div className={styles['input-box']}>
-                
+
         <InputPasswordWithEye
           type="password"
           placeholder='Password'
@@ -42,7 +32,7 @@ function Form() {
         />
 
       </div>
-      <button type="submit" className={styles['btn']}>create Account</button>
+      <button type="submit" className={styles['btn']}>Sign In</button>
     </form >
   )
 }

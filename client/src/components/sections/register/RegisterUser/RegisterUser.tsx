@@ -10,7 +10,7 @@ function RegisterUser() {
         <div className={styles["box"]}>
           <h3>Register</h3>
           <Form></Form>
-          <Link href="/">Come Back</Link>
+          <Link href="/login">I already have an account </Link>
         </div>
 
       </div>
