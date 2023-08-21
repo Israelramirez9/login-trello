@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import '../styles/headerColumn.css'
 import { updateColumn, deleteColumn } from '../../../services/columns.services'
 import { BsFillTrash3Fill } from 'react-icons/bs'
@@ -12,6 +12,11 @@ function HeaderColumn({ columnIndex, title, columnId, columns, setColumns, setTa
         title: title,
         columnId: columnId
     })
+
+    useEffect(() => {
+        setInputTitle({ ...inputTitle, title})
+    }, [title])
+    
     function handleChange(event) {
         setInputTitle({ ...inputTitle, title: event.target.value })
     }
@@ -40,11 +45,11 @@ function HeaderColumn({ columnIndex, title, columnId, columns, setColumns, setTa
             event.target.style.fontSize = 'large';
             try {
                 const resp = await updateColumn(columnId, inputTitle)
+                console.log(resp.data)
                 columns.forEach(column => {
                     if (column.columnId === columnId) {
                         column.title = resp.data.title
                     }
-
                 })
                 setColumns(columns);
             } catch (error) {
@@ -53,12 +58,10 @@ function HeaderColumn({ columnIndex, title, columnId, columns, setColumns, setTa
         }
     }
 
-
     function handleBlur(event) {
         event.target.style.background = "#f1f2f4";
         event.target.style.textAlign = "center";
     }
-
 
     return (
         <div className='header-column-container'>

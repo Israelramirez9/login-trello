@@ -4,6 +4,7 @@ export const bringColumnsFromServer = async (boards) => {
 
     const columnsFromServer = await getColumns();
     let columns = columnsFromServer.data;
+    
     if (columns.length === 0 && boards.length === 1) {
         const firstColumn = await createColumn({
             columnIndex: "1",

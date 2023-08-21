@@ -45,7 +45,7 @@ async function updateColumn(req, res) {
             error: "column not found"
         })
     }
-    
+
     column.title = title;
     const newColumn = await Column.findOneAndUpdate({ _id: columnId, userId: userId }, column)
     if (!newColumn) {
@@ -53,11 +53,11 @@ async function updateColumn(req, res) {
             error: "invaled token"
         })
     }
-
-    res.status(202).json({
-        title: title,
-        columnId: columnId
-    })
+    newColumn.userId = undefined
+    newColumn.title = title
+    res.status(202).json(
+        newColumn
+    )
 
 }
 async function deleteColumn(req, res) {
@@ -80,7 +80,7 @@ async function deleteColumn(req, res) {
         return res.status(500).json({
             error: "error"
         })
-    }  
+    }
 
 }
 

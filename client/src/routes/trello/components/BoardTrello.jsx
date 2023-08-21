@@ -26,8 +26,8 @@ function BoardTrello() {
     /*useState initializes the value of the tasks array by calling the getTasks function */
 
     async function apiGetTasksFirstTime() {
-        try {
 
+        try {
             const resp = await getTask();
             setTask(resp.data);
             setTasksFromServer(resp.data);
@@ -35,7 +35,6 @@ function BoardTrello() {
             setColumns(obj.columns);
             setBoards(obj.boards);
             setGlobalState({ ...globalState, boardsFromServer: obj.boards })
-
         } catch (e) {
             console.log(e)
         }
@@ -45,8 +44,6 @@ function BoardTrello() {
         try {
             const resp = await getTask();
             setTasksFromServer(resp.data);
-
-
         } catch (e) {
             console.log(e)
         }
@@ -54,12 +51,10 @@ function BoardTrello() {
 
     useEffect(() => {
         apiGetTasksFirstTime();
-
     }, []);
 
     useEffect(() => {
         apiGetTasks();
-
     }, [tasks]);
 
     const updateTaskFromServer = (id, direction) => {
@@ -133,7 +128,7 @@ function BoardTrello() {
                     if (serverTask.taskId === id) {
                         try {
                             const resp = await updateTask(task);
-                          
+
                         } catch (error) {
                             console.log(error)
                         }
@@ -153,9 +148,9 @@ function BoardTrello() {
         setIsMoved(!isMoved)
 
     }
-
+  
     columnByBoard = columns.filter(column => column.boardId === boardsFromServer[boardIndex]?.boardId)
-   
+
 
     return (
         <main>
@@ -170,7 +165,7 @@ function BoardTrello() {
 
                         <div key={index} className="column">
                             <HeaderColumn
-                                columnIndex={index + 1}
+                                columnIndex={column.columnIndex}
                                 title={column.title}
                                 columnId={column.columnId}
                                 columns={columns}

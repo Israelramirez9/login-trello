@@ -24,7 +24,7 @@ export default function Form() {
                 setRefreshToken(resp.data.refreshToken);
                 setAccessToken(resp.data.tokenSession);
                 const boards = await getBoards();
-                setGlobalState({ ...globalState, isAuthenticate: resp.data.isAuthenticate, token: resp.data.tokenSession, boardsFromServer: boards.data, boardIndex: 0 })
+                setGlobalState({ ...globalState, isAuthenticate: resp.data.isAuthenticate, token: resp.data.tokenSession, boardsFromServer: boards.data})
                
             }
         } catch (error) {
