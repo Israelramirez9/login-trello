@@ -39,7 +39,10 @@ function App() {
         </ProtectedRoute>
       )
     }
-  ]);
+  ].map((route) => (
+    { ...route, path: import.meta.env.BASE_URL + route.path }
+  ))
+  );
 
   return (
 
