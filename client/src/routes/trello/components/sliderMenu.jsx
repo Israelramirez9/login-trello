@@ -4,16 +4,21 @@ import { GrClose } from 'react-icons/gr'
 import { UserContext } from '../../../auth/UserContext'
 import { AiOutlinePlusCircle } from 'react-icons/ai'
 import { createBoard, deleteBoard } from '../../../services/board.services'
-
 import InputTitleBoard from './InputTitleBoard'
+import { useNavigate } from 'react-router-dom'
+
 function SliderMenu({ moveSlider }) {
+    const navigate = useNavigate();
     const { globalState, setGlobalState } = useContext(UserContext);
     const { boardsFromServer } = globalState;
     let currentBoards = boardsFromServer;
 
     const selectBoard = (index) => {
+        
         setGlobalState({ ...globalState, boardIndex: index })
         moveSlider();
+        navigate('/trello')
+
     }
 
     const createNewBoard = async () => {

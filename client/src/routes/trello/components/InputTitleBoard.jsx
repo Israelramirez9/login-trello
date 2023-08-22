@@ -12,8 +12,7 @@ function InputTitleBoard({ board, index, deleteBoardCurrent, selectBoard, boards
         if (event.keyCode == '13') {
             event.target.style.background = "#fff";
             event.target.setAttribute('readOnly', null)
-            console.log(event.target.value)
-            console.log(board.boardId)
+           
             if (event.target.value !== 0) {
                 try {
                     const resp = await updateBoard(board.boardId, { title: event.target.value })

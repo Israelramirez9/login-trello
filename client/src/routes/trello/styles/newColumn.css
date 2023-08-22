@@ -1,6 +1,7 @@
 .new-column {
     height: 100px;
-    width: 250px;
+    max-width: 250px;
+    min-width: 250px;
     box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;
     background-color: rgb(178, 185, 188, 0.5);
     color: black;

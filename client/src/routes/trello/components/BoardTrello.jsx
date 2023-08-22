@@ -148,7 +148,7 @@ function BoardTrello() {
         setIsMoved(!isMoved)
 
     }
-  
+
     columnByBoard = columns.filter(column => column.boardId === boardsFromServer[boardIndex]?.boardId)
 
 
@@ -189,12 +189,16 @@ function BoardTrello() {
 
                     )
                 }
+
+
                 <NewColumn
                     columns={columns}
                     columnsByBoard={columnByBoard}
                     setColumns={setColumns}
                     boardId={boardsFromServer[boardIndex]?.boardId}
                 />
+
+
             </section>
 
         </main>

@@ -32,14 +32,14 @@ h1 {
 
 .section-board {
     display: flex;
-    justify-content: center;
+  
     gap: 2rem;
     overflow: auto;
 }
 
 .column {
     min-height: 400px;
-    width: 250px;
+    min-width: 250px;
     box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;
     text-align: center;
     background-color: #f1f2f4;
@@ -50,7 +50,7 @@ h1 {
     align-items: center;
     overflow: hidden;
     margin: 2rem;
-
+    max-width: 250px;
 }
 
 .column h2 {

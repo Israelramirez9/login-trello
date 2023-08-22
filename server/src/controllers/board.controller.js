@@ -1,4 +1,4 @@
-const { Column, Task, Board } = require('../models')
+const { Board } = require('../models')
 const { Types } = require('mongoose')
 
 async function createBoard(req, res) {
