@@ -7,6 +7,8 @@ import swal from 'sweetalert';
 import { setRefreshToken, setAccessToken } from '../helpers/token';
 import { startSession } from '../services/session.services';
 import { getBoards } from '../services/board.services';
+import { BASE_URL } from '../config/base';
+
 
 export default function Form() {
 
@@ -24,8 +26,8 @@ export default function Form() {
                 setRefreshToken(resp.data.refreshToken);
                 setAccessToken(resp.data.tokenSession);
                 const boards = await getBoards();
-                setGlobalState({ ...globalState, isAuthenticate: resp.data.isAuthenticate, token: resp.data.tokenSession, boardsFromServer: boards.data})
-               
+                setGlobalState({ ...globalState, isAuthenticate: resp.data.isAuthenticate, token: resp.data.tokenSession, boardsFromServer: boards.data })
+
             }
         } catch (error) {
             swal("Error", "user or password Incorrect!", "error");
@@ -46,7 +48,7 @@ export default function Form() {
 
 
     if (globalState.isAuthenticate) {
-        return <Navigate to={`/trello`}></Navigate>;
+        return <Navigate to={BASE_URL + `/trello`}></Navigate>;
     }
 
     const showPassword = () => {

@@ -4,6 +4,7 @@ import { Navigate } from 'react-router-dom';
 import swal from 'sweetalert';
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { createUser } from '../../../services/users.services';
+import { BASE_URL } from '../../../config/base';
 
 export default function FormSignUp() {
 
@@ -22,7 +23,7 @@ export default function FormSignUp() {
         event.preventDefault();
         if (input.name.length !== 0 && input.email.length !== 0 && input.password.length !== 0) {
             try {
-              
+
                 const resp = await createUser(input)
                 swal("Good job!", "successfully registered user", "success");
                 resp.data ? setIsAccountCreasted(true) : null
@@ -36,7 +37,7 @@ export default function FormSignUp() {
     }
 
     if (isAccountCreated) {
-        return <Navigate to="/" />
+        return <Navigate to={BASE_URL} />
     }
 
     const showPassword = () => {

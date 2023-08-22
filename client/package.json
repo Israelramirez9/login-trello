@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "build:github": "vite build --outDir ../docs",
+    "build:github": "vite build --emptyOutDir --outDir ../docs",
     "preview": "vite preview"
   },
   "dependencies": {

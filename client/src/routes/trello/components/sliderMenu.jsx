@@ -6,6 +6,7 @@ import { AiOutlinePlusCircle } from 'react-icons/ai'
 import { createBoard, deleteBoard } from '../../../services/board.services'
 import InputTitleBoard from './InputTitleBoard'
 import { useNavigate } from 'react-router-dom'
+import { BASE_URL } from '../../../config/base'
 
 function SliderMenu({ moveSlider }) {
     const navigate = useNavigate();
@@ -14,10 +15,10 @@ function SliderMenu({ moveSlider }) {
     let currentBoards = boardsFromServer;
 
     const selectBoard = (index) => {
-        
+
         setGlobalState({ ...globalState, boardIndex: index })
         moveSlider();
-        navigate('/trello')
+        navigate(BASE_URL + '/trello')
 
     }
 

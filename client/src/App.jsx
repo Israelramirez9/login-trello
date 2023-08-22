@@ -8,6 +8,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import { UserContext } from './auth/UserContext';
 import { getAccessToken } from './helpers/token';
 import UpdateUser from './routes/trello/components/updateUser';
+import { BASE_URL } from './config/base';
 function App() {
 
 
@@ -40,9 +41,10 @@ function App() {
       )
     }
   ].map((route) => (
-    { ...route, path: import.meta.env.BASE_URL + route.path }
+    { ...route, path: BASE_URL + route.path }
   ))
   );
+  
 
   return (
 
