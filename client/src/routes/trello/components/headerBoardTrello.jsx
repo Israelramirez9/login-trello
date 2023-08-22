@@ -7,6 +7,7 @@ import { UserContext } from '../../../auth/UserContext'
 import swal from 'sweetalert'
 import { cleanLocalStorage } from '../../../functions/cleanLocalStorage'
 import { Link } from 'react-router-dom'
+import { BASE_URL } from '../../../config/base'
 
 function HeaderBoardTrello({ moveSlider }) {
 
@@ -24,14 +25,14 @@ function HeaderBoardTrello({ moveSlider }) {
                 <button className='menu-dropdown-container' onClick={moveSlider}>
                     <BsGrid3X3GapFill className='icon-menu-drop' />
                 </button>
-                <Link to="/trello">
+                <Link to={BASE_URL + "trello"}>
                     <div className='logo-trello-container'>
                         <img src="./images/trello-logo.png" alt="logo" />
                     </div>
                 </Link>
             </div>
             <div className='second-container'>
-                <Link to="/updateUser" className='icon-user-container'>
+                <Link to={BASE_URL + "updateUser"} className='icon-user-container'>
                     <FaUserAlt className='icon-user' />
                 </Link>
                 <button className='icon-power-off-container' onClick={handleSend}>

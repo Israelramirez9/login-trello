@@ -16,16 +16,16 @@ function App() {
   const [globalState, setGlobalState] = useState({ isAuthenticate: token !== null, token, boardsFromServer: [], boardIndex: 0 });
   const router = createBrowserRouter([
     {
-      path: "/",
+      path: "",
       element: <Board />,
       errorElement: <h1>page not found</h1>
     },
     {
-      path: "/register",
+      path: "register",
       element: <BoardSignUp />
     },
     {
-      path: "/trello",
+      path: "trello",
       element: (
         <ProtectedRoute >
           <BoardTrello />
@@ -33,7 +33,7 @@ function App() {
       )
     },
     {
-      path: "/updateUser",
+      path: "updateUser",
       element: (
         <ProtectedRoute >
           <UpdateUser />

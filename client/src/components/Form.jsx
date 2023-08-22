@@ -48,7 +48,7 @@ export default function Form() {
 
 
     if (globalState.isAuthenticate) {
-        return <Navigate to={BASE_URL + `/trello`}></Navigate>;
+        return <Navigate to={BASE_URL + `trello`}></Navigate>;
     }
 
     const showPassword = () => {

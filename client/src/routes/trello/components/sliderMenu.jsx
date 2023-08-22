@@ -18,7 +18,7 @@ function SliderMenu({ moveSlider }) {
 
         setGlobalState({ ...globalState, boardIndex: index })
         moveSlider();
-        navigate(BASE_URL + '/trello')
+        navigate(BASE_URL + 'trello')
 
     }
 
