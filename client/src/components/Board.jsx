@@ -3,6 +3,7 @@ import '../styles/Board.css'
 import Form from './Form'
 import { Link } from 'react-router-dom'
 import { BASE_URL } from '../config/base'
+import Footer from '../routes/trello/components/Footer'
 
 export default function Board() {
 
@@ -17,6 +18,7 @@ export default function Board() {
 
                 </div>
             </div>
+            <Footer />
 
         </section>
     )

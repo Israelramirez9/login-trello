@@ -8,6 +8,7 @@ import { updateUser, deleteUser } from '../../../services/users.services'
 import swal from 'sweetalert'
 import { cleanLocalStorage } from '../../../functions/cleanLocalStorage'
 import SliderMenu from './sliderMenu'
+import Footer from './Footer'
 
 function UpdateUser() {
 
@@ -33,6 +34,7 @@ function UpdateUser() {
                 swal("Good job!", "successfully update user", "success");
 
             } catch (error) {
+                swal("email already registered", "use another email", "error")
                 console.log(error);
             }
         } else {
@@ -114,7 +116,7 @@ function UpdateUser() {
 
     return (
         <main>
-            <HeaderBoardTrello moveSlider={moveSlider}/>
+            <HeaderBoardTrello moveSlider={moveSlider} />
             <SliderMenu moveSlider={moveSlider} />
             <div className='optiones-updateUser-container'>
                 <section>
@@ -154,6 +156,7 @@ function UpdateUser() {
                     </button>
                 </section>
             </div>
+            <Footer />
 
         </main>
     )

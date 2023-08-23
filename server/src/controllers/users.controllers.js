@@ -3,11 +3,11 @@ const { Types } = require('mongoose')
 const { User } = require('../models')
 
 async function createUser(req, res) {
-  
+
     try {
         const { email } = req.body;
         const user = await User.findOne({ email })
-       
+
         if (!user) {
             const newUser = new User(req.body)
 
@@ -50,6 +50,12 @@ async function updateUser(req, res) {
     }
 
     if (email && email.length !== 0) {
+        const newEmail = await User.findOne({ email })
+        if (newEmail) {
+            return res.status(406).json({
+                error: "email already registered"                
+            })
+        }
         user.email = email
     }
 

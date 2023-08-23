@@ -31,6 +31,25 @@ function SliderMenu({ moveSlider }) {
             console.log(error);
         }
     }
+    const alertDelete = (board) => {
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover these tasks!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    swal("Poof! Your task has been deleted!", {
+                        icon: "success",
+                    });
+                    deleteBoardCurrent(board);
+                } else {
+                    swal("Your task is safe!");
+                }
+            });
+    }
     const deleteBoardCurrent = async (board) => {
         try {
             const resp = await deleteBoard(board.boardId)
@@ -57,7 +76,7 @@ function SliderMenu({ moveSlider }) {
                             <InputTitleBoard
                                 board={board}
                                 index={index}
-                                deleteBoardCurrent={deleteBoardCurrent}
+                                deleteBoardCurrent={alertDelete}
                                 selectBoard={selectBoard}
                                 boardsFromServer={boardsFromServer} />
                         </li>

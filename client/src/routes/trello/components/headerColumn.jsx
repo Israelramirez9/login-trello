@@ -3,7 +3,7 @@ import '../styles/headerColumn.css'
 import { updateColumn, deleteColumn } from '../../../services/columns.services'
 import { BsFillTrash3Fill } from 'react-icons/bs'
 import { getTask } from '../../../services/tasks.services'
-
+import swal from 'sweetalert'
 function HeaderColumn({ columnIndex, title, columnId, columns, setColumns, setTask }) {
 
     let currentTasks = [];
@@ -14,9 +14,9 @@ function HeaderColumn({ columnIndex, title, columnId, columns, setColumns, setTa
     })
 
     useEffect(() => {
-        setInputTitle({ ...inputTitle, title})
+        setInputTitle({ ...inputTitle, title })
     }, [title])
-    
+
     function handleChange(event) {
         setInputTitle({ ...inputTitle, title: event.target.value })
     }
@@ -25,7 +25,28 @@ function HeaderColumn({ columnIndex, title, columnId, columns, setColumns, setTa
         event.target.style.textAlign = "left"
     }
 
+    const alertDelete = () => {
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover these tasks!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    swal("Poof! Your task has been deleted!", {
+                        icon: "success",
+                    });
+                    deleteColumnClick();
+                } else {
+                    swal("Your task is safe!");
+                }
+            });
+    }
+    
     const deleteColumnClick = async () => {
+
 
         try {
             const resp = await deleteColumn(columnId, columnId);
@@ -77,7 +98,7 @@ function HeaderColumn({ columnIndex, title, columnId, columns, setColumns, setTa
             />
 
 
-            <BsFillTrash3Fill className='icon-trash-column' onClick={deleteColumnClick} />
+            <BsFillTrash3Fill className='icon-trash-column' onClick={alertDelete} />
 
 
         </div>)

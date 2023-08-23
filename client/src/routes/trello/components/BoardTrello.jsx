@@ -8,6 +8,7 @@ import { bringBoardsFromServer } from "./bringBoardsFromServer";
 import NewColumn from "./newColumn";
 import SliderMenu from "./sliderMenu";
 import { UserContext } from "../../../auth/UserContext";
+import Footer from "./Footer";
 /* creates an array the size of columns to use or print on screen */
 
 
@@ -200,6 +201,7 @@ function BoardTrello() {
 
 
             </section>
+            <Footer />
 
         </main>
     );
