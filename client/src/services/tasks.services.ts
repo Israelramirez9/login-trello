@@ -9,8 +9,7 @@ export type Task = {
     columnId: string,
     taskId: string
 }
-export const getTasks = async (columnId: string):
-    Promise<Task[]> => {
+export const getTasks = async (columnId?: string): Promise<Task[]> => {
     let url = API_URL_TASKS;
     if (columnId) {
         url += `?column=${columnId}`
@@ -19,20 +18,19 @@ export const getTasks = async (columnId: string):
     return tasks.data
 }
 
-export const createTask = async (task: Task):
+export const createTask = async (task: Omit<Task, 'taskId'>):
     Promise<Task> => {
     const resp = await axiosInstance.post(API_URL_TASKS, task)
     return resp.data;
 }
 
-export const deleteTaskApi = async (taskId: string):
-    Promise<Task> => {
+export const deleteTask = async (taskId: string): Promise<Task> => {
     const resp = await axiosInstance.delete(API_URL_TASKS + "/" + taskId)
     return resp.data
 }
 
-export const updateTask = async (task: Task):
+export const updateTask = async (taskId: string, task: Omit<Task, 'taskId'>):
     Promise<Task> => {
-    const resp = await axiosInstance.put(API_URL_TASKS + "/" + task.taskId, task)
+    const resp = await axiosInstance.put(API_URL_TASKS + "/" + taskId, task)
     return resp.data
 }

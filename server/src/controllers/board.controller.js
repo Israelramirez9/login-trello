@@ -1,4 +1,4 @@
-const { Column, Task, Board } = require('../models')
+const { board, Task, Board } = require('../models')
 const { Types } = require('mongoose')
 
 async function createBoard(req, res) {
@@ -44,7 +44,7 @@ async function updateBoard(req, res) {
 async function deleteBoard(req, res) {
     const userId = req.user._id;
     const { boardId } = req.params;
-    //si elimino el board voy a tener que eliminar las columnas y las tareas, creo una reacción en cadena para que se eliminen board-->columnas---->tareas
+    //si elimino el board voy a tener que eliminar las boardas y las tareas, creo una reacción en cadena para que se eliminen board-->boardas---->tareas
     let board = await Board.findById(boardId);
 
     if (!board) {
@@ -68,14 +68,14 @@ async function deleteBoard(req, res) {
 async function getBoards(req, res) {
     const userId = req.user._id;
 
-    const columns = await Board.find({ userId: userId })
-    if (!columns) {
+    const boards = await Board.find({ userId: userId })
+    if (!boards) {
         res.status(404).json({
             error: "userId not found"
         })
     }
-    columns.forEach(column => column.userId = undefined)
-    res.status(202).json(columns)
+    boards.forEach(board => board.userId = undefined)
+    res.status(200).json(boards)
 }
 
 module.exports = { createBoard, updateBoard, deleteBoard, getBoards }

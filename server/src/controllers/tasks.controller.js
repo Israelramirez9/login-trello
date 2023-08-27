@@ -31,49 +31,69 @@ async function getTasks(req, res) {
 async function createTask(req, res) {
 
     const userId = req.user._id
-    const task = new Task(req.body);
-    task.userId = userId
-    task.taskId = task._id
-    await task.save()
 
-    task.userId = undefined
-    res.status(201).json(task);
+    try {
+        const task = new Task(req.body);
+        task.userId = userId
+        task.taskId = task._id
+
+        await task.save()
+
+        task.userId = undefined
+        res.status(201).json(task);
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({
+            error: "an error has ocurred on server"
+        })
+    }
+
 }
 
 async function updateTask(req, res) {
     const { taskId } = req.params;
     const { columnIndex, text, isCompleted, columnId } = req.body;
+
     if (!Types.ObjectId.isValid(taskId)) { //verifica si el id es valido
         return res.status(400).json({
             error: 'incorrect Id'
         })
     }
-
     const userId = req.user._id;
-    const task = await Task.findById(taskId);
-    if (!task) {
-        return res.status(404).json({
-            error: "task not found"
+    try {
+        const task = await Task.findById(taskId);
+        if (!task) {
+            return res.status(404).json({
+                error: "task not found"
+            })
+        }
+
+        if (columnIndex !== undefined) {
+            task.columnIndex = columnIndex
+        }
+
+        if (text) {
+            task.text = text;
+        }
+        if (columnId) {
+            task.columnId = columnId;
+        }
+        if (isCompleted !== undefined) {
+            task.isCompleted = isCompleted;
+        }
+
+        //la función recibe dos parametros, el primero es el identificador único del Id con lo cual busca el objeto con ese parámetro guardado y por segundo parámetro es todo el recurso del objeto ha actualizar y retorna el recurso viejo
+
+        await Task.findOneAndUpdate({ _id: taskId, userId: userId }, task)
+
+        task.userId = undefined
+        res.status(200).json(task);
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({
+            error: "an error has ocurred on server"
         })
     }
-
-    if (columnIndex) {
-        task.columnIndex = columnIndex
-    }
-
-    if (text) {
-        task.text = text;
-    }
-    if (columnId) {
-        task.columnId = columnId;
-    }
-
-    task.isCompleted = isCompleted;
-
-    await Task.findOneAndUpdate({ _id: taskId, userId: userId }, task) //la función recibe dos parametros, el primero es el identificador único del Id con lo cúal busca el objeto con ese parámetro guardado y por segundo parámetro es todo el recurso del objeto ha actualizar y retorna el recurso viejo
-
-    task.userId = undefined
-    res.status(201).json(task);
 }
 
 async function deleteTask(req, res) {
@@ -84,16 +104,23 @@ async function deleteTask(req, res) {
             error: 'incorrect Id'
         })
     }
-
-    const userId = req.user._id
-    const task = await Task.findOneAndDelete({ _id: taskId, userId: userId }) // se encarga de buscar en la base de datos el objeto con el parametro pasado y eliminarlo ,retorna el objeto task eliminado
-    if (!task) {
-        return res.status(404).json({
-            error: "ivaled token"
+    try {
+        const userId = req.user._id
+        const task = await Task.findOneAndDelete({ _id: taskId, userId: userId }) // se encarga de buscar en la base de datos el objeto con el parametro pasado y eliminarlo ,retorna el objeto task eliminado
+        if (!task) {
+            return res.status(404).json({
+                error: "ivaled token"
+            })
+        }
+        task.userId = undefined
+        res.status(200).json(task);
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({
+            error: "an error has ocurred on server"
         })
     }
-    task.userId = undefined
-    res.json(task);
+
 }
 
 module.exports = { getTasks, createTask, updateTask, deleteTask }
