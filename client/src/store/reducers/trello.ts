@@ -2,11 +2,11 @@ import { Board } from "@/services/board.services";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 type TrelloState = {
-    boards: Board[]
+    boards: Board[] | null
 }
 
 const inicialState: TrelloState = {
-    boards: []
+    boards: null
 }
 
 export const trelloSlice = createSlice({

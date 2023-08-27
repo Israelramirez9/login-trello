@@ -3,14 +3,23 @@ import useTrello from './useTrello'
 import { RunningCircleSpinner } from '@/components/commons';
 import styles from './Trello.module.scss'
 function Trello() {
-    const { message } = useTrello();
+    const { message, isError } = useTrello();
 
 
 
     return (
         <div className={styles.trello}>
-            <RunningCircleSpinner />
-            <p>{message}</p>
+            {isError ?
+                (
+                    <p>An error has ocurred</p>
+                ) :
+                (
+                    <>
+                        <RunningCircleSpinner />
+                        <p>{message}</p>
+                    </>
+                )
+            }
         </div>
     )
 }
