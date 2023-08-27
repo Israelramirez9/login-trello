@@ -1,9 +1,9 @@
 import { useAppDispatch, useAppSelector } from '@/store';
-import { handleSidebar } from '@/store/reducers/moveSlider';
+import { handleSidebar } from '@/store/reducers/layout';
 
 
 function useSidebar() {
-    const isMoved = useAppSelector(state => state.sidebar.isMoved)
+    const isMoved = useAppSelector(state => state.layout.isMoved)
     const dispatch = useAppDispatch();
 
     const moveSidebar = () => {

@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './BarSpinner.module.scss'
-function BarSpiner() {
+function BarSpinner() {
     return (
         <>
             <span className={styles["spinner"]}>
@@ -18,4 +18,4 @@ function BarSpiner() {
     )
 }
 
-export default BarSpiner
+export default BarSpinner

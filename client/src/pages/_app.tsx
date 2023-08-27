@@ -1,6 +1,7 @@
 import type { AppProps } from 'next/app'
 import '@/styles/global.scss'
 import { AuthProvider, StoreProvider } from '@/components/providers'
+import { RouterMiddleware } from '@/components/middleware';
 
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -8,7 +9,9 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <StoreProvider>
       <AuthProvider>
-        <Component {...pageProps} />
+        <RouterMiddleware>
+          <Component {...pageProps} />
+        </RouterMiddleware>
       </AuthProvider>
     </StoreProvider>
   )

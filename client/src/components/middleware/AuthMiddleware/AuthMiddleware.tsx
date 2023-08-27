@@ -1,25 +1,13 @@
-'use client'
-import React, { useEffect } from 'react'
-import { useRouter } from 'next/router';
-import { useAppSelector } from '@/store';
+import React from 'react'
 import { Authenticating } from '@/components/sections/miscellaneous';
-import { getAccessToken } from '@/helpers/token';
+import useAuthMiddleware from './useAuthMiddleware';
+
 type AuthProps = {
     children: React.ReactNode
 }
+
 function AuthMiddleware({ children }: AuthProps) {
-    const { push } = useRouter();
-
-    const isAuthenticated = useAppSelector(state => state.auth.isAuthenticated)
- 
-    useEffect(() => {
-        
-        if (getAccessToken() === null) {
-
-            push('/login')
-        }
-    }, [isAuthenticated])
-
+    const { isAuthenticated } = useAuthMiddleware();
 
     if (isAuthenticated) {
         return children

@@ -3,8 +3,8 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 type Sidebar = {
     isMoved: boolean
 }
-export const moveSidebarSlice = createSlice({
-    name: 'sidebar',
+export const layoutSlice = createSlice({
+    name: 'layout',
     initialState: {
         isMoved: false
     },
@@ -16,5 +16,5 @@ export const moveSidebarSlice = createSlice({
     }
 })
 
-export const { handleSidebar } = moveSidebarSlice.actions
-export default moveSidebarSlice.reducer;
+export const { handleSidebar } = layoutSlice.actions
+export default layoutSlice.reducer;

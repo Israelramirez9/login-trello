@@ -4,6 +4,7 @@ import { BsGrid3X3GapFill } from 'react-icons/bs'
 import { FaPowerOff, FaUserAlt } from 'react-icons/fa'
 import styles from './NavbarLayout.module.scss'
 import useNavbarLayout from './useNavbarLayout'
+import Image from 'next/image'
 
 function NavbarLayout() {
     const { moveSidebar, logout } = useNavbarLayout();
@@ -15,12 +16,12 @@ function NavbarLayout() {
                 </button>
                 <Link href="/trello">
                     <div className={styles['logo-trello-container']}>
-                        <img src="./images/trello-logo.png" alt="logo" />
+                        <Image src="/images/trello-logo.png" alt="logo" width={666} height={375} />
                     </div>
                 </Link>
             </div>
             <div className={styles['second-container']}>
-                <Link href="/updateUser" className={styles['icon-user-container']}>
+                <Link href="/profile" className={styles['icon-user-container']}>
                     <FaUserAlt className={styles['icon-user']} />
                 </Link>
                 <button className={styles['icon-power-off-container']} onClick={logout}>

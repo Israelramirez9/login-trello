@@ -1,1 +1,1 @@
-export * from './BarSpiner';
+export * from './BarSpinner';
