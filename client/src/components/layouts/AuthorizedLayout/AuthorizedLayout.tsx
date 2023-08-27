@@ -7,8 +7,9 @@ type AuthorizedLayoutProps = React.PropsWithChildren
 function AuthorizedLayout({ children }: AuthorizedLayoutProps) {
     return (
         <>
-            <NavbarLayout />
             <SidebarLayout />
+            <NavbarLayout />
+
             {children}
         </>
     )

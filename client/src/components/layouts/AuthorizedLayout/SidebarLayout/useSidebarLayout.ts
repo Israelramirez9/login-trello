@@ -1,8 +1,9 @@
-import useSidebar from '@/components/commons/Sidebar/useSidebar'
-import React from 'react'
+import useSidebar from '@/components/layouts/AuthorizedLayout/useSidebar'
+
 
 function useSidebarLayout() {
     const { isMoved, moveSidebar } = useSidebar();
+
     return {
         isMoved, moveSidebar
     }

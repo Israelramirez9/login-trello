@@ -6,7 +6,7 @@ import styles from './NavbarLayout.module.scss'
 import useNavbarLayout from './useNavbarLayout'
 
 function NavbarLayout() {
-    const { moveSidebar } = useNavbarLayout();
+    const { moveSidebar, logout } = useNavbarLayout();
     return (
         <header className={styles['header-container']}>
             <div className={styles['first-container']}>
@@ -23,7 +23,7 @@ function NavbarLayout() {
                 <Link href="/updateUser" className={styles['icon-user-container']}>
                     <FaUserAlt className={styles['icon-user']} />
                 </Link>
-                <button className={styles['icon-power-off-container']} >
+                <button className={styles['icon-power-off-container']} onClick={logout}>
                     <FaPowerOff className={styles['icon-power-off']} />
                 </button>
             </div>

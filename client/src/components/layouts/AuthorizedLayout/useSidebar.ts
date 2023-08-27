@@ -7,12 +7,8 @@ function useSidebar() {
     const dispatch = useAppDispatch();
 
     const moveSidebar = () => {
-        dispatch(handleSidebar({ isMoved: !isMoved }))
-        console.log("aqui")
-        console.log(isMoved)
-
-
-        // isMoved ? slider.style.left = '0' : slider.style.left = '-20rem';
+        dispatch(handleSidebar({ isMoved: !isMoved }))  
+       
     }
     return {
         moveSidebar,
