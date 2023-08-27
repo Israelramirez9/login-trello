@@ -1,12 +1,12 @@
 import React from 'react'
 import useRouterMiddleware from './useRouterMiddleware'
-import { BarSpinner } from '@/components/commons';
+import { Loading } from '@/components/sections';
 
 function RouterMiddleware({ children }: React.PropsWithChildren) {
 
     const { isLoading } = useRouterMiddleware();
 
-    if (isLoading) return <BarSpinner />
+    if (isLoading) return <Loading />
 
     return children
 
