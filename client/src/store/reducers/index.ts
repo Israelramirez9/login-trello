@@ -1,7 +1,8 @@
 import auth from "./auth"
-
+import sidebar from "./moveSlider"
 const rootReducer = {
-    auth
+    auth,
+    sidebar
 }
 
 export default rootReducer

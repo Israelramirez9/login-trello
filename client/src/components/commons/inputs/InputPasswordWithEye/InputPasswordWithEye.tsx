@@ -2,6 +2,7 @@ import React from 'react'
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import useInputPasswordWithEye from './useInputPasswordWithEye';
 import styles from './InputPasswordWithEye.module.scss'
+
 type InputPasswordWithEyesProps = {
     type: string
     placeholder: string

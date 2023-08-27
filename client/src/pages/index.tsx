@@ -1,17 +1,13 @@
 'use client'
-import { useAppSelector } from "@/store"
+
+import { useRouter } from "next/router"
+import { useEffect } from "react";
 export default function Home() {
+    
+    const { push } = useRouter();
 
-
-
-  const isAuthenticated = useAppSelector(state => state.auth.isAuthenticated)
-  return (
-    <>
-      <div>
-        {
-          isAuthenticated ? 'está autenticado' : 'chupame el pingo'
-        }
-      </div>
-    </>
-  )
+    useEffect(() => {
+        push('/trello')
+    }, [])
+    return null
 }

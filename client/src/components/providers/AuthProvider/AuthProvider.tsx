@@ -6,7 +6,9 @@ import { useEffect } from 'react'
 import React from 'react'
 
 function AuthProvider({ children }: React.PropsWithChildren) {
-    const dispatch = useAppDispatch()
+    
+    const dispatch = useAppDispatch();
+
     useEffect(() => {
         if (isServer()) {
             return

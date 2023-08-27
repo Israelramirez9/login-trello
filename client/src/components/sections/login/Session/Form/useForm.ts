@@ -2,9 +2,12 @@ import React, { useState } from 'react'
 import swal from 'sweetalert';
 import { useRouter } from 'next/router';
 import { startSession } from '@/services/session.services';
-import { setAccessToken, setRefreshToken } from '@/helpers/token';
+import { useAppDispatch } from '@/store';
+import { handleLogin } from '@/store/reducers/auth';
 
 function useForm() {
+
+    const dispatch = useAppDispatch();
 
     const { push } = useRouter();
 
@@ -23,12 +26,14 @@ function useForm() {
             try {
                 const resp = await startSession(input);
                 if (resp.isAuthenticate) {
+                    dispatch(handleLogin({
+                        accessToken: resp.tokenSession,
+                        refreshToken: resp.refreshToken
+                    }))
                     swal("Good job!", "user found", "success");
-                    setRefreshToken(resp.refreshToken);
-                    setAccessToken(resp.tokenSession);
                     push('/')
                 }
-                
+
             } catch (error) {
                 console.log(error)
                 swal("Error", "user or password Incorrect!", "error");

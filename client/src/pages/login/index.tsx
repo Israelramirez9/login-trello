@@ -1,7 +1,9 @@
 import { Session } from "@/components/sections"
-
+import { UnauthorizedLayout } from "@/components/layouts"
 export default function Login() {
   return (
-    <Session />
+    <UnauthorizedLayout>
+      <Session />
+    </UnauthorizedLayout>
   )
 }
