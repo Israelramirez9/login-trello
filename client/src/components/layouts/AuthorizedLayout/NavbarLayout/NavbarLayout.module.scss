@@ -28,7 +28,7 @@
             }
 
             .icon-menu-drop {
-                color: #273558;
+                color: var(--color-blue, #273558);
                 font-size: 1.5rem;
             }
 
@@ -100,7 +100,8 @@
                 cursor: pointer;
                 transform: none;
             }
-            .icon-power-off{
+
+            .icon-power-off {
                 color: var(--color-blue, #273558);
             }
         }
