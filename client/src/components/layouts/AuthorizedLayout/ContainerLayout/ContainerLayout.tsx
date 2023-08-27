@@ -8,7 +8,7 @@ function ContainerLayout({ children }: React.PropsWithChildren) {
             <section className={styles['section-container']}>
                 {children}
             </section>
-            <AuthorFooter />
+            <AuthorFooter className={styles['footer-container']} />
         </article>
     )
 }

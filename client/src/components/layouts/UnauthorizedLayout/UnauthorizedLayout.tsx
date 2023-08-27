@@ -1,20 +1,25 @@
 import React from 'react'
-import style from './UnauthorizedLayout.module.scss'
+import styles from './UnauthorizedLayout.module.scss'
+import { AuthorFooter } from '@/components/commons'
+
 type UnauthorizedProps = {
   children: React.ReactNode
 }
 
 function Unauthorized({ children }: UnauthorizedProps) {
   return (
-    <section className={style["form-main"]}>
-      <div className={style["form-content"]}>
-        <div className={style["box"]}>
-          {
-            children
-          }
+    <>
+      <section className={styles["form-main"]}>
+        <div className={styles["form-content"]}>
+          <div className={styles["box"]}>
+            {
+              children
+            }
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+      <AuthorFooter className={styles["footer-unauthorized"]} />
+    </>
   )
 }
 

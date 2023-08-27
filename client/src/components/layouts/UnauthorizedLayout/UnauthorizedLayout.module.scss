@@ -1,5 +1,5 @@
 .form-main {
-    min-height: 100vh;
+    height: calc(100vh - 5rem);
     padding: 60px 15px;
     display: flex;
     align-items: center;
@@ -16,23 +16,29 @@
             padding: 40px 50px;
             border-radius: 20px;
             box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-            a{
+
+            a {
                 text-decoration: none;
                 font-weight: 500;
                 display: inline-block;
-                
+
             }
-            h3{
+
+            h3 {
                 font-size: 28px;
                 text-align: center;
                 line-height: 2;
                 font-weight: bold;
                 color: gray;
-                
+
             }
         }
-       
-        
+
+
 
     }
+}
+
+.footer-unauthorized {
+    height: 5rem;
 }

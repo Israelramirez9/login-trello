@@ -2,6 +2,10 @@
     position: relative;
     width: 100%;
     padding: 1rem;
-    height: calc(100vh - 8rem);
+    height: calc(100vh - var(--footer-height, 4rem) - var(--navbar-height, 4rem));
     overflow: auto;
+}
+
+.footer-container {
+    height: var(--footer-height, 4rem);
 }
