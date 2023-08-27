@@ -1,9 +1,11 @@
-
 import React from 'react'
 
-function Board() {
+type BoardProps = {
+  id: string
+}
+function Board({ id }: BoardProps) {
   return (
-   <>board</>
+    <>{id}</>
   )
 }
 
