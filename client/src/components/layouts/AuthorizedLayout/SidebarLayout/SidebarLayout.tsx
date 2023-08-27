@@ -3,34 +3,45 @@ import { AiOutlinePlusCircle } from 'react-icons/ai'
 import { GrClose } from 'react-icons/gr'
 import styles from './SidebarLayout.module.scss'
 import useSidebarLayout from './useSidebarLayout'
+import Image from 'next/image'
+import Link from 'next/link'
 
 function SidebarLayout() {
-    const { isMoved, moveSidebar } = useSidebarLayout();
+    const { isMoved, moveSidebar, boards, isError, handleCreateNewBoard } = useSidebarLayout();
 
-    const boards: Array<object> = [];
+
     return (
         <aside className={`${styles['slider-container']} ${isMoved ? styles['visual-slider-container'] : styles['hidden-slider-container']}`} >
             <div className={styles['close-aside-icon-container']} onClick={moveSidebar}>
                 <GrClose className={styles['close-aside-icon']} />
             </div>
             <div className={styles['logo-trello-aside-container']}>
-                <img src="./images/trello-logo.png" />
+                <Image src="/images/trello-logo.png" alt="logo" width={666} height={375} />
             </div>
             <ul className={styles['name-list-boards-container']}>
                 {
-
-                    boards.map((board, index) => (
-                        <li key={index} ></li>
-                    ))
-
+                    isError ?
+                        (
+                            <p>An Error has Ocurred bringing boards</p>
+                        )
+                        :
+                        (
+                            boards?.map((board, index) => (
+                                <li key={index} >
+                                    <Link href={`/trello/boards/${board.boardId}`}>
+                                        {board.title}
+                                    </Link>
+                                </li>
+                            ))
+                        )
                 }
 
             </ul>
             <div className={styles['add-another-board-container']} >
-                <div className={styles['add-another-board']} >
+                <button className={styles['add-another-board']} onClick={handleCreateNewBoard}>
                     <AiOutlinePlusCircle className={styles['add-another-board-icon']} />
                     add another board
-                </div>
+                </button>
             </div>
         </aside >
     )
