@@ -1,5 +1,5 @@
 import React from 'react'
-import { Board } from '@/components/sections'
+import { Trello } from '@/components/sections'
 import { AuthMiddleware } from '@/components/middleware'
 import { AuthorizedLayout } from '@/components/layouts'
 
@@ -8,7 +8,7 @@ function trello() {
     return (
         <AuthMiddleware>
             <AuthorizedLayout >
-                <Board />
+                <Trello />
             </AuthorizedLayout>
 
         </AuthMiddleware>

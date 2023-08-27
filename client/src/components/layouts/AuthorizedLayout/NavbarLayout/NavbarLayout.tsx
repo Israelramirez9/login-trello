@@ -9,7 +9,7 @@ import Image from 'next/image'
 function NavbarLayout() {
     const { moveSidebar, logout } = useNavbarLayout();
     return (
-        <header className={styles['header-container']}>
+        <nav className={styles['header-container']}>
             <div className={styles['first-container']}>
                 <button className={styles['menu-dropdown-container']} onClick={moveSidebar}>
                     <BsGrid3X3GapFill className={styles['icon-menu-drop']} />
@@ -28,7 +28,7 @@ function NavbarLayout() {
                     <FaPowerOff className={styles['icon-power-off']} />
                 </button>
             </div>
-        </header>
+        </nav>
     )
 }
 

@@ -1,2 +1,2 @@
-export * from './actions';
-export * from './Board'
+export * from './Board';
+export * from './Trello';
