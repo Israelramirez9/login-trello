@@ -5,20 +5,25 @@ import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 
 const createFirstBoard = async () => {
-
-    const firstBoard = await createBoard({ title: 'My Tasks Board' });
-    return firstBoard
+    return await createBoard({ title: 'My Tasks Board' });
 }
 
 function useTrello() {
 
     const { push, asPath } = useRouter();
-    const [isError, setIsError] = useState(false)
-    const [message, setMessage] = useState('Loading boards...')
-    const dispatch = useAppDispatch();
-    const boards = useAppSelector(state => state.trello.boards)
-    console.log(boards);
 
+    const [isError, setIsError] = useState(false)
+
+    const [message, setMessage] = useState('Loading boards...')
+
+    const boards = useAppSelector(state => state.trello.boards)
+
+    const dispatch = useAppDispatch();
+
+
+    /**
+     * se ejecutá la acción de traer por primera vez los boards del servidor y cambiar el estado en el store del array de boards
+     */
     useEffect(() => {
         getBoards()
             .then(boards => {
@@ -30,9 +35,22 @@ function useTrello() {
             })
     }, [])
 
+    /**
+     * se ejecutará cada vez que cambien los boards del store
+     */
     useEffect(() => {
-        if (boards === null) return
-
+        /**
+         * si es el estado inicial del store, es decir, todavía no se ha asignado el array de boards desde el servidor
+         * no realizará ninguna lógica 
+         */
+        if (boards === null) {
+            return
+        }
+        /**
+         * cuando ya se actualizó el store de boards con la información del servidor
+         * crear el primer board si no existe ninguno, es decir, boards=[]
+         * cambia el estado de boards en el store con el nuevo board creado arbitrariamente         
+         */
         if (boards.length === 0) {
             setMessage('Creating your New Board...')
             createFirstBoard()
@@ -45,6 +63,9 @@ function useTrello() {
                 })
             return
         }
+        /**
+         * cuando exista almenos 1 board en el store, redirige la página al primer board 
+         */
         setMessage('Redirecting to your first board...')
         push(`${asPath}/boards/${boards[0].boardId}`)
 
