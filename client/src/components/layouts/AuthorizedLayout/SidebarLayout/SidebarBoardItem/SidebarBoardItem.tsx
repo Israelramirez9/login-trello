@@ -5,6 +5,7 @@ import useSidebarBoardItem from './useSidebarBoardItem'
 import { BsFillTrash3Fill, BsPencilSquare } from 'react-icons/bs'
 import { GrSend } from 'react-icons/gr'
 import { TiCancel } from 'react-icons/ti'
+import styles from './SidebarBoardItem.module.scss'
 
 type SidebarBoardItemProps = {
     board: Board
@@ -37,37 +38,37 @@ function SidebarBoardItem({ board }: SidebarBoardItemProps) {
                         <form onSubmit={(event) => {
                             event.preventDefault();
                             handleSendBoardTitle();
-                        }}>
+                        }} className={styles['form-board-title']}>
                             <input
                                 placeholder={board.title}
                                 value={boardTitle}
                                 onChange={handleChangeTitleBoard}
-                                className='input-title-board'
+                                className={styles['input-title-board']}
                             />
-                            <button type="button" onClick={handleStopEdit}>
-                                <TiCancel />
+                            <button type="button" onClick={handleStopEdit} className={styles['button-icons']}>
+                                <TiCancel className={styles['icons-boards-title']} />
                             </button>
-                            <button type="submit">
-                                <GrSend />
+                            <button type="submit" className={styles['button-icons']}>
+                                <GrSend className={styles['icons-boards-title']} />
                             </button>
                         </form>
                     )
                     :
                     (
                         <>
-                            <Link href={`/trello/boards/${board.boardId}`}>
+                            <Link href={`/trello/boards/${board.boardId}`} className={styles['link-board-title']}>
                                 {boardTitle}
                             </Link>
-                            <button className='board-edit-icon-container' onClick={handleStartEdit} >
-                                <BsPencilSquare className='board-edit-icon' />
+                            <button className={styles['button-icons']} onClick={handleStartEdit} >
+                                <BsPencilSquare className={styles['icons-boards-title']} />
                             </button>
                         </>
                     )
             }
             {
                 showTrashButtonBoard ?
-                    <button className='board-trash-icon-container' onClick={handleDeleteBoard}>
-                        <BsFillTrash3Fill className='board-trash-icon' />
+                    <button className={styles['button-icons']} onClick={handleDeleteBoard}>
+                        <BsFillTrash3Fill className={styles['icons-boards-title']} />
                     </button>
                     : null
             }

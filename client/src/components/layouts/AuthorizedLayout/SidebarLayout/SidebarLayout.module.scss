@@ -13,7 +13,7 @@
     background-color: white;
     z-index: 100;
     transition: all 500ms linear;
-   
+
     display: flex;
     flex-direction: column;
 
@@ -52,19 +52,17 @@
         align-items: center;
 
         li {
-            text-align: center;
+            text-align: left;
             padding: 1rem;
             margin-bottom: 1rem;
             width: 80%;
             list-style: none;
             border-bottom: solid 1px #273558;
-            cursor: pointer;
             border-radius: 1rem;
             box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
-
-            &:hover {
-                background-color: aliceblue;
-            }
+            display: flex;
+       
+            justify-content: space-around;
         }
     }
 
@@ -86,6 +84,11 @@
             background-color: #445b96;
             color: white;
             position: relative;
+            font-size: medium;
+
+            &:hover {
+                font-size: large;
+            }
 
             &:hover .add-another-board-icon {
                 transform: scale(1.1);

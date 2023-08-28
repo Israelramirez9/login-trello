@@ -4,7 +4,6 @@ import { GrClose } from 'react-icons/gr'
 import styles from './SidebarLayout.module.scss'
 import useSidebarLayout from './useSidebarLayout'
 import Image from 'next/image'
-import Link from 'next/link'
 import { SidebarBoardItem } from './SidebarBoardItem'
 
 function SidebarLayout() {
