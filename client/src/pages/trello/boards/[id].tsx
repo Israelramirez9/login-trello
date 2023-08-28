@@ -1,10 +1,15 @@
 import { AuthorizedLayout } from '@/components/layouts'
 import { AuthMiddleware } from '@/components/middleware'
-import { Board } from '@/components/sections'
+import { Board, Loading } from '@/components/sections'
 import { useRouter } from 'next/router'
 
 export default function board() {
     const router = useRouter()
+
+    if (!router.query.id) {
+        return <Loading />
+    }
+
     return (
         <AuthMiddleware>
             <AuthorizedLayout >

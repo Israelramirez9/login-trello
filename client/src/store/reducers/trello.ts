@@ -2,11 +2,13 @@ import { Board } from "@/services/board.services";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 type TrelloState = {
-    boards: Board[] | null
+    boards: Board[] | null,
+    actualBoard: string | null
 }
 
 const inicialState: TrelloState = {
-    boards: null
+    boards: null,
+    actualBoard: null
 }
 
 export const trelloSlice = createSlice({
@@ -15,9 +17,35 @@ export const trelloSlice = createSlice({
     reducers: {
         setBoards(state, action: PayloadAction<Board[]>) {
             state.boards = action.payload
+        },
+        updateBoard(state, action: PayloadAction<Board>) {
+            const { boardId, title } = action.payload
+
+            if (state.boards === null) return
+
+            state.boards = state.boards.map((board) => {
+                if (board.boardId === boardId) {
+                    board.title = title;
+                }
+                return board
+
+            })
+        },
+        deleteBoard(state, action: PayloadAction<Pick<Board, 'boardId'>>) {
+            const { boardId } = action.payload
+
+            if (state.boards === null) return
+
+            state.boards = state.boards.filter((board) => {
+                return board.boardId !== boardId
+            })
+
+        },
+        setActualBoard(state, action: PayloadAction<string |null>) {
+            state.actualBoard = action.payload
         }
     }
 })
 
-export const { setBoards } = trelloSlice.actions
+export const { setBoards, deleteBoard, updateBoard, setActualBoard } = trelloSlice.actions
 export default trelloSlice.reducer

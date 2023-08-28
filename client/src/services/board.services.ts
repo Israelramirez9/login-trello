@@ -16,3 +16,12 @@ export async function createBoard(board: Omit<Board, "boardId">): Promise<Board>
     const resp = await axiosInstance.post(API_URL_BOARDS, board)
     return resp.data
 }
+
+export async function deleteBoard(boardId: string): Promise<Board> {
+    const resp = await axiosInstance.delete(API_URL_BOARDS + '/' + boardId)
+    return resp.data
+}
+export async function updateBoard(boardId: string, board: Omit<Board, 'boardId'>): Promise<Board> {
+    const resp = await axiosInstance.put(API_URL_BOARDS + '/' + boardId, board)
+    return resp.data
+}

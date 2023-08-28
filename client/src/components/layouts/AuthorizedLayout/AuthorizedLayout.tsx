@@ -1,6 +1,6 @@
 import React from 'react'
-import NavbarLayout from './NavbarLayout/NavbarLayout'
-import SidebarLayout from './SidebarLayout/SidebarLayout'
+import { NavbarLayout } from './NavbarLayout'
+import { SidebarLayout } from './SidebarLayout'
 import { ContainerLayout } from './ContainerLayout'
 
 type AuthorizedLayoutProps = React.PropsWithChildren

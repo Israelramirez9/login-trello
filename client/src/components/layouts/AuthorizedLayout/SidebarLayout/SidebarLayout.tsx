@@ -5,6 +5,7 @@ import styles from './SidebarLayout.module.scss'
 import useSidebarLayout from './useSidebarLayout'
 import Image from 'next/image'
 import Link from 'next/link'
+import { SidebarBoardItem } from './SidebarBoardItem'
 
 function SidebarLayout() {
     const { isMoved, moveSidebar, boards, isError, handleCreateNewBoard } = useSidebarLayout();
@@ -28,9 +29,7 @@ function SidebarLayout() {
                         (
                             boards?.map((board, index) => (
                                 <li key={index} >
-                                    <Link href={`/trello/boards/${board.boardId}`}>
-                                        {board.title}
-                                    </Link>
+                                    <SidebarBoardItem board={board} />
                                 </li>
                             ))
                         )
