@@ -4,7 +4,7 @@ POST /api/v1/session
 Host: localhost:4040
 Content-Type: application/json
 
-{"email":"israel@gmail.com","password":"israel"}
+{"email":"ramirez@gmail.com","password":"ramirez"}
 
 ###Actualizar token 
 

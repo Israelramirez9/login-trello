@@ -1,3 +1,9 @@
+### Obtener un boardId 
+
+GET /api/v1/boards/64ed6a8a73d901dc09f1473c
+Host: localhost:4040
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGU3OTRjYzg3ZjFlNzYwOGM4NzgyZGMiLCJpYXQiOjE2OTMyODA4NzUsImV4cCI6MTY5MzI4NDQ3NX0.pXW1uFSjDdfUDGesoh8IRCd-6pSF3b7aZKLU1rUoc9E
+
 ### Obtener todos los boards del usuario
 
 GET /api/v1/boards
@@ -9,7 +15,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGRhNWJhN
 POST /api/v1/boards
 Host: localhost:4040
 Content-Type: application/json
-Authorization: Bareer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGRmYmFjNWJhMDI2NjdmMjc1MDllNDAiLCJpYXQiOjE2OTIzODk3NTAsImV4cCI6MTY5MjM5MzM1MH0.pYcaeZkErKMIZJAeyJHDclJDlYQP_Og285rCgYpjPnI
+Authorization: Bareer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGU3OTRjYzg3ZjFlNzYwOGM4NzgyZGMiLCJpYXQiOjE2OTMyODA4NzUsImV4cCI6MTY5MzI4NDQ3NX0.pXW1uFSjDdfUDGesoh8IRCd-6pSF3b7aZKLU1rUoc9E
 
 {     
        

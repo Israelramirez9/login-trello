@@ -6,6 +6,10 @@ export type Board = {
     title: string
     boardId: string
 }
+export async function getBoardById(boardId: string): Promise<Board> {
+    const resp = await axiosInstance.get(API_URL_BOARDS + "/" + boardId)
+    return resp.data;
+}
 
 export async function getBoards(): Promise<Board[]> {
     const resp = await axiosInstance.get(API_URL_BOARDS)
@@ -25,3 +29,4 @@ export async function updateBoard(boardId: string, board: Omit<Board, 'boardId'>
     const resp = await axiosInstance.put(API_URL_BOARDS + '/' + boardId, board)
     return resp.data
 }
+

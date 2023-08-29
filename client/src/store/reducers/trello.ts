@@ -1,9 +1,20 @@
 import { Board } from "@/services/board.services";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { Column } from "@/services/columns.services";
+import { Task } from "@/services/tasks.services";
+
+type ColumnWithTaks = Column & {
+    tasks?: Task[]
+}
+
+type BoardWithColumns = Board & {
+    columns?: ColumnWithTaks[]
+}
 
 type TrelloState = {
     boards: Board[] | null,
-    actualBoard: string | null
+    actualBoard: BoardWithColumns | null
+
 }
 
 const inicialState: TrelloState = {
@@ -41,11 +52,41 @@ export const trelloSlice = createSlice({
             })
 
         },
-        setActualBoard(state, action: PayloadAction<string |null>) {
-            state.actualBoard = action.payload
+        setActualBoard(state, action: PayloadAction<Board | null>) {
+            const board = action.payload;
+            /**
+             * si se manda un board null en el payload se va a borrar el boardActual
+             */
+            if (board === null) {
+                state.actualBoard = null
+                return
+            }
+
+            state.actualBoard = board
+        },
+        setColumnsToActualBoard(state, action: PayloadAction<Column[]>) {
+            if (state.actualBoard === null) {
+                return
+            }
+            state.actualBoard.columns = action.payload;
+        },
+        setTasksToColumnByColumnId(state, action: PayloadAction<{ columnId: string, tasks: Task[] }>) {
+            const { columnId, tasks } = action.payload;
+
+            if (state.actualBoard === null) {
+                return
+            }
+
+            state.actualBoard.columns = state.actualBoard.columns?.map((column) => {
+                if (column.columnId === columnId) {
+                    column.tasks = tasks
+                }
+                return column
+            })
+
         }
     }
 })
 
-export const { setBoards, deleteBoard, updateBoard, setActualBoard } = trelloSlice.actions
+export const { setBoards, deleteBoard, updateBoard, setActualBoard, setColumnsToActualBoard, setTasksToColumnByColumnId } = trelloSlice.actions
 export default trelloSlice.reducer

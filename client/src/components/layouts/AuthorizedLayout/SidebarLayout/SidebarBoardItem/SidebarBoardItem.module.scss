@@ -1,7 +1,7 @@
 .form-board-title {
-    min-width: 1rem;
+    width: 80%;
     display: flex;
-    
+
 
     .input-title-board {
         border: none;
@@ -11,31 +11,75 @@
 
     }
 
-    .button-icons {
-        padding: 0.2rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+    .buton-icon-disabled {
+        background-color: rgb(216, 214, 214);
+
+        .icon-disabled {
+            color: rgb(170, 170, 170)
+        }
+    }
+
+    .buton-icon-not-disabled {
         background-color: transparent;
-        border: none;
 
         &:hover {
             background-color: rgb(167, 165, 165);
         }
 
-        .icons-boards-title {
+        .icon-not-disabled {
             color: #273558;
+        }
+
+    }
+
+    .button-icons {
+        padding: 0.2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;       
+        border: none;
+
+
+        .icons-boards-title {
             font-size: 1.5rem;
         }
     }
 }
 
 
+.disabled-link {
+    pointer-events: none;
+    color: rgb(170, 170, 170);
+}
+
+.not-disabled-link {
+    color: #273558;
+}
 
 .link-board-title {
     text-decoration: none;
     padding: 0.5rem;
-    color: #273558;
+    overflow: auto;
+}
+
+.buton-icon-disabled {
+    background-color: rgb(216, 214, 214);
+
+    .icon-disabled {
+        color: rgb(170, 170, 170)
+    }
+}
+
+.buton-icon-not-disabled {
+    background-color: transparent;
+
+    &:hover {
+        background-color: rgb(167, 165, 165);
+    }
+
+    .icon-not-disabled {
+        color: #273558;
+    }
 }
 
 .button-icons {
@@ -43,16 +87,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: transparent;
     border: none;
     border-radius: 0.2rem;
 
-    &:hover {
-        background-color: rgb(167, 165, 165);
-    }
 
     .icons-boards-title {
-        color: #273558;
+
         font-size: 1.5rem;
     }
 }

@@ -21,22 +21,26 @@ function useSidebarBoardItem({ title, boardId }: HookSidebarItemProps) {
     const { boards, actualBoard } = useAppSelector(state => state.trello)
 
     const showTrashButtonBoard = (
-        actualBoard !== boardId
+        actualBoard?.boardId !== boardId
         && boards !== null
         && boards.length > 1
     )
 
+    const [isLoading, setIsLoading] = useState(false);
 
-    const [isError, setIsError] = useState(false)
+    const [isError, setIsError] = useState(false);
 
     const [isEditing, setIsEditing] = useState(false);
 
     const handleDeleteBoard = () => {
+        setIsLoading(true);
         deleteBoardService(boardId)
             .then(board => {
                 dispatch(deleteBoardStore({ boardId }))
+                setIsLoading(false);
             })
             .catch(error => {
+                setIsLoading(false)
                 console.log(error)
                 setIsError(true)
             })
@@ -56,13 +60,15 @@ function useSidebarBoardItem({ title, boardId }: HookSidebarItemProps) {
             swal("you must fill in", "try again", "info")
             return
         }
-
+        setIsLoading(true);
         updateBoardService(boardId, { title: boardTitle })
             .then(board => {
                 dispatch(updateBoardStore({ boardId, title: boardTitle }))
+                setIsLoading(false)
                 setIsEditing(false);
             })
             .catch(error => {
+                setIsLoading(false);
                 console.log(error);
                 setIsError(true)
             })
@@ -85,7 +91,8 @@ function useSidebarBoardItem({ title, boardId }: HookSidebarItemProps) {
         handleSendBoardTitle,
         handleStartEdit,
         handleStopEdit,
-        showTrashButtonBoard
+        showTrashButtonBoard,
+        isLoading
     }
 
 

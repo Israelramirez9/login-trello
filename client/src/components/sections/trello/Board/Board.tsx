@@ -7,10 +7,26 @@ type BoardProps = {
 
 function Board({ id }: BoardProps) {
 
-  useBoard(id);
+  const { isError, actualBoard } = useBoard(id);
 
   return (
-    <>{id}</>
+    <>
+      {
+        isError ?
+          <p>Board Not Found</p>
+          :
+          <>
+            <div>{actualBoard?.title}</div>
+            <section>
+              {
+                actualBoard?.columns?.map((column) => (
+                  <div key={column.columnId}>{column.title}</div>
+                ))
+              }
+            </section>
+          </>
+      }
+    </>
   )
 }
 

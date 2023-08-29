@@ -4,6 +4,7 @@ import Link from 'next/link'
 import useSidebarBoardItem from './useSidebarBoardItem'
 import { BsFillTrash3Fill, BsPencilSquare } from 'react-icons/bs'
 import { GrSend } from 'react-icons/gr'
+import { AiOutlineCheck } from 'react-icons/ai'
 import { TiCancel } from 'react-icons/ti'
 import styles from './SidebarBoardItem.module.scss'
 
@@ -22,7 +23,8 @@ function SidebarBoardItem({ board }: SidebarBoardItemProps) {
         handleStopEdit,
         isEditing,
         isError,
-        showTrashButtonBoard
+        showTrashButtonBoard,
+        isLoading
     } = useSidebarBoardItem(board);
 
     if (isError) {
@@ -44,31 +46,45 @@ function SidebarBoardItem({ board }: SidebarBoardItemProps) {
                                 value={boardTitle}
                                 onChange={handleChangeTitleBoard}
                                 className={styles['input-title-board']}
+                                disabled={isLoading}
                             />
-                            <button type="button" onClick={handleStopEdit} className={styles['button-icons']}>
-                                <TiCancel className={styles['icons-boards-title']} />
+                            <button
+                                type="button"
+                                onClick={handleStopEdit}
+                                className={`${styles['button-icons']} ${isLoading ? styles['buton-icon-disabled'] : styles['buton-icon-not-disabled']}`}
+                            >
+                                <TiCancel className={`${styles['icons-boards-title']} ${isLoading ? styles['icon-disabled'] : styles['icon-not-disabled']}`} />
                             </button>
-                            <button type="submit" className={styles['button-icons']}>
-                                <GrSend className={styles['icons-boards-title']} />
+                            <button
+                                type="submit"
+                                className={`${styles['button-icons']} ${isLoading ? styles['buton-icon-disabled'] : styles['buton-icon-not-disabled']}`}>
+                                <AiOutlineCheck className={`${styles['icons-boards-title']} ${isLoading ? styles['icon-disabled'] : styles['icon-not-disabled']}`} />
                             </button>
                         </form>
                     )
                     :
                     (
                         <>
-                            <Link href={`/trello/boards/${board.boardId}`} className={styles['link-board-title']}>
+                            <Link href={`/trello/boards/${board.boardId}`} className={`${styles['link-board-title']} ${isLoading ? styles['disabled-link'] : styles['not-disabled-link']}`}>
                                 {boardTitle}
                             </Link>
-                            <button className={styles['button-icons']} onClick={handleStartEdit} >
-                                <BsPencilSquare className={styles['icons-boards-title']} />
+                            <button
+                                className={`${styles['button-icons']} ${isLoading ? styles['buton-icon-disabled'] : styles['buton-icon-not-disabled']}`}
+                                onClick={handleStartEdit}
+                            >
+                                <BsPencilSquare className={`${styles['icons-boards-title']} ${isLoading ? styles['icon-disabled'] : styles['icon-not-disabled']}`} />
                             </button>
                         </>
                     )
             }
             {
                 showTrashButtonBoard ?
-                    <button className={styles['button-icons']} onClick={handleDeleteBoard}>
-                        <BsFillTrash3Fill className={styles['icons-boards-title']} />
+                    <button
+                        className={`${styles['button-icons']} ${isLoading ? styles['buton-icon-disabled'] : styles['buton-icon-not-disabled']}`}
+                        onClick={handleDeleteBoard}
+                        disabled={isLoading}
+                    >
+                        <BsFillTrash3Fill className={`${styles['icons-boards-title']} ${isLoading ? styles['icon-disabled'] : styles['icon-not-disabled']}`} />
                     </button>
                     : null
             }
