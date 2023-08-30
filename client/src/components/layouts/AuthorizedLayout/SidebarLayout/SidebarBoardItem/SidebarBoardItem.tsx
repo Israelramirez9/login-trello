@@ -52,12 +52,15 @@ function SidebarBoardItem({ board }: SidebarBoardItemProps) {
                                 type="button"
                                 onClick={handleStopEdit}
                                 className={`${styles['button-icons']} ${isLoading ? styles['buton-icon-disabled'] : styles['buton-icon-not-disabled']}`}
+                                disabled={isLoading}
                             >
                                 <TiCancel className={`${styles['icons-boards-title']} ${isLoading ? styles['icon-disabled'] : styles['icon-not-disabled']}`} />
                             </button>
                             <button
                                 type="submit"
-                                className={`${styles['button-icons']} ${isLoading ? styles['buton-icon-disabled'] : styles['buton-icon-not-disabled']}`}>
+                                className={`${styles['button-icons']} ${isLoading ? styles['buton-icon-disabled'] : styles['buton-icon-not-disabled']}`}
+                                disabled={isLoading}
+                            >
                                 <AiOutlineCheck className={`${styles['icons-boards-title']} ${isLoading ? styles['icon-disabled'] : styles['icon-not-disabled']}`} />
                             </button>
                         </form>
@@ -71,6 +74,7 @@ function SidebarBoardItem({ board }: SidebarBoardItemProps) {
                             <button
                                 className={`${styles['button-icons']} ${isLoading ? styles['buton-icon-disabled'] : styles['buton-icon-not-disabled']}`}
                                 onClick={handleStartEdit}
+                                disabled={isLoading}
                             >
                                 <BsPencilSquare className={`${styles['icons-boards-title']} ${isLoading ? styles['icon-disabled'] : styles['icon-not-disabled']}`} />
                             </button>

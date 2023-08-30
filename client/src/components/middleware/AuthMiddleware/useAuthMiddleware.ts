@@ -7,7 +7,9 @@ function useAuthMiddleware() {
     const { push } = useRouter();
 
     const isAuthenticated = useAppSelector(state => state.auth.isAuthenticated)
-
+    /**
+     * verifico si está logueado el usuario, caso contrario lo redirecciono al login
+     */
     useEffect(() => {
 
         if (getAccessToken() === null) {

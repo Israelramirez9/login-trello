@@ -7,6 +7,7 @@ type AuthProps = {
 }
 
 function AuthMiddleware({ children }: AuthProps) {
+    
     const { isAuthenticated } = useAuthMiddleware();
 
     if (isAuthenticated) {

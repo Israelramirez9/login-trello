@@ -1,6 +1,7 @@
 import React from 'react'
 import useBoard from './useBoard'
-
+import styles from './Board.module.scss'
+import Columns from './Columns/Columns'
 type BoardProps = {
   id: string
 }
@@ -16,13 +17,11 @@ function Board({ id }: BoardProps) {
           <p>Board Not Found</p>
           :
           <>
-            <div>{actualBoard?.title}</div>
-            <section>
-              {
-                actualBoard?.columns?.map((column) => (
-                  <div key={column.columnId}>{column.title}</div>
-                ))
-              }
+            <div className={styles['title-container']}>
+              <div className={styles['board-title']}>{actualBoard?.title}</div>
+            </div>
+            <section className={styles['columns-container']}>
+              <Columns />
             </section>
           </>
       }
