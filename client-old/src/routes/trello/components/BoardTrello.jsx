@@ -171,7 +171,8 @@ function BoardTrello() {
                         <div key={index} className="column">
                             <HeaderColumn columnIndex={index + 1} title={column.title} columnId={column.columnId} columns={columns} setColumns={setColumns} setTask={setTask} />
 
-                            <ListOfTasks columnsLength={columns.length}
+                            <ListOfTasks
+                                columnsLength={columns.length}
                                 columnIndex={index + 1}
                                 columnId={column.columnId}
                                 changeColumnTaskToRight={changeColumnTaskToRight}
