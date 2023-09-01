@@ -1,5 +1,5 @@
 import { Board } from "@/services/board.services";
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice, current } from "@reduxjs/toolkit";
 import { Column } from "@/services/columns.services";
 import { Task } from "@/services/tasks.services";
 
@@ -14,6 +14,7 @@ export type BoardWithColumns = Board & {
 export type TrelloState = {
     boards: Board[] | null,
     actualBoard: BoardWithColumns | null
+
 
 }
 
@@ -69,6 +70,7 @@ export const trelloSlice = createSlice({
                 return
             }
             state.actualBoard.columns = action.payload;
+
         },
         updateColumnById(state, action: PayloadAction<Pick<Column, 'columnId' | 'columnIndex' | 'title'>>) {
             const { columnId, columnIndex, title } = action.payload;
@@ -88,7 +90,7 @@ export const trelloSlice = createSlice({
             if (state.actualBoard === null) {
                 return
             }
-            state.actualBoard.columns = state.actualBoard.columns?.filter((column) => column.columnId!==columnId)
+            state.actualBoard.columns = state.actualBoard.columns?.filter((column) => column.columnId !== columnId)
         },
         setTasksToColumnByColumnId(state, action: PayloadAction<{ columnId: string, tasks: Task[] }>) {
             const { columnId, tasks } = action.payload;
@@ -104,7 +106,70 @@ export const trelloSlice = createSlice({
                 return column
             })
 
+        },
+        updateTaskToColumnByColumnId(state, action: PayloadAction<{ updatedTask: Task, oldTask: Task }>) {
+            const { updatedTask, oldTask } = action.payload;
+
+            if (state.actualBoard === null || state.actualBoard.columns === undefined) {
+                return
+            }
+
+            state.actualBoard.columns = state.actualBoard.columns.map((column) => {
+
+                if (column.columnId === updatedTask.columnId) {
+
+                    if (column.tasks === undefined) {
+                        column.tasks = [];
+                    }
+
+                    column.tasks.push(updatedTask)
+
+                }
+                if (column.columnId === oldTask.columnId) {
+                    column.tasks = column.tasks?.filter((task) => task.taskId !== oldTask.taskId)
+
+                }
+
+                return column
+            })
+        },
+        deleteTaskByTaskId(state, action: PayloadAction<Task>) {
+            const task = action.payload;
+
+            if (state.actualBoard === null || state.actualBoard.columns === undefined) {
+                return
+            }
+
+            state.actualBoard.columns = state.actualBoard.columns.map((column) => {
+
+                if (column.columnId === task.columnId) {
+                    column.tasks = column.tasks?.filter((taskfiltered) => taskfiltered.taskId !== task.taskId)
+                }
+                return column
+            })
+        },
+        updateFeatureIsCompletedByTaskId(state, action: PayloadAction<Task>) {
+            const task = action.payload;
+            console.log(task)
+            if (state.actualBoard === null || state.actualBoard.columns === undefined) {
+                return
+            }
+            state.actualBoard.columns = state.actualBoard.columns.map((column) => {
+
+                if (column.columnId === task.columnId) {
+                    column.tasks = column.tasks?.map((taskToUpdate) => {
+                        console.log(taskToUpdate, 'vieja')
+                        console.log(task, 'ha actualizar')
+                        if (taskToUpdate.taskId === task.taskId) {
+                            taskToUpdate = task
+                        }
+                        return taskToUpdate
+                    })
+                }
+                return column
+            })
         }
+
     }
 })
 
@@ -113,7 +178,10 @@ export const { setBoards,
     updateBoard,
     setActualBoard,
     setColumnsToActualBoard,
-    setTasksToColumnByColumnId,
     updateColumnById,
-    deleteColumnById } = trelloSlice.actions
+    deleteColumnById,
+    setTasksToColumnByColumnId,
+    updateTaskToColumnByColumnId,
+    deleteTaskByTaskId,
+    updateFeatureIsCompletedByTaskId } = trelloSlice.actions
 export default trelloSlice.reducer

@@ -1,10 +1,14 @@
 import React from 'react'
-
+import ProfileSetting from './ProfileSetting/ProfileSetting'
+import styles from './Profile.module.scss'
 function Profile() {
     return (
         <>
-        
-            <div>Profile</div>
+
+
+            <ProfileSetting />
+
+
         </>
     )
 }

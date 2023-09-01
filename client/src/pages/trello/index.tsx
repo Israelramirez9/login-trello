@@ -4,7 +4,7 @@ import { AuthMiddleware } from '@/components/middleware'
 import { AuthorizedLayout } from '@/components/layouts'
 
 function trello() {
-
+ 
     return (
         /**
          * verifico el token si existe lo dejo pasar a los hijos, sino lo redirecciono al login

@@ -20,21 +20,10 @@ function useTrello() {
 
     const dispatch = useAppDispatch();
 
-
     /**
-     * se ejecutá la acción de traer por primera vez los boards del servidor y cambiar el estado en el store del array de boards
+     * borré el useEffect que trae por primera vez los boards
      */
-    useEffect(() => {
-        getBoards()
-            .then(boards => {
-                dispatch(setBoards(boards));
-            })
-            .catch(error => {
-                console.log(error)
-                setIsError(true)
-            })
-    }, [])
-
+  
     /**
      * se ejecutará cada vez que cambien los boards del store
      */
@@ -44,6 +33,7 @@ function useTrello() {
          * no realizará ninguna lógica 
          */
         if (boards === null) {
+            console.log('board esta en null, estado inical')
             return
         }
         /**
@@ -52,6 +42,7 @@ function useTrello() {
          * cambia el estado de boards en el store con el nuevo board creado arbitrariamente         
          */
         if (boards.length === 0) {
+            console.log('si boards es igual a cero creo el board y lo actualizo en el store')
             setMessage('Creating your New Board...')
             createFirstBoard()
                 .then(board => {
@@ -66,6 +57,7 @@ function useTrello() {
         /**
          * cuando exista almenos 1 board en el store, redirige la página al primer board 
          */
+        console.log('redirigiendo al primer board creado')
         setMessage('Redirecting to your first board...')
         push(`${asPath}/boards/${boards[0].boardId}`)
 

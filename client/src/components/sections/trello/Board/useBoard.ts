@@ -1,7 +1,8 @@
 import { getBoardById } from '@/services/board.services';
 import { getColumns } from '@/services/columns.services';
+import { getTasks } from '@/services/tasks.services';
 import { useAppDispatch, useAppSelector } from '@/store'
-import { setActualBoard, setColumnsToActualBoard } from '@/store/reducers/trello';
+import { setActualBoard, setColumnsToActualBoard, setTasksToColumnByColumnId } from '@/store/reducers/trello';
 import { useEffect, useState } from 'react'
 
 function useBoard(id: string) {
@@ -26,14 +27,26 @@ function useBoard(id: string) {
                  */
                 const columns = await getColumns(id)
                 dispatch(setColumnsToActualBoard(columns))
+                /**
+                 * por cada columna, me traigo las tareas y actualizo el estado en el store
+                 */
+                columns.forEach(async (column) => {
+                    const tasks = await getTasks(column.columnId)
 
+                    dispatch(setTasksToColumnByColumnId({
+                        columnId: column.columnId,
+                        tasks: tasks
+                    }))
+                })
             } catch (error) {
                 console.log(error)
                 setIsError(true);
             }
 
         })()
-
+        /**
+         * la callback que se ejecuta en el return es una función de limpieza ,es decir, se ejecutará una vez que se haya borrado el componente actual
+         */
         return () => {
             dispatch(setActualBoard(null))
         }

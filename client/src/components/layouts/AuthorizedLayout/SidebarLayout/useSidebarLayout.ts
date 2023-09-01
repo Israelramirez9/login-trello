@@ -12,6 +12,20 @@ function useSidebarLayout() {
     const dispatch = useAppDispatch();
     const boards = useAppSelector(state => state.trello.boards)
 
+    useEffect(() => {
+        if (boards === null) {
+            
+            getBoards()
+                .then(boards => {
+                    dispatch(setBoards(boards));
+                })
+                .catch(error => {
+                    console.log(error)
+                    setIsError(true)
+                })
+        }
+    }, [])
+
     const handleCreateNewBoard = () => {
         createBoard({ title: 'New Board' })
             .then(board => {
@@ -24,18 +38,6 @@ function useSidebarLayout() {
                 setIsError(true);
             })
     }
-    useEffect(() => {
-        if (boards === null) {
-            getBoards()
-                .then(boards => {
-                    dispatch(setBoards(boards));
-                })
-                .catch(error => {
-                    console.log(error)
-                    setIsError(true)
-                })
-        }
-    }, [])
     return {
         isMoved,
         moveSidebar,

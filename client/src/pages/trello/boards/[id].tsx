@@ -9,7 +9,7 @@ export default function board() {
     if (!router.query.id) {
         return <Loading />
     }
-
+ 
     return (
         /**
          * verifica si estoy logueado , sino me devuelve a la pagina de login

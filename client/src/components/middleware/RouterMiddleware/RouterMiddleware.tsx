@@ -5,7 +5,7 @@ import { Loading } from '@/components/sections';
 function RouterMiddleware({ children }: React.PropsWithChildren) {
 
     const { isLoading } = useRouterMiddleware();
-
+   
     if (isLoading) return <Loading />
 
     return children

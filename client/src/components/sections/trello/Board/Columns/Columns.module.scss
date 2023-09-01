@@ -14,6 +14,8 @@
     color: var(--color-blue);
     justify-content: center;
     cursor: pointer;
+    transition: 500ms ease-in-out;
+    transition-property: background-color;
 
     &:hover {
         background: rgb(178, 185, 188, 0.8);
@@ -37,24 +39,104 @@
 
 .column {
     min-height: 200px;
-    min-width: 250px;
-    max-width: 250px;
-    box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;
+    min-width: 300px;
+    max-width: 300px;
     text-align: center;
-    background-color: #f1f2f4;
-    color: black;
-    border-radius: 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     overflow: hidden;
     margin: 2rem;
 
-    .header-column {
+    .col-independent {
+        width: 100%;
+        border-radius: 2rem;
+        box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;
+        background-color: #f1f2f4;
+
+        .header-column {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 0 0.5rem;
+        }
+    }
+
+}
+
+.form {
+
+    height: 150px;
+    max-width: 250px;
+    min-width: 250px;
+    box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;
+    background-color: rgb(178, 185, 188, 0.5);
+    border-radius: 2rem;
+    margin: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .text-area {
+
+        width: 90%;
+        margin-top: 1rem;
+        resize: none;
+        min-height: 4rem;
+        border-radius: 7px;
+        box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
+        border: none;
+        padding: 0.3rem;
+
+        &::placeholder {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: medium;
+
+        }
+
+    }
+
+    .action-add-task-container {
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 100%;
-        padding: 0 0.5rem;
+
+        .button-add-task {
+            background-color: #0c66e4;
+            color: white;
+            padding: 0.5rem;
+            margin: 1rem 1rem 0 1rem;
+            font-size: medium;
+            border-radius: 0.5rem;
+            border: none;
+
+            &:hover {
+                cursor: pointer;
+                background-color: rgb(9, 88, 199);
+            }
+        }
+
+        .button-not-add {
+            border: none;
+            background-color: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 1rem;
+            &:hover {
+                cursor: pointer;
+            }
+
+            &:hover .icon {
+                color: #444546
+            }
+
+            .icon {
+                font-size: 2rem;
+                color: #858585
+            }
+        }
     }
 }

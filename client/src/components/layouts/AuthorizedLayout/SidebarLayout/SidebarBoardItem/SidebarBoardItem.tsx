@@ -7,6 +7,7 @@ import { GrSend } from 'react-icons/gr'
 import { AiOutlineCheck } from 'react-icons/ai'
 import { TiCancel } from 'react-icons/ti'
 import styles from './SidebarBoardItem.module.scss'
+import useSidebar from '../../useSidebar'
 
 type SidebarBoardItemProps = {
     board: Board
@@ -26,7 +27,7 @@ function SidebarBoardItem({ board }: SidebarBoardItemProps) {
         showTrashButtonBoard,
         isLoading
     } = useSidebarBoardItem(board);
-
+    const { moveSidebar } = useSidebar();
     if (isError) {
         return (
             <p>An error has ocurred in board sidebar</p>
@@ -68,7 +69,10 @@ function SidebarBoardItem({ board }: SidebarBoardItemProps) {
                     :
                     (
                         <>
-                            <Link href={`/trello/boards/${board.boardId}`} className={`${styles['link-board-title']} ${isLoading ? styles['disabled-link'] : styles['not-disabled-link']}`}>
+                            <Link
+                                onClick={moveSidebar}
+                                href={`/trello/boards/${board.boardId}`}
+                                className={`${styles['link-board-title']} ${isLoading ? styles['disabled-link'] : styles['not-disabled-link']}`}>
                                 {boardTitle}
                             </Link>
                             <button

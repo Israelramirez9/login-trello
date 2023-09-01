@@ -4,8 +4,8 @@ const API_URL_TASKS = API_URL + '/tasks'
 
 export type Task = {
     text: string,
-    isCompleted: string,
-    columnIndex: string,
+    isCompleted: boolean,
+    columnIndex: number,
     columnId: string,
     taskId: string
 }

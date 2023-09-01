@@ -1,0 +1,96 @@
+.add-card-button {
+    width: 90%;
+    margin: 1rem 0;
+    background-color: #f1f2f4;
+    border: none;
+    padding: 1rem;
+    border-radius: 1rem;
+    display: flex;
+    justify-content: start;
+    gap: 1rem;
+    align-items: center;
+    transition-duration: 500ms;
+    transition-property: background-color;
+
+    &:hover {
+        background-color: #d0d4db;
+        cursor: pointer;
+    }
+
+    span {
+        font-size: medium;
+        color: gray
+    }
+
+    .icon {
+        font-size: 1.5rem;
+        color: gray;
+    }
+}
+
+
+
+.form {
+    width: 100%;
+    
+    .text-area {
+
+        width: 90%;
+        margin-top: 1rem;
+        resize: none;
+        min-height: 4rem;
+        border-radius: 7px;
+        box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
+        border: none;
+        padding: 0.3rem;
+
+        &::placeholder {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: medium;
+
+        }
+
+    }
+
+    .action-add-task-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .button-add-task {
+            background-color: #0c66e4;
+            color: white;
+            padding: 0.5rem;
+            margin: 1rem;
+            font-size: medium;
+            border-radius: 0.5rem;
+            border: none;
+
+            &:hover {
+                cursor: pointer;
+                background-color: rgb(9, 88, 199);
+            }
+        }
+
+        .button-not-add {
+            border: none;
+            background-color: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            &:hover {
+                cursor: pointer;
+            }
+
+            &:hover .icon {
+                color: #444546
+            }
+
+            .icon {
+                font-size: 2rem;
+                color: #858585
+            }
+        }
+    }
+}

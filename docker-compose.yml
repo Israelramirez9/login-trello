@@ -13,7 +13,8 @@ services:
   #   working_dir: /app #ubicación del contenedor, es decir donde se va a estar trabajando
   #   command: npm run start:server #este comando se ejecuta en la dirección declarada con workin_dir(todo esto se ejecuta en el contenedor)
   #   environment:
-  #     - MONGODB_URI=mongodb://israel:password@container_mongo:27017/trello?authSource=admin #si en lugar de container_mongo escribo localhost hago referencia al localhost del contenedor
+          # si en lugar de container_mongo escribo localhost hago referencia al localhost del contenedor
+  #     - MONGODB_URI=mongodb://israel:password@container_mongo:27017/trello?authSource=admin 
   #     - PORT=3000
 
   container_mongo:
