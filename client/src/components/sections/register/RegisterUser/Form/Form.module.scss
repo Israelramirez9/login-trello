@@ -8,7 +8,7 @@
 
     input::placeholder {
         color: black;
-      
+
         opacity: 0.5;
     }
 
@@ -64,6 +64,15 @@
             width: 100%;
             transition: background-color 0.5s ease;
             z-index: -1;
+        }
+    }
+
+    .validations-container {
+        padding: 0 1rem 1rem 1rem;
+        .validations{
+            color:gray;
+            font-size: smaller;
+            margin: 0.5rem 0;
         }
     }
 }

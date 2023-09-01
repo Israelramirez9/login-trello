@@ -31,7 +31,7 @@ function Form() {
         </input>
       </div>
       <div className={styles['input-box']}>
-                
+
         <InputPasswordWithEye
           type="password"
           placeholder='Password'
@@ -41,6 +41,29 @@ function Form() {
           onChange={handleChange}
         />
 
+      </div>
+      <div className={styles['input-box']}>
+
+        <InputPasswordWithEye
+          type="password"
+          placeholder='repeat password'
+          className={styles['input-control']}
+          name="passwordrepeated"
+          value={input.passwordrepeated}
+          onChange={handleChange}
+        />
+
+      </div>
+      <div className={styles['validations-container']}>
+        <p className={styles['validations']}>
+          * password must be between 8 and 16 characters
+        </p>
+        <p className={styles['validations']}>
+          * at least one digit
+        </p>
+        <p className={styles['validations']}>
+          * at least one lowercase and at least one uppercase.
+        </p>
       </div>
       <button type="submit" className={styles['btn']}>create Account</button>
     </form >

@@ -7,7 +7,8 @@ function useForm() {
     const [input, setInput] = useState({
         name: "",
         email: "",
-        password: ""
+        password: "",
+        passwordrepeated: ''
     });
 
     const handleChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
@@ -16,6 +17,10 @@ function useForm() {
 
     const handleSend: React.FormEventHandler<HTMLFormElement> = async (event) => {
         event.preventDefault();
+        if (input.password !== input.passwordrepeated) {
+            swal("Passwords must match", "try again", "info")
+            return
+        }
         if (input.name.length !== 0 && input.email.length !== 0 && input.password.length !== 0) {
             try {
                 const resp = await createUser(input)
