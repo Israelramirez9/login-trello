@@ -36,19 +36,36 @@
                 justify-content: space-between;
                 transition: 500ms ease-in-out;
                 transition-property: background-color, display;
-                color:rgb(80, 80, 80);
+                color: rgb(80, 80, 80);
+
                 &:hover {
                     background-color: #d0d4db;
-                    cursor: pointer;
+
                 }
 
-                &:hover .icon-button {
-                    display: block;
+                .input-enabled {
+                    background-color: white;
+                }
 
+                .input-disabled {
+                    background-color: transparent;
+                }
+
+
+
+                .input {
+
+                    border: none;
+                    border-bottom: 1px solid;
+                    padding: 0.5rem 0.2rem 0.2rem 0.2rem;
+
+                    &::placeholder {
+                        font-size: medium;
+                    }
                 }
 
                 .icon-button {
-                    display: none;
+
                     background-color: transparent;
                     border: none;
                     border-radius: 0.4rem;
@@ -68,6 +85,61 @@
                     }
                 }
 
+            }
+
+            .buttons-container {
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+                padding-right: 0;
+
+                .icon-button {
+                    background-color: #d0d4db;
+                    border: none;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    padding: 0.5rem;
+                    border-radius: 0.5rem;
+                    transition: 500ms ease-in-out;
+                    transition-property: background-color;
+                    margin: 0 0.5rem;
+
+                    &:hover {
+                        background-color: rgb(170, 169, 169);
+                        cursor: pointer;
+                    }
+
+                    .icon {
+                        font-size: 1.5rem;
+
+                    }
+                }
+            }
+
+            .container-inputs-password {
+                .input-enabled {
+                    background-color: white;
+                }
+
+                .input-disabled {
+                    background-color: transparent;
+                }
+
+
+
+                .input {
+
+                    border: none;
+                    border-bottom: 1px solid;
+                    padding: 0.5rem 0.2rem 0.2rem 0.2rem;
+                    margin-left: 1rem;
+                    margin-bottom: 0.5rem;
+
+                    &::placeholder {
+                        font-size: medium;
+                    }
+                }
             }
         }
     }

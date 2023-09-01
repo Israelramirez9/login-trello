@@ -12,6 +12,11 @@ type UserWithOutPassword = Omit<User, "password">//esto le quita la propiedad pa
 
 const API_URL_USERS = API_URL + "/users";
 
+export const getUser = async () => {
+    const resp = await axiosInstance.get(API_URL_USERS)
+    return resp.data
+}
+
 export const createUser = async (user: User): Promise<UserWithOutPassword> => {
     const resp = await axios.post(API_URL_USERS, user)
     return resp.data

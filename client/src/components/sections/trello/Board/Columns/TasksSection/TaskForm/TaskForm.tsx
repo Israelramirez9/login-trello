@@ -48,7 +48,7 @@ function TaskForm({ column }: TasksSectionProps) {
           <button className={styles['add-card-button']}
             onClick={handleStartEdit}>
             <AiOutlinePlus className={styles['icon']} />
-            <span>Add a card</span>
+            <span>Add a task</span>
           </button>
 
       }

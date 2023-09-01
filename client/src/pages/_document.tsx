@@ -6,9 +6,6 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head >
-        <title>Trello | List</title>
-        <meta name="description" content="trello" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.png" />
       </Head>
       <body>

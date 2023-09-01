@@ -2,9 +2,39 @@ const { encrypt } = require('../helpers/handleBcrypt')
 const { Types } = require('mongoose')
 const { User } = require('../models')
 
-async function createUser(req, res) {
+async function getUser(req, res) {
+    const userId = req.user._id;
+
+    if (!Types.ObjectId.isValid(userId)) { //verifica si el token es válido
+        return res.status(400).json({
+            error: 'incorrect token'
+        })
+    }
     try {
-        const { email } = req.body;
+        const user = await User.findById(userId);
+
+        if (!user) {
+            return res.status(404).json({
+                error: 'user not found'
+            })
+        }
+
+        return res.status(200).json({
+            email: user.email,
+            name: user.name
+        })
+
+    } catch (error) {
+        res.status(500).json({
+            error: 'An error has ocurred'
+        })
+    }
+
+
+}
+async function createUser(req, res) {
+    const { email } = req.body;
+    try {
         const user = await User.findOne({ email })
         if (!user) {
             const newUser = new User(req.body)
@@ -31,42 +61,48 @@ async function createUser(req, res) {
 async function updateUser(req, res) {
     const userId = req.user._id;
     const { email, password, name } = req.body
-    
+
     if (!Types.ObjectId.isValid(userId)) { //verifica si el token es válido
         return res.status(400).json({
             error: 'incorrect token'
         })
     }
+    try {
 
-    const user = await User.findById(userId)
+        const user = await User.findById(userId)
+
+        if (!user) {
+            return res.status(404).json({
+                error: 'user not found'
+            })
+        }
+
+        if (email && email.length !== 0) {
+            user.email = email
+        }
+
+        if (name && name.length !== 0) {
+            user.name = name
+        }
+
+        if (password && password.length !== 0) {
+            user.password = await encrypt(password);
+        }
+
+        await User.findByIdAndUpdate(userId, user)
 
 
-    if (!user) {
-        return res.status(404).json({
-            error: 'user not found'
+        res.status(200).json({
+            email: user.email,
+            name: user.name,
+
+        })
+    } catch (error) {
+        return res.status(500).json({
+            error: 'An error has ocurred in the server'
         })
     }
 
-    if (email && email.length !== 0) {
-        user.email = email
-    }
-
-    if (name && name.length !== 0) {
-        user.name = name
-    }
-
-    if (password && password.length !== 0) {
-        user.password = await encrypt(password);
-    }
-
-    await User.findByIdAndUpdate(userId, user)
-
-
-    res.status(200).json({
-        email: user.email,
-        name: user.name,
-
-    })
 }
 
 async function deleteUser(req, res) {
@@ -78,7 +114,7 @@ async function deleteUser(req, res) {
         return res.status(200).json(user)
     } catch (e) {
         console.log(e);
-        return res.status(404).json({
+        return res.status(500).json({
             error: "error has occurred"
         })
 
@@ -87,4 +123,4 @@ async function deleteUser(req, res) {
 
 
 
-module.exports = { createUser, updateUser, deleteUser }
+module.exports = { createUser, updateUser, deleteUser, getUser }

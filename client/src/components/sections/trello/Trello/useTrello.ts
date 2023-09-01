@@ -33,7 +33,7 @@ function useTrello() {
          * no realizará ninguna lógica 
          */
         if (boards === null) {
-            console.log('board esta en null, estado inical')
+         
             return
         }
         /**
@@ -42,7 +42,7 @@ function useTrello() {
          * cambia el estado de boards en el store con el nuevo board creado arbitrariamente         
          */
         if (boards.length === 0) {
-            console.log('si boards es igual a cero creo el board y lo actualizo en el store')
+           
             setMessage('Creating your New Board...')
             createFirstBoard()
                 .then(board => {

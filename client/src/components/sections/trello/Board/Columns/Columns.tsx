@@ -47,7 +47,7 @@ function Columns() {
                         <div className={styles['action-add-task-container']}>
                             <button className={styles['button-add-task']}
                                 type='submit'>
-                                <span>Add Task</span>
+                                <span>Add Card</span>
                             </button>
                             <button className={styles['button-not-add']}
                                 onClick={handleShowForm}

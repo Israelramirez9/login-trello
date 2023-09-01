@@ -1,3 +1,9 @@
+### obtener data usuario
+
+GET /api/v1/users
+Host: localhost:4040
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGUyNWViOGExOGEwZTg1NjUwNGI3ZjAiLCJpYXQiOjE2OTM1ODg2NzUsImV4cCI6MTY5MzU5MjI3NX0.UeL0Ek7Q2ViPUuXW0B6d9z2Z-Af1LePynUAgPOAQOmY
+
 ### registrar usuario
 
 POST /api/v1/users

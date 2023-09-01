@@ -1,28 +1,48 @@
 import { updateUser } from '@/services/users.services'
-import React, { useState } from 'react'
+import { useAppDispatch, useAppSelector } from '@/store'
+import { profile } from 'console'
+import React, { useEffect, useState } from 'react'
+import swal from 'sweetalert'
 
+type ProfileSettings = {
+  category: string
+  isVisible: boolean
+  value?: string
+}
 function useProfileSetting() {
-  const [dataUser, setDataUser] = useState([
-    {
-      category: 'name',
-      isVisible: false,
-      value: 'israel'
-    },
-    {
-      category: 'email',
-      isVisible: false,
-      value: 'israel@gmail.com'
-    },
-    {
-      category: 'password',
-      isVisible: false,
-      value: '****'
+
+  const dispatch = useAppDispatch()
+  const user = useAppSelector(state => state.user)
+
+  const [profileSettings, setProfileSettings] = useState<Array<ProfileSettings>>([])
+
+  useEffect(() => {
+    if (!user) {
+      return
     }
-  ])
+    const { email, name } = user;
+    setProfileSettings([
+      {
+        category: 'name',
+        isVisible: false,
+        value: name
+      },
+      {
+        category: 'email',
+        isVisible: false,
+        value: email
+      },
+      {
+        category: 'password',
+        isVisible: false,
+        value: '*******'
+      }
+    ])
+  }, [user])
 
-  const handleVisibility = (indexData: number) => {
+  const handleEditing = (indexData: number) => {
 
-    setDataUser(dataUser.map((data, index) => {
+    setProfileSettings(profileSettings.map((data, index) => {
       if (index === indexData) {
         data.isVisible = !data.isVisible
       }
@@ -30,19 +50,30 @@ function useProfileSetting() {
     }
     ))
   }
-
+  const handleStopEditing = (indexData: number) => {
+    setProfileSettings(profileSettings.map((data, index) => {
+      if (index === indexData) {
+        data.isVisible = false
+      }
+      return data
+    }
+    ))
+  }
   const handleSendData = (category: string, index: number) => {
-    updateUser({ [category]: dataUser[index].value })
-      .then(data => {
 
-      })
-      .catch(error => {
-        console.log(error)
-      })
-      .finally()
+    const data = profileSettings[index]
+    if (data === undefined) return
+    if (data.value === undefined) return
+
+    if (data.value.trim() === '') {
+      swal("you must fill in", "try again", "info")
+      return
+    }
+    
+
   }
   const handleChangeValue = (event: React.ChangeEvent<HTMLInputElement>, indexData: number) => {
-    setDataUser(dataUser.map((data, index) => {
+    setProfileSettings(profileSettings.map((data, index) => {
       if (index === indexData) {
         data.value = event.target.value
       }
@@ -51,10 +82,11 @@ function useProfileSetting() {
   }
 
   return {
-    dataUser,
+    profileSettings,
     handleChangeValue,
     handleSendData,
-    handleVisibility,
+    handleEditing,
+    handleStopEditing
   }
 }
 
