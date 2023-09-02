@@ -4,7 +4,7 @@ import styles from './Form.module.scss'
 import { InputPasswordWithEye } from '@/components/commons';
 
 function Form() {
-  const { handleSend, handleChange, input } = useForm();
+  const { handleSend, handleChange, input, passwordConditions } = useForm();
 
   return (
     <form onSubmit={handleSend} className={styles['form']}>
@@ -55,15 +55,14 @@ function Form() {
 
       </div>
       <div className={styles['validations-container']}>
-        <p className={styles['validations']}>
-          * password must be between 8 and 16 characters
-        </p>
-        <p className={styles['validations']}>
-          * at least one digit
-        </p>
-        <p className={styles['validations']}>
-          * at least one lowercase and at least one uppercase.
-        </p>
+        {
+          passwordConditions.map((condition, index) => (
+            <p className={`${condition.validated ? styles['validation-resolve'] : styles['validation-reject']} ${styles['validations']}`} key={index}>
+              {condition.string}
+            </p>
+          ))
+        }
+
       </div>
       <button type="submit" className={styles['btn']}>create Account</button>
     </form >

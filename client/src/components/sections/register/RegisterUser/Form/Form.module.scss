@@ -69,10 +69,20 @@
 
     .validations-container {
         padding: 0 1rem 1rem 1rem;
-        .validations{
-            color:gray;
+
+        .validations {
+            
             font-size: smaller;
             margin: 0.5rem 0;
         }
+
+        .validation-resolve {
+            color: green;
+        }
+
+        .validation-reject {
+            color: red;
+        }
     }
+
 }
