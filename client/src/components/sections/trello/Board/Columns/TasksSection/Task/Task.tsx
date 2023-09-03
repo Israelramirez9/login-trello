@@ -1,10 +1,11 @@
 import { Task } from '@/services/tasks.services'
 import React from 'react'
 import useTask from './useTask';
-import {  BsFillClipboard2CheckFill } from 'react-icons/bs'
+import { BsFillClipboard2CheckFill } from 'react-icons/bs'
 import { FaTrash } from 'react-icons/fa'
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai'
 import styles from './Task.module.scss'
+import { deleteAlert } from '@/swalsAndToster/swalsAndToster';
 type TaskProps = {
   task: Task
 }
@@ -33,7 +34,7 @@ function Task({ task }: TaskProps) {
           <button onClick={handleIsCompleted} className={`${styles['button-icon']} ${styles['button-check']}`}>
             <BsFillClipboard2CheckFill className={styles['icon']} />
           </button>
-          <button onClick={handleDeleteTask} className={`${styles['button-icon']} ${styles['button-trash']}`}>
+          <button onClick={() => deleteAlert(handleDeleteTask, 'task')} className={`${styles['button-icon']} ${styles['button-trash']}`}>
             <FaTrash className={styles['icon']} />
           </button>
 

@@ -46,7 +46,7 @@ function Form() {
 
         <InputPasswordWithEye
           type="password"
-          placeholder='repeat password'
+          placeholder='Confirm Password'
           className={styles['input-control']}
           name="passwordrepeated"
           value={input.passwordrepeated}

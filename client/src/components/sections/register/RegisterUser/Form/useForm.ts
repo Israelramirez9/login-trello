@@ -52,7 +52,7 @@ function useForm() {
     const handleSend: React.FormEventHandler<HTMLFormElement> = async (event) => {
 
         event.preventDefault();
-        console.log(input)
+        
         /**
          * valido que todos los campos estén llenos 
          */

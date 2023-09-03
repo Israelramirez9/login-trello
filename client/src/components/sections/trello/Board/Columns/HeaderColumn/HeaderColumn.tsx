@@ -5,6 +5,7 @@ import useHeaderColumn from './useHeaderColumn'
 import { AiFillEdit, AiOutlineStop } from 'react-icons/ai'
 import { FaTrash } from 'react-icons/fa'
 import { BsCheckLg } from 'react-icons/bs'
+import { deleteAlert } from '@/swalsAndToster/swalsAndToster'
 
 type HeaderColumnProps = {
     column: ColumnWithTasks
@@ -74,7 +75,7 @@ function HeaderColumn({ column }: HeaderColumnProps) {
                 <button
                     className={`${isLoading ? styles['icon-button-disabled'] : styles['trash']} ${styles['icon-button']} `}
                     type='button'
-                    onClick={handleDeleteColumn}
+                    onClick={() => deleteAlert(handleDeleteColumn, 'column')}
                     disabled={isLoading}
                 >
                     <FaTrash className={styles['icon']} />

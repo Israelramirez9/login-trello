@@ -1,6 +1,5 @@
 import { updateUser } from '@/services/users.services'
 import { useAppDispatch, useAppSelector } from '@/store'
-import { profile } from 'console'
 import React, { useEffect, useState } from 'react'
 import swal from 'sweetalert'
 
@@ -69,7 +68,16 @@ function useProfileSetting() {
       swal("you must fill in", "try again", "info")
       return
     }
-    
+
+    // updateUser({ name: data.value })
+    //   .then((data) => {
+    //     console.log(data)
+    //   })
+    //   .catch(error => {
+    //     console.log(error)
+    //   })
+
+    // console.log(category)
 
   }
   const handleChangeValue = (event: React.ChangeEvent<HTMLInputElement>, indexData: number) => {

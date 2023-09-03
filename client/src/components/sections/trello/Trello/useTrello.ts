@@ -57,7 +57,7 @@ function useTrello() {
         /**
          * cuando exista almenos 1 board en el store, redirige la página al primer board 
          */
-        console.log('redirigiendo al primer board creado')
+       
         setMessage('Redirecting to your first board...')
         push(`${asPath}/boards/${boards[0].boardId}`)
 

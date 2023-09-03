@@ -150,7 +150,7 @@ export const trelloSlice = createSlice({
         },
         updateFeatureIsCompletedByTaskId(state, action: PayloadAction<Task>) {
             const task = action.payload;
-            console.log(task)
+       
             if (state.actualBoard === null || state.actualBoard.columns === undefined) {
                 return
             }
@@ -158,8 +158,7 @@ export const trelloSlice = createSlice({
 
                 if (column.columnId === task.columnId) {
                     column.tasks = column.tasks?.map((taskToUpdate) => {
-                        console.log(taskToUpdate, 'vieja')
-                        console.log(task, 'ha actualizar')
+                       
                         if (taskToUpdate.taskId === task.taskId) {
                             taskToUpdate = task
                         }

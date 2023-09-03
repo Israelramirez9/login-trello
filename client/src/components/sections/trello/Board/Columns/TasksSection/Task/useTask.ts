@@ -70,7 +70,7 @@ function useTask(task: Task) {
 
 
     }
-
+    
     const handleDeleteTask = () => {
 
         if (actualBoard === null || actualBoard.columns === undefined) {
