@@ -5,7 +5,7 @@ import { handleChangeDataUser } from '@/store/reducers/user'
 import React, { useEffect, useState } from 'react'
 
 import swal from 'sweetalert'
-
+type keysProfileSettings = 'newPassword' | 'confirmNewPassword' | 'value';
 type ProfileSettings = {
   category: string
   isVisible: boolean
@@ -86,10 +86,14 @@ function useProfileSetting() {
 
       startSession({ email: user.email, password: data.value })
         .then(response => {
+          if (response) {
+
+          }
           const RegexCases = [/^\S{8,16}$/, /[0-9]/g, /[A-Z]/g];
           if (RegexCases.every(regex => regex.test(data.newPassword as string))) {
             updateUser({ password: data.newPassword })
               .then(response => {
+                if (response) { }
                 swal('Done', 'chenged password', 'success')
               })
               .catch(error => {
@@ -102,6 +106,7 @@ function useProfileSetting() {
 
         })
         .catch(error => {
+          console.log(error)
           swal('Oopss!', 'incorrect password!', 'error')
         })
 
@@ -124,9 +129,11 @@ function useProfileSetting() {
   const handleChangeValue = (event: React.ChangeEvent<HTMLInputElement>, indexData: number) => {
 
 
+
     setProfileSettings(profileSettings.map((data, index) => {
+      const key = event.target.name;
       if (indexData === index) {
-        data[event.target.name] = event.target.value
+        data[key as keysProfileSettings] = event.target.value
       }
 
       return data

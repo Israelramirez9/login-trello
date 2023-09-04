@@ -3,13 +3,13 @@ import { AuthMiddleware } from '@/components/middleware'
 import { Board, Loading } from '@/components/sections'
 import { useRouter } from 'next/router'
 
-export default function board() {
+export default function BoardRender() {
     const router = useRouter()
 
     if (!router.query.id) {
         return <Loading />
     }
- 
+
     return (
         /**
          * verifica si estoy logueado , sino me devuelve a la pagina de login

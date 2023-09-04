@@ -14,7 +14,7 @@ function useTask(task: Task) {
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
-       
+
         setLeftRow(false)
         setRightRow(false)
 
@@ -26,7 +26,7 @@ function useTask(task: Task) {
         if (task.columnIndex !== actualBoard.columns.length) {
             setRightRow(true);
         }
-    }, [actualBoard])
+    }, [actualBoard, task.columnIndex])
 
 
 
@@ -70,17 +70,17 @@ function useTask(task: Task) {
 
 
     }
-    
+
     const handleDeleteTask = () => {
 
         if (actualBoard === null || actualBoard.columns === undefined) {
             return
         }
 
-        let columnId: string;
+
         actualBoard.columns.map((column) => {
             if (column.columnId === task.columnId) {
-                columnId = column.columnId;
+
                 setIsLoading(true)
                 deleteTask(task.taskId)
                     .then(task => {

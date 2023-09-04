@@ -36,7 +36,7 @@ function useSidebarBoardItem({ title, boardId }: HookSidebarItemProps) {
         setIsLoading(true);
         deleteBoardService(boardId)
             .then(board => {
-                dispatch(deleteBoardStore({ boardId }))
+                dispatch(deleteBoardStore({ boardId: board.boardId }))
                 setIsLoading(false);
             })
             .catch(error => {
@@ -63,7 +63,8 @@ function useSidebarBoardItem({ title, boardId }: HookSidebarItemProps) {
         setIsLoading(true);
         updateBoardService(boardId, { title: boardTitle })
             .then(board => {
-                dispatch(updateBoardStore({ boardId, title: boardTitle }))
+
+                dispatch(updateBoardStore({ boardId: board.boardId, title: boardTitle }))
                 setIsLoading(false)
                 setIsEditing(false);
             })

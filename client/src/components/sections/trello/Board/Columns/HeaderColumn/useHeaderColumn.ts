@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from '@/store';
 import { ColumnWithTasks, deleteColumnById, updateColumnById, updateFeatureIsCompletedByTaskId } from '@/store/reducers/trello';
 import React, { useEffect, useState } from 'react'
 import swal from 'sweetalert';
-import Task from '../TasksSection/Task/Task';
+
 import { updateTask } from '@/services/tasks.services';
 
 function useHeaderColumn(column: ColumnWithTasks) {

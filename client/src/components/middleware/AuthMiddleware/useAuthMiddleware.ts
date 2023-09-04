@@ -15,6 +15,7 @@ function useAuthMiddleware() {
         if (getAccessToken() === null) {
             push('/login')
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isAuthenticated])
 
 

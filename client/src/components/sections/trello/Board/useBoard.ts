@@ -55,7 +55,7 @@ function useBoard(id: string) {
         return () => {
             dispatch(setActualBoard(null))
         }
-    }, [])
+    }, [id, dispatch])
 
     return {
         isError,

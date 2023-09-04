@@ -1,5 +1,5 @@
 import { createUser } from '@/services/users.services';
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import swal from 'sweetalert';
 import { useRouter } from 'next/router';
 function useForm() {
@@ -31,12 +31,8 @@ function useForm() {
 
     }
 
+    const validatingPasswordWithRegex = useCallback((password: string) => {
 
-    useEffect(() => {
-        validatingPasswordWithRegex(input.password)
-    }, [input])
-
-    const validatingPasswordWithRegex = (password: string) => {
         const RegexCases = [/^\S{8,16}$/, /[0-9]/g, /[A-Z]/g];
         setPasswordConditions(passwordConditions.map((condition, index) => {
             if (!RegexCases[index].test(password)) {
@@ -47,12 +43,19 @@ function useForm() {
             return condition
         }))
 
-    }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
+    useEffect(() => {
+        validatingPasswordWithRegex(input.password)
+    }, [input, validatingPasswordWithRegex])
+
+
 
     const handleSend: React.FormEventHandler<HTMLFormElement> = async (event) => {
 
         event.preventDefault();
-        
+
         /**
          * valido que todos los campos estén llenos 
          */
@@ -82,7 +85,7 @@ function useForm() {
          * mando solicitud para crear el usuario
          */
         try {
-            const resp = await createUser(input)
+            await createUser(input)
             swal("Good job!", "successfully registered user", "success");
             push('/login')
 

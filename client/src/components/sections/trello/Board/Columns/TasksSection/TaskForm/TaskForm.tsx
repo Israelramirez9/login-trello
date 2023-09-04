@@ -13,8 +13,6 @@ function TaskForm({ column }: TasksSectionProps) {
     handleSendTaskForm,
     handleStopTaskForm,
     isEditing,
-    isError,
-    isLoading,
     taskText,
     handleStartEdit } = useTaskForm(column);
 

@@ -22,11 +22,12 @@ function useNavbarLayout() {
         getUser()
             .then(data => {
                 dispatch(handleChangeDataUser(data))
-              
+
             })
             .catch(error => {
                 console.log(error)
             })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return {

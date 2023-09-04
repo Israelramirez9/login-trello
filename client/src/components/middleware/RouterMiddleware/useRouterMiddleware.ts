@@ -12,10 +12,11 @@ function useRouterMiddleware() {
             esto evita que la pantalla se vuelva a refrescar cuando estoy en la misma ruta*/
             setIsLoading(url !== router.asPath)
         }
-        const handleRouteChangeComplete = (url: string) => {
+        const handleRouteChangeComplete = () => {
+
             setIsLoading(false)
         }
-        const handleRouteChangeError = (error: Error, url: string) => {
+        const handleRouteChangeError = () => {
             setIsLoading(false)
         }
 

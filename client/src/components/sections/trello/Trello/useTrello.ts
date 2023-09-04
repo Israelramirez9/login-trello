@@ -1,4 +1,4 @@
-import { createBoard, getBoards } from "@/services/board.services"
+import { createBoard } from "@/services/board.services"
 import { useAppDispatch, useAppSelector } from "@/store"
 import { setBoards } from "@/store/reducers/trello"
 import { useRouter } from "next/router"
@@ -23,7 +23,7 @@ function useTrello() {
     /**
      * borré el useEffect que trae por primera vez los boards
      */
-  
+
     /**
      * se ejecutará cada vez que cambien los boards del store
      */
@@ -33,7 +33,7 @@ function useTrello() {
          * no realizará ninguna lógica 
          */
         if (boards === null) {
-         
+
             return
         }
         /**
@@ -42,7 +42,7 @@ function useTrello() {
          * cambia el estado de boards en el store con el nuevo board creado arbitrariamente         
          */
         if (boards.length === 0) {
-           
+
             setMessage('Creating your New Board...')
             createFirstBoard()
                 .then(board => {
@@ -57,11 +57,11 @@ function useTrello() {
         /**
          * cuando exista almenos 1 board en el store, redirige la página al primer board 
          */
-       
+
         setMessage('Redirecting to your first board...')
         push(`${asPath}/boards/${boards[0].boardId}`)
 
-    }, [boards])
+    }, [boards, dispatch, asPath, push])
 
 
     return { message, isError }

@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 function useTasksSection() {
 
-    const [isError, setIsError] = useState(false);
+    const [isError] = useState(false);
 
-    
+
     return { isError }
 
 }

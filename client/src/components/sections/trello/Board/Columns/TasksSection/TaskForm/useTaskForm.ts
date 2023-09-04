@@ -1,4 +1,4 @@
-import { Task, createTask } from '@/services/tasks.services';
+import { createTask } from '@/services/tasks.services';
 import { useAppDispatch } from '@/store';
 import { ColumnWithTasks, setTasksToColumnByColumnId } from '@/store/reducers/trello';
 import React, { useState } from 'react'
@@ -10,12 +10,12 @@ function useTaskForm(column: ColumnWithTasks) {
     const dispatch = useAppDispatch();
 
     const [isEditing, setIsEditing] = useState(false);
-    const [isError, setIsError] = useState(false);
+    const [isError] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [taskText, setTaskText] = useState('');
 
     const handleSendTaskForm: React.FormEventHandler<HTMLFormElement> = (event) => {
-       
+
         event.preventDefault();
         if (taskText.trim() === '') {
             swal("you must fill in", "try again", "info")
@@ -39,7 +39,7 @@ function useTaskForm(column: ColumnWithTasks) {
                     columnId: column.columnId,
                     tasks: [...column.tasks, task]
                 }))
-           
+
             setIsEditing(false);
         }).catch(error => {
             console.log(error)

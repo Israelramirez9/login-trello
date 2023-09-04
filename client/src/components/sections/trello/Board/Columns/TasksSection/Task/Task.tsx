@@ -15,7 +15,6 @@ function Task({ task }: TaskProps) {
     handleDeleteTask,
     handleIsCompleted,
     isCompleted,
-    isLoading,
     leftRow,
     rightRow } = useTask(task);
 

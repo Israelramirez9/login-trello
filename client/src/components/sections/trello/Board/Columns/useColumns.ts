@@ -1,7 +1,7 @@
 import { createColumn } from '@/services/columns.services'
 import { useAppSelector } from '@/store'
 import { setColumnsToActualBoard } from '@/store/reducers/trello';
-import { ReactComponentElement, useState } from 'react';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux'
 import swal from 'sweetalert';
 

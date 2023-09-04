@@ -1,5 +1,5 @@
 import { Board } from "@/services/board.services";
-import { PayloadAction, createSlice, current } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { Column } from "@/services/columns.services";
 import { Task } from "@/services/tasks.services";
 
@@ -150,7 +150,7 @@ export const trelloSlice = createSlice({
         },
         updateFeatureIsCompletedByTaskId(state, action: PayloadAction<Task>) {
             const task = action.payload;
-       
+
             if (state.actualBoard === null || state.actualBoard.columns === undefined) {
                 return
             }
@@ -158,7 +158,7 @@ export const trelloSlice = createSlice({
 
                 if (column.columnId === task.columnId) {
                     column.tasks = column.tasks?.map((taskToUpdate) => {
-                       
+
                         if (taskToUpdate.taskId === task.taskId) {
                             taskToUpdate = task
                         }

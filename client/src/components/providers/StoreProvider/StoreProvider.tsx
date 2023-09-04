@@ -4,7 +4,9 @@ import { Provider } from 'react-redux'
 
 function StoreProvider({ children }: React.PropsWithChildren) {
     return (
-        <Provider store={store} children={children} />
+        <Provider {...{ store, children }}>
+
+        </Provider>
     )
 }
 

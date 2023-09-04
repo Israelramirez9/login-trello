@@ -20,6 +20,7 @@ function useAuthProvider() {
         // actualiza el estado de isAuthenticated buscando en el localStorage los tokens
         dispatch(setIsAuthenticated(getAccessToken() !== null))
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 }
 
