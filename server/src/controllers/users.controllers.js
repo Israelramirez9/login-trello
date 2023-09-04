@@ -79,7 +79,8 @@ async function updateUser(req, res) {
 
         if (email && email.length !== 0) {
             const registeredEmail = await User.findOne({ email: email })
-            if (!registeredEmail) {
+            
+            if (registeredEmail) {
                 return res.status(409).json({ error: 'email user registered' })
             }
             user.email = email

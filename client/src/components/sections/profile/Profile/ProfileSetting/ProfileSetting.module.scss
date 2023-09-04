@@ -94,7 +94,7 @@
                 padding-right: 0;
 
                 .icon-button {
-                    background-color: #d0d4db;
+
                     border: none;
                     display: flex;
                     align-items: center;
@@ -103,16 +103,32 @@
                     border-radius: 0.5rem;
                     transition: 500ms ease-in-out;
                     transition-property: background-color;
-                    margin: 0 0.5rem;
+
 
                     &:hover {
-                        background-color: rgb(170, 169, 169);
+
                         cursor: pointer;
                     }
 
                     .icon {
                         font-size: 1.5rem;
+                        color: white
+                    }
+                }
 
+                .check-button {
+                    background-color: rgb(78, 190, 78);
+
+                    &:hover {
+                        background-color: rgb(30, 124, 30);
+                    }
+                }
+
+                .cancel-button {
+                    background-color: rgb(190, 87, 87);
+
+                    &:hover {
+                        background-color: rgb(184, 21, 21);
                     }
                 }
             }

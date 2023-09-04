@@ -5,7 +5,8 @@ import { BsFillClipboard2CheckFill } from 'react-icons/bs'
 import { FaTrash } from 'react-icons/fa'
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai'
 import styles from './Task.module.scss'
-import { deleteAlert } from '@/swalsAndToster/swalsAndToster';
+import { deleteAlert } from '@/utils/swal';
+
 type TaskProps = {
   task: Task
 }

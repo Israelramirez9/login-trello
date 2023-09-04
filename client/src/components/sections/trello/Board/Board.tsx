@@ -2,13 +2,21 @@ import React from 'react'
 import useBoard from './useBoard'
 import styles from './Board.module.scss'
 import Columns from './Columns/Columns'
+import { Loading } from '../..'
 type BoardProps = {
   id: string
 }
 
 function Board({ id }: BoardProps) {
 
-  const { isError, actualBoard } = useBoard(id);
+  const { isError, actualBoard, isLoading } = useBoard(id);
+
+  if (isLoading) return (
+    <>
+      <Loading />
+      <span>Bringying yours boards...</span>
+    </>
+  )
 
   return (
     <>

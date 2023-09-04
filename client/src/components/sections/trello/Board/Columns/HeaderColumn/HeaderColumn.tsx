@@ -5,7 +5,8 @@ import useHeaderColumn from './useHeaderColumn'
 import { AiFillEdit, AiOutlineStop } from 'react-icons/ai'
 import { FaTrash } from 'react-icons/fa'
 import { BsCheckLg } from 'react-icons/bs'
-import { deleteAlert } from '@/swalsAndToster/swalsAndToster'
+import { deleteAlert } from '@/utils/swal'
+
 
 type HeaderColumnProps = {
     column: ColumnWithTasks

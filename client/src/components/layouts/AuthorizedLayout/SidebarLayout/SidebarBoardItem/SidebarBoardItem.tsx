@@ -7,7 +7,8 @@ import { AiOutlineCheck } from 'react-icons/ai'
 import { TiCancel } from 'react-icons/ti'
 import styles from './SidebarBoardItem.module.scss'
 import useSidebar from '../../useSidebar'
-import { deleteAlert } from '@/swalsAndToster/swalsAndToster'
+import { deleteAlert } from '@/utils/swal'
+
 
 type SidebarBoardItemProps = {
     board: Board

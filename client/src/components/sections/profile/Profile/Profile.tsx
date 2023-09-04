@@ -1,5 +1,6 @@
 import React from 'react'
-import ProfileSetting from './ProfileSetting/ProfileSetting'
+import { ProfileSetting } from './ProfileSetting'
+
 
 function Profile() {
     return (

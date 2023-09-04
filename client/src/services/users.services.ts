@@ -23,7 +23,7 @@ export const createUser = async (user: User): Promise<UserWithOutPassword> => {
 }
 
 export const updateUser = async (user: Partial<User>): Promise<UserWithOutPassword> => {
-    console.log(user)
+    
     const resp = await axiosInstance.put(API_URL_USERS, user);
     return resp.data
 }

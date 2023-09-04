@@ -2,6 +2,9 @@ import React from 'react'
 import styles from './ProfileSetting.module.scss'
 import useProfileSetting from './useProfileSetting'
 import { AiFillEdit, AiOutlineCheck, AiOutlineClose } from 'react-icons/ai'
+import { InputPasswordWithEye } from '@/components/commons';
+
+
 function ProfileSetting() {
 
     const { handleChangeValue,
@@ -26,7 +29,8 @@ function ProfileSetting() {
                                         placeholder={data.category !== 'password' ? data.value : data.isVisible ? 'old password' : data?.value}
                                         disabled={!data.isVisible} className={`${data.isVisible ? styles['input-enabled'] : styles['input-disabled']} ${styles['input']}`}
                                         onChange={(event) => handleChangeValue(event, index)}
-                                        value={data.value ? data.value : ''} />
+                                        value={data.value ? data.value : ''}
+                                        name='value' />
                                     <button className={styles['icon-button']} onClick={() => handleEditing(index)}>
                                         <AiFillEdit className={styles['icon']} />
                                     </button>
@@ -35,33 +39,46 @@ function ProfileSetting() {
                                     {
                                         data.isVisible && data.category === 'password' ?
                                             <div className={styles['container-inputs-password']}>
-                                                <input
-                                                    placeholder='new password'
-                                                    className={`${data.isVisible ? styles['input-enabled'] : styles['input-disabled']} ${styles['input']}`}
-                                                />
-                                                <input
-                                                    placeholder='repeat password'
-                                                    className={`${data.isVisible ? styles['input-enabled'] : styles['input-disabled']} ${styles['input']}`}
-                                                />
+                                                <InputPasswordWithEye
+                                                    type={'password'}
+                                                    placeholder={'new password'}
+                                                    name='newPassword'
+                                                    value={data.newPassword as string}
+                                                    onChange={(event) => handleChangeValue(event, index)}
+                                                    className={`${data.isVisible ? styles['input-enabled'] : styles['input-disabled']} ${styles['input']}`} />
+
+                                                <InputPasswordWithEye
+                                                    type={'password'}
+                                                    placeholder={'confirm new password'}
+                                                    name='confirmNewPassword'
+                                                    value={data.confirmNewPassword as string}
+                                                    onChange={(event) => handleChangeValue(event, index)}
+                                                    className={`${data.isVisible ? styles['input-enabled'] : styles['input-disabled']} ${styles['input']}`} />
+
                                             </div> : null
                                     }
                                     {
                                         data.isVisible ?
                                             <div className={styles['buttons-container']}>
-                                                <button className={styles['icon-button']} onClick={() => handleSendData(data.category, index)}>
+                                                <button className={`${styles['icon-button']} ${styles['check-button']}`} onClick={() => handleSendData(data.category, index)}>
                                                     <AiOutlineCheck className={styles['icon']} />
                                                 </button>
-                                                <button className={styles['icon-button']} onClick={() => handleStopEditing(index)}>
+                                                <button className={`${styles['icon-button']} ${styles['cancel-button']}`} onClick={() => handleStopEditing(index)}>
                                                     <AiOutlineClose className={styles['icon']} />
                                                 </button>
                                             </div> : null
                                     }
+
                                 </>
+
                             </div>
                         ))
                     }
+
                 </div>
+
             </section>
+
         </>
     )
 }

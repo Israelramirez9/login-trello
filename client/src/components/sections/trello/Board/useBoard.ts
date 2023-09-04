@@ -9,16 +9,19 @@ function useBoard(id: string) {
 
     const [isError, setIsError] = useState(false);
     const actualBoard = useAppSelector(state => state.trello.actualBoard)
+    const [isLoading, setIsLoading] = useState(false)
     const dispatch = useAppDispatch();
 
 
     useEffect(() => {
 
 
+
         (async function () {
             /**
              * me traigo el board por el id y actualizo el estado de la store
              */
+            setIsLoading(true)
             try {
                 const board = await getBoardById(id)
                 dispatch(setActualBoard(board))
@@ -41,6 +44,8 @@ function useBoard(id: string) {
             } catch (error) {
                 console.log(error)
                 setIsError(true);
+            } finally {
+                setIsLoading(false)
             }
 
         })()
@@ -54,7 +59,8 @@ function useBoard(id: string) {
 
     return {
         isError,
-        actualBoard
+        actualBoard,
+        isLoading
     }
 
 
