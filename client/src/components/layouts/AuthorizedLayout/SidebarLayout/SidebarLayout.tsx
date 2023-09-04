@@ -5,6 +5,7 @@ import styles from './SidebarLayout.module.scss'
 import useSidebarLayout from './useSidebarLayout'
 import Image from 'next/image'
 import { SidebarBoardItem } from './SidebarBoardItem'
+import { BASE_PATH } from '@/config/basePath'
 
 function SidebarLayout() {
     const { isMoved, moveSidebar, boards, isError, handleCreateNewBoard } = useSidebarLayout();
@@ -16,7 +17,7 @@ function SidebarLayout() {
                 <GrClose className={styles['close-aside-icon']} />
             </div>
             <div className={styles['logo-trello-aside-container']}>
-                <Image src="/images/trello-logo.png" alt="logo" width={666} height={375} />
+                <Image src={`${BASE_PATH}/images/trello-logo.png`} alt="logo" width={666} height={375} />
             </div>
             <ul className={styles['name-list-boards-container']}>
                 {

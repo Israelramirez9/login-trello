@@ -5,8 +5,10 @@ import { FaPowerOff, FaUserAlt } from 'react-icons/fa'
 import styles from './NavbarLayout.module.scss'
 import useNavbarLayout from './useNavbarLayout'
 import Image from 'next/image'
+import { BASE_PATH } from '@/config/basePath'
 
 function NavbarLayout() {
+
     const { moveSidebar, logout } = useNavbarLayout();
     return (
         <nav className={styles['header-container']}>
@@ -16,7 +18,7 @@ function NavbarLayout() {
                 </button>
                 <Link href="/trello">
                     <div className={styles['logo-trello-container']}>
-                        <Image src="/images/trello-logo.png" alt="logo" width={666} height={375} />
+                        <Image src={`${BASE_PATH}/images/trello-logo.png`} alt="logo" width={666} height={375} />
                     </div>
                 </Link>
             </div>

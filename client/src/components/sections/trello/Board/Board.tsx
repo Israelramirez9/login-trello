@@ -14,7 +14,7 @@ function Board({ id }: BoardProps) {
   if (isLoading) return (
     <>
       <Loading />
-      <span>Bringying yours boards...</span>
+      <span>Bringing yours boards...</span>
     </>
   )
 
