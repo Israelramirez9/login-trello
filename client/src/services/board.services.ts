@@ -13,6 +13,7 @@ export async function getBoardById(boardId: string): Promise<Board> {
 
 export async function getBoards(): Promise<Board[]> {
     const resp = await axiosInstance.get(API_URL_BOARDS)
+    console.log(resp.data)
     return resp.data;
 }
 

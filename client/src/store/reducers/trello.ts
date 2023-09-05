@@ -27,7 +27,7 @@ export const trelloSlice = createSlice({
     name: 'trello',
     initialState: inicialState,
     reducers: {
-        setBoards(state, action: PayloadAction<Board[]>) {
+        setBoards(state, action: PayloadAction<Board[] | null>) {
             state.boards = action.payload
         },
         updateBoard(state, action: PayloadAction<Board>) {
