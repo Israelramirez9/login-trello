@@ -61,7 +61,8 @@ function useTrello() {
         setMessage('Redirecting to your first board...')
         push(`${asPath}/boards/${boards[0].boardId}`)
 
-    }, [boards, dispatch, asPath, push])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [boards])
 
 
     return { message, isError }
