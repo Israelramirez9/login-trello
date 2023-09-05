@@ -1,4 +1,4 @@
-/** @type {import('next').NextConfig} */
+/**  @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: false,
   distDir: process.env.NODE_ENV === 'development' ? undefined : '../docs',
