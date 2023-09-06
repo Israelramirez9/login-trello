@@ -1,6 +1,7 @@
 import { createColumn } from '@/services/columns.services'
 import { useAppSelector } from '@/store'
 import { setColumnsToActualBoard } from '@/store/reducers/trello';
+import { handleToast } from '@/utils/toast';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux'
 import swal from 'sweetalert';
@@ -34,7 +35,7 @@ function useColumns() {
             columnIndex: actualBoard.columns.length + 1
         })
             .then(column => {
-
+                handleToast('Card created')
                 dispatch(setColumnsToActualBoard(actualBoard.columns === undefined ?
                     [column] :
                     [...actualBoard.columns, column]))

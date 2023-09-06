@@ -3,6 +3,7 @@ import '@/styles/global.scss'
 import { AuthProvider, StoreProvider } from '@/components/providers'
 import { RouterMiddleware } from '@/components/middleware';
 import Head from 'next/head';
+import { Toaster } from 'react-hot-toast';
 
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -30,6 +31,7 @@ export default function App({ Component, pageProps }: AppProps) {
           }
           <RouterMiddleware>
             <Component {...pageProps} />
+            <Toaster />
           </RouterMiddleware>
         </AuthProvider>
       </StoreProvider>

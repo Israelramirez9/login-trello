@@ -2,6 +2,7 @@ import useSidebar from '@/components/layouts/AuthorizedLayout/useSidebar'
 import { createBoard, getBoards } from '@/services/board.services';
 import { useAppDispatch, useAppSelector } from '@/store';
 import { setBoards } from '@/store/reducers/trello';
+import { handleToast } from '@/utils/toast';
 import { useEffect, useState } from 'react';
 
 
@@ -14,7 +15,7 @@ function useSidebarLayout() {
 
     useEffect(() => {
         if (boards === null) {
-            
+
             getBoards()
                 .then(boards => {
                     dispatch(setBoards(boards));
@@ -24,12 +25,13 @@ function useSidebarLayout() {
                     setIsError(true)
                 })
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const handleCreateNewBoard = () => {
         createBoard({ title: 'New Board' })
             .then(board => {
+                handleToast('board created')
                 dispatch(setBoards(boards === null ?
                     [board] :
                     [...boards, board]))

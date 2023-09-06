@@ -2,7 +2,7 @@ import React from 'react'
 import useBoard from './useBoard'
 import styles from './Board.module.scss'
 import Columns from './Columns/Columns'
-import { Loading } from '../..'
+import LoadingBoards from '../../miscellaneous/LoadingBoards/LoadingBoards'
 type BoardProps = {
   id: string
 }
@@ -13,8 +13,7 @@ function Board({ id }: BoardProps) {
 
   if (isLoading) return (
     <>
-      <Loading />
-      <span>Bringing yours boards...</span>
+      <LoadingBoards />
     </>
   )
 

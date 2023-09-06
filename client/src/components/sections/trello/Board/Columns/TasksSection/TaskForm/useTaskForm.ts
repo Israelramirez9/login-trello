@@ -1,6 +1,7 @@
 import { createTask } from '@/services/tasks.services';
 import { useAppDispatch } from '@/store';
 import { ColumnWithTasks, setTasksToColumnByColumnId } from '@/store/reducers/trello';
+import { handleToast } from '@/utils/toast';
 import React, { useState } from 'react'
 
 import swal from 'sweetalert';
@@ -29,6 +30,7 @@ function useTaskForm(column: ColumnWithTasks) {
             columnId: column.columnId,
             text: taskText
         }).then(task => {
+            handleToast('task created')
             dispatch(setTasksToColumnByColumnId(column.tasks === undefined
                 ? {
                     columnId: column.columnId,

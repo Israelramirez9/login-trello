@@ -1,13 +1,13 @@
 import useSidebar from "@/components/layouts/AuthorizedLayout/useSidebar";
-
 import { getUser } from "@/services/users.services";
 import { useAppDispatch } from "@/store";
 import { handleLogout } from "@/store/reducers/auth";
 import { setBoards } from "@/store/reducers/trello";
 import { handleChangeDataUser } from "@/store/reducers/user";
+import { handleToast } from "@/utils/toast";
 import { useRouter } from 'next/router';
 import { useEffect } from "react";
-import swal from 'sweetalert'
+
 
 function useNavbarLayout() {
     const { push } = useRouter();
@@ -18,7 +18,7 @@ function useNavbarLayout() {
         dispatch(setBoards(null))
         dispatch(handleLogout())
         push('/login')
-        swal("Good Bye!", "👐", "success");
+        handleToast(`disconnected user`)
     }
 
     useEffect(() => {

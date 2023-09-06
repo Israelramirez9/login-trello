@@ -77,7 +77,7 @@ function useHeaderColumn(column: ColumnWithTasks) {
                 if (actualBoard === null || actualBoard.columns === undefined) return
 
                 const newColumns = actualBoard.columns.filter((columnToUpdate) => columnToUpdate.columnId !== column.columnId)
-                console.log(newColumns)
+               
                 newColumns.forEach((newColumn, index) => {
                     /**
                      * actualizo el indice de cada columna y la actualizo
@@ -91,11 +91,11 @@ function useHeaderColumn(column: ColumnWithTasks) {
                         })
                         .finally()
                     newColumn.tasks?.forEach((task) => {
-                        console.log(task, 'tarea a actualizar')
+                       
                         updateTask(task.taskId, { ...task, columnIndex: index + 1 })
                             .then(taskUpdated => {
                                 dispatch(updateFeatureIsCompletedByTaskId(taskUpdated))
-                                console.log(taskUpdated, 'aqui disparo la tarea ha actualizar en el store')
+               
                             })
                             .catch(error => console.log(error))
                             .finally()

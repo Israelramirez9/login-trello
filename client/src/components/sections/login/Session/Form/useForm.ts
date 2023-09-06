@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { startSession } from '@/services/session.services';
 import { useAppDispatch } from '@/store';
 import { handleLogin } from '@/store/reducers/auth';
-
+import { handleToast } from '@/utils/toast';
 function useForm() {
 
     const dispatch = useAppDispatch();
@@ -30,7 +30,7 @@ function useForm() {
                         accessToken: resp.tokenSession,
                         refreshToken: resp.refreshToken
                     }))
-                    swal("Good job!", "user found", "success");
+                    handleToast('user found')
                     push('/')
                 }
 

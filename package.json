@@ -4,7 +4,8 @@
     "build:client": "cd client && npm run build",
     "start:server": "cd server && npm run start",
     "dev:server": "cd server && npm run dev",
-    "doc:build:github":"las variables de entorno que seran inyectadas se colocan antes del script, el comanod next export despliega o compila una version estatica de la aplicacion para pasar opciones de comando se escribe antes -- seguidos de las opciones a utilizar que serán inyectadas al subscript --outdir indica la salida de la compilacion y touch crea un archivo",
+    "doc:build:github": "las variables de entorno que seran inyectadas se colocan antes del script, el comanod next export despliega o compila una version estatica de la aplicacion para pasar opciones de comando se escribe antes -- seguidos de las opciones a utilizar que serán inyectadas al subscript --outdir indica la salida de la compilacion y touch crea un archivo",
     "build:github": "NEX_PUBLIC_BASE_URL='/login-trello' cd client && npm run export -- --outdir ../docs && touch ../docs/.nojekyll"
   }
+  
 }
