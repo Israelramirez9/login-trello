@@ -3,8 +3,7 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 const { dbConnect } = require('./config/mongo')
-// const { encrypt, compare } = require('./helpers/handleBcrypt')
-// const { User, Task } = require('./models')
+
 const router = require('./routes')
 
 //process es un objeto global que existe en nodejs , si PORT es false es decir si no existe toma el valor de 8080
